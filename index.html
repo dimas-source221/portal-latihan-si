@@ -26,17 +26,16 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
-        * { box-sizing: border-box; }
-
+        /* PERBAIKAN: Background laptop JELAS & TERANG dengan opacity 0.4 */
         body {
             font-family: 'Inter', sans-serif;
             color: #1e293b;
-            background-color: #F2F8FF;
-            min-height: 100vh;
+            margin: 0;
+            padding: 0;
             position: relative;
+            background-color: #F2F8FF;
         }
 
-        /* PERBAIKAN LATAR BELAKANG: Gambar laptop terlihat jelas, terang, dan elegan */
         body::before {
             content: '';
             position: fixed;
@@ -48,12 +47,10 @@
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
-            opacity: 0.45;
-            z-index: 0;
-            pointer-events: none;
+            opacity: 0.4;
+            z-index: -2;
         }
 
-        /* Lapisan gradien tipis agar teks tetap terbaca */
         body::after {
             content: '';
             position: fixed;
@@ -61,18 +58,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(242, 248, 255, 0.7) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(242, 248, 255, 0.6) 100%);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        #landingPage, #dashboardPage, #quizPage, #resultPage {
-            position: relative;
-            z-index: 1;
+            background: linear-gradient(135deg, rgba(242, 248, 255, 0.3) 0%, rgba(242, 248, 255, 0.2) 100%);
+            z-index: -1;
         }
 
         .glass {
-            background: rgba(255, 255, 255, 0.82);
+            background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.9);
@@ -80,7 +71,7 @@
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.9);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
@@ -109,7 +100,6 @@
 
         .animate-fade { animation: fadeIn 0.5s ease-out forwards; }
 
-        /* Timer warning styling */
         .timer-warning {
             animation: pulse-red 1s infinite;
             color: #dc2626 !important;
@@ -122,53 +112,38 @@
             50% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
         }
 
-        /* Option button states */
-        .opsi-btn {
-            transition: all 0.25s ease;
-            user-select: none;
-        }
-
-        .opsi-btn:hover:not(.locked) {
-            transform: translateX(4px);
-        }
-
-        .opsi-btn.locked {
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-
-        .opsi-btn.selected-correct {
-            border-color: #10b981 !important;
-            background-color: #d1fae5 !important;
-        }
-        .opsi-btn.selected-correct .letter-circle {
-            background-color: #10b981 !important;
-            color: white !important;
-        }
-
-        .opsi-btn.selected-wrong {
-            border-color: #ef4444 !important;
-            background-color: #fee2e2 !important;
-        }
-        .opsi-btn.selected-wrong .letter-circle {
-            background-color: #ef4444 !important;
-            color: white !important;
-        }
-
-        .opsi-btn.show-correct {
-            border-color: #10b981 !important;
-            background-color: #d1fae5 !important;
-        }
-        .opsi-btn.show-correct .letter-circle {
-            background-color: #10b981 !important;
-            color: white !important;
-        }
-
         .star-rating .star {
             cursor: pointer;
             transition: all 0.2s;
         }
         .star-rating .star:hover { transform: scale(1.2); }
+
+        .opsi-btn {
+            transition: all 0.3s ease;
+        }
+        .opsi-btn:hover:not(.locked) {
+            transform: translateX(4px);
+        }
+        .opsi-btn.locked {
+            cursor: not-allowed !important;
+            pointer-events: none;
+        }
+        .opsi-btn.correct {
+            border-color: #10b981 !important;
+            background-color: #d1fae5 !important;
+        }
+        .opsi-btn.correct span:first-child {
+            background-color: #10b981 !important;
+            color: white !important;
+        }
+        .opsi-btn.wrong {
+            border-color: #ef4444 !important;
+            background-color: #fee2e2 !important;
+        }
+        .opsi-btn.wrong span:first-child {
+            background-color: #ef4444 !important;
+            color: white !important;
+        }
 
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -176,14 +151,14 @@
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
         @media print {
-            body::before, body::after { display: none !important; }
+            body::before, body::after { display: none; }
             body { background: white !important; }
             .no-print { display: none !important; }
             .glass, .glass-card { border: 1px solid #ccc !important; box-shadow: none !important; }
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen">
 
     <!-- LANDING PAGE -->
     <div id="landingPage" class="min-h-screen flex items-center justify-center p-4">
@@ -373,13 +348,9 @@
                     <p class="text-lg lg:text-xl font-semibold text-slate-900 leading-relaxed" id="teks-pertanyaan">Pertanyaan akan muncul di sini</p>
                 </div>
                 
-                <!-- OPTIONS CONTAINER -->
                 <div id="opsi-container" class="space-y-3">
-                    <!-- Opsi A, B, C dirender di sini -->
+                    <!-- Opsi A, B, C akan dirender di sini -->
                 </div>
-
-                <!-- Feedback Message -->
-                <div id="feedback-msg" class="hidden mt-4 p-3 rounded-xl text-center font-semibold text-sm"></div>
             </div>
 
             <div class="flex items-center justify-between">
@@ -617,8 +588,7 @@ let timeRemaining = 1800;
 let selectedRating = 0;
 let modalCallback = null;
 let audioCtx = null;
-let isLocked = false; // Flag untuk mengunci opsi setelah diklik
-let autoAdvanceTimeout = null; // Untuk menyimpan timeout auto-advance
+let isAnswerLocked = false; // Flag untuk mengunci jawaban setelah diklik
 
 // ==================== AUDIO ENGINE (Web Audio API) ====================
 function initAudio() {
@@ -631,7 +601,7 @@ function initAudio() {
 }
 
 function playSound(type) {
-    if (!audioCtx) return;
+    initAudio();
     try {
         const oscillator = audioCtx.createOscillator();
         const gainNode = audioCtx.createGain();
@@ -755,7 +725,6 @@ function handleLogin() {
 function handleLogout() {
     currentUser = null;
     localStorage.removeItem('currentUser');
-    clearInterval(timerInterval);
     showPage('landingPage');
     document.getElementById('inputNama').value = '';
     document.getElementById('inputNIM').value = '';
@@ -867,18 +836,11 @@ function startPhase(phase) {
     currentQuestionIndex = 0;
     userAnswers = {};
     timeRemaining = 1800;
-    isLocked = false;
-    
-    // Clear any existing timeouts
-    if (autoAdvanceTimeout) {
-        clearTimeout(autoAdvanceTimeout);
-        autoAdvanceTimeout = null;
-    }
+    isAnswerLocked = false;
     
     document.getElementById('quizTitle').textContent = phaseName;
     document.getElementById('total-soal').textContent = currentQuestions.length;
     document.getElementById('timer-display').classList.remove('timer-warning');
-    document.getElementById('feedback-msg').classList.add('hidden');
     
     playSound('start');
     showPage('quizPage');
@@ -895,120 +857,132 @@ function shuffleArray(array) {
     return array;
 }
 
-// RENDER SOAL - Pastikan opsi A, B, C muncul sempurna
 function renderSoal() {
     const q = currentQuestions[currentQuestionIndex];
     document.getElementById('nomor-soal').textContent = currentQuestionIndex + 1;
     document.getElementById('qNumber').textContent = currentQuestionIndex + 1;
     document.getElementById('teks-pertanyaan').textContent = q.q;
     
-    // Reset state
-    isLocked = false;
-    document.getElementById('feedback-msg').classList.add('hidden');
-    
     const container = document.getElementById('opsi-container');
     container.innerHTML = '';
+    
+    isAnswerLocked = false; // Reset lock status saat render soal baru
     
     const labels = ['A', 'B', 'C'];
     q.opts.forEach((opt, index) => {
         const letter = labels[index];
         const val = letter.toLowerCase();
-        const isSelected = userAnswers[currentQuestionIndex] === val;
         
         const btn = document.createElement('div');
-        btn.className = `opsi-btn w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-start gap-3 cursor-pointer ${
-            isSelected ? 'border-primary bg-blue-50' : 'border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50/50'
-        }`;
+        btn.className = 'opsi-btn w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-start gap-3 cursor-pointer border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50/50';
         btn.setAttribute('data-value', val);
-        btn.onclick = function() { pilihJawaban(val); };
+        btn.onclick = () => pilihJawaban(val);
         btn.innerHTML = `
-            <span class="letter-circle flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${
-                isSelected ? 'bg-primary text-white' : 'bg-slate-100 text-slate-600'
-            }">${letter}</span>
+            <span class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors bg-slate-100 text-slate-600">${letter}</span>
             <span class="text-slate-700 font-medium pt-1 leading-snug select-none">${opt}</span>
         `;
         container.appendChild(btn);
     });
     
-    // Update progress bar
+    // Jika sudah dijawab sebelumnya (saat navigasi balik), tampilkan jawaban yang dipilih
+    if (userAnswers[currentQuestionIndex] !== undefined) {
+        showPreviousAnswer(currentQuestionIndex);
+    }
+    
     const progress = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
     document.getElementById('progressBar').style.width = progress + '%';
     
-    // Update navigation buttons
     document.getElementById('btnPrev').disabled = currentQuestionIndex === 0;
     document.getElementById('btnNext').innerHTML = currentQuestionIndex === currentQuestions.length - 1 ? 'Selesai ✓' : 'Selanjutnya →';
     
     updateQuestionDots();
 }
 
-// PERBAIKAN UTAMA: Logika interaksi jawaban dengan auto-advance
+// PERBAIKAN: Logika jawaban dengan feedback visual + auto-advance
 function pilihJawaban(val) {
-    // Jika sudah terkunci, jangan proses klik
-    if (isLocked) return;
-    
-    // Kunci semua opsi segera
-    isLocked = true;
+    // Cegah klik ganda
+    if (isAnswerLocked) return;
+    isAnswerLocked = true;
     
     const q = currentQuestions[currentQuestionIndex];
-    const correctAns = q.ans;
-    const isCorrect = val === correctAns;
+    const isCorrect = val === q.ans;
     
     // Simpan jawaban
     userAnswers[currentQuestionIndex] = val;
     
-    // Dapatkan semua tombol opsi
-    const opsiButtons = document.querySelectorAll('.opsi-btn');
+    // Ambil semua tombol opsi
+    const allBtns = document.querySelectorAll('#opsi-container .opsi-btn');
     
-    // Tambahkan class locked ke semua opsi
-    opsiButtons.forEach(btn => {
+    // Kunci semua tombol
+    allBtns.forEach(btn => {
         btn.classList.add('locked');
+        btn.onclick = null; // Hapus event listener
     });
     
-    // Dapatkan tombol yang diklik
-    const clickedBtn = document.querySelector(`.opsi-btn[data-value="${val}"]`);
-    const correctBtn = document.querySelector(`.opsi-btn[data-value="${correctAns}"]`);
-    
-    const feedbackEl = document.getElementById('feedback-msg');
-    
+    // Tampilkan feedback visual
     if (isCorrect) {
-        // JAWABAN BENAR: Tombol berubah hijau
-        clickedBtn.classList.add('selected-correct');
+        // Jawaban BENAR: tombol yang diklik berubah hijau
         playSound('correct');
-        
-        feedbackEl.innerHTML = '✅ <strong>Benar!</strong> Jawaban Anda tepat.';
-        feedbackEl.className = 'mt-4 p-3 rounded-xl text-center font-semibold text-sm bg-emerald-50 text-emerald-700 border border-emerald-200';
-        feedbackEl.classList.remove('hidden');
+        const clickedBtn = document.querySelector(`[data-value="${val}"]`);
+        clickedBtn.classList.add('correct');
     } else {
-        // JAWABAN SALAH: Tombol yang diklik berubah MERAH, tombol jawaban benar disorot HIJAU
-        clickedBtn.classList.add('selected-wrong');
-        correctBtn.classList.add('show-correct');
+        // Jawaban SALAH: tombol yang diklik merah + jawaban benar otomatis hijau
         playSound('wrong');
+        const clickedBtn = document.querySelector(`[data-value="${val}"]`);
+        clickedBtn.classList.add('wrong');
         
-        feedbackEl.innerHTML = '❌ <strong>Salah!</strong> Jawaban yang benar disorot hijau.';
-        feedbackEl.className = 'mt-4 p-3 rounded-xl text-center font-semibold text-sm bg-red-50 text-red-700 border border-red-200';
-        feedbackEl.classList.remove('hidden');
+        // Sorot jawaban yang benar dengan hijau
+        const correctBtn = document.querySelector(`[data-value="${q.ans}"]`);
+        correctBtn.classList.add('correct');
     }
     
     // Update dots
     updateQuestionDots();
     
-    // PERBAIKAN: Auto-advance setelah jeda 1.2 detik
-    if (autoAdvanceTimeout) clearTimeout(autoAdvanceTimeout);
-    
-    autoAdvanceTimeout = setTimeout(() => {
+    // Jeda 1.2 detik lalu auto-advance ke soal berikutnya
+    setTimeout(() => {
         if (currentQuestionIndex < currentQuestions.length - 1) {
-            // Pindah ke soal berikutnya secara otomatis
+            // Masih ada soal berikutnya
             currentQuestionIndex++;
             renderSoal();
         } else {
-            // Soal terakhir - langsung ke halaman hasil
+            // Soal terakhir, langsung ke halaman hasil
             submitQuiz();
         }
     }, 1200);
 }
 
+// Tampilkan jawaban yang sudah dipilih sebelumnya (saat navigasi balik)
+function showPreviousAnswer(index) {
+    const q = currentQuestions[index];
+    const selectedVal = userAnswers[index];
+    const isCorrect = selectedVal === q.ans;
+    
+    const allBtns = document.querySelectorAll('#opsi-container .opsi-btn');
+    
+    // Kunci semua tombol
+    allBtns.forEach(btn => {
+        btn.classList.add('locked');
+        btn.onclick = null;
+    });
+    
+    isAnswerLocked = true;
+    
+    // Tampilkan feedback
+    if (isCorrect) {
+        const clickedBtn = document.querySelector(`[data-value="${selectedVal}"]`);
+        if (clickedBtn) clickedBtn.classList.add('correct');
+    } else {
+        const clickedBtn = document.querySelector(`[data-value="${selectedVal}"]`);
+        if (clickedBtn) clickedBtn.classList.add('wrong');
+        
+        const correctBtn = document.querySelector(`[data-value="${q.ans}"]`);
+        if (correctBtn) correctBtn.classList.add('correct');
+    }
+}
+
 function nextSoal() {
-    if (isLocked) return; // Jangan izinkan manual advance saat menunggu auto
+    if (isAnswerLocked) return; // Jangan navigasi manual saat waiting
     if (currentQuestionIndex < currentQuestions.length - 1) {
         currentQuestionIndex++;
         renderSoal();
@@ -1018,7 +992,7 @@ function nextSoal() {
 }
 
 function prevSoal() {
-    if (isLocked) return; // Jangan izinkan manual nav saat menunggu auto
+    if (isAnswerLocked) return; // Jangan navigasi manual saat waiting
     if (currentQuestionIndex > 0) {
         currentQuestionIndex--;
         renderSoal();
@@ -1041,42 +1015,30 @@ function updateQuestionDots() {
 }
 
 function jumpToQuestion(index) {
-    if (isLocked) return;
+    if (isAnswerLocked) return;
     currentQuestionIndex = index;
     renderSoal();
 }
 
-// PERBAIKAN: Timer aktif menghitung mundur real-time
+// PERBAIKAN: Timer yang aktif dan berjalan setiap detik
 function startTimer() {
-    // Bersihkan timer sebelumnya jika ada
-    if (timerInterval) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-    }
-    
-    timeRemaining = 1800; // 30 menit dalam detik
+    clearInterval(timerInterval);
+    timeRemaining = 1800; // Reset ke 30 menit (1800 detik)
     updateTimerDisplay();
     
-    // Mulai interval baru yang berjalan setiap 1000ms
-    timerInterval = setInterval(function() {
+    timerInterval = setInterval(() => {
         timeRemaining--;
         updateTimerDisplay();
         
-        // Peringatan merah saat tersisa kurang dari 1 menit
-        if (timeRemaining <= 60 && timeRemaining > 0) {
+        // Peringatan merah saat kurang dari 1 menit
+        if (timeRemaining <= 60) {
             document.getElementById('timer-display').classList.add('timer-warning');
         }
         
         // Waktu habis
         if (timeRemaining <= 0) {
             clearInterval(timerInterval);
-            timerInterval = null;
             playSound('timeout');
-            // Clear auto-advance timeout jika ada
-            if (autoAdvanceTimeout) {
-                clearTimeout(autoAdvanceTimeout);
-                autoAdvanceTimeout = null;
-            }
             submitQuiz();
         }
     }, 1000);
@@ -1093,30 +1055,21 @@ function updateTimerDisplay() {
 
 // ==================== SUBMIT & EVALUATION ====================
 function confirmSubmit() {
-    if (isLocked) return;
-    
     const answered = Object.keys(userAnswers).length;
     const total = currentQuestions.length;
     
     showModal(
         'Selesaikan Ujian?',
         `Anda telah menjawab ${answered} dari ${total} soal. ${answered < total ? 'Masih ada ' + (total - answered) + ' soal belum dijawab.' : ''} Yakin ingin mengumpulkan?`,
-        function() { submitQuiz(); }
+        () => submitQuiz()
     );
 }
 
 function submitQuiz() {
     clearInterval(timerInterval);
-    timerInterval = null;
-    
-    // Clear auto-advance timeout
-    if (autoAdvanceTimeout) {
-        clearTimeout(autoAdvanceTimeout);
-        autoAdvanceTimeout = null;
-    }
     
     let correct = 0;
-    currentQuestions.forEach(function(q, i) {
+    currentQuestions.forEach((q, i) => {
         if (userAnswers[i] === q.ans) correct++;
     });
     
@@ -1166,7 +1119,7 @@ function submitQuiz() {
 function setRating(rating) {
     selectedRating = rating;
     const stars = document.querySelectorAll('#starRating .star');
-    stars.forEach(function(star, i) {
+    stars.forEach((star, i) => {
         star.classList.toggle('text-amber-400', i < rating);
         star.classList.toggle('text-slate-300', i >= rating);
     });
@@ -1217,7 +1170,7 @@ function modalConfirm() {
 }
 
 // ==================== INITIALIZATION ====================
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     initVisitorCounter();
     
     const saved = localStorage.getItem('currentUser');
