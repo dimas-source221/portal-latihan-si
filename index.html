@@ -9,16 +9,8 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        primary: '#2563eb',
-                        secondary: '#3b82f6',
-                        accent: '#0ea5e9',
-                        surface: '#ffffff',
-                        background: '#F2F8FF'
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif']
-                    }
+                    colors: { primary: '#2563eb', secondary: '#3b82f6', accent: '#0ea5e9' },
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
                 }
             }
         }
@@ -26,146 +18,93 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
-        /* PERBAIKAN: Background laptop JELAS & TERANG dengan opacity 0.4 */
         body {
             font-family: 'Inter', sans-serif;
             color: #1e293b;
-            margin: 0;
-            padding: 0;
-            position: relative;
             background-color: #F2F8FF;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://lh3.googleusercontent.com/d/1X_tNirOyA8ODFvKHYhD6_mv_FE-MDgut');
+            /* Background laptop terlihat jelas namun tidak mengganggu teks */
+            background-image: linear-gradient(rgba(242, 248, 255, 0.85), rgba(242, 248, 255, 0.90)), url('https://lh3.googleusercontent.com/d/1X_tNirOyA8ODFvKHYhD6_mv_FE-MDgut');
             background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            opacity: 0.4;
-            z-index: -2;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
         }
 
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(242, 248, 255, 0.3) 0%, rgba(242, 248, 255, 0.2) 100%);
-            z-index: -1;
-        }
-
+        /* Glassmorphism Utility */
         .glass {
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.08);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.07);
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.6);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
             transition: all 0.3s ease;
         }
-
         .glass-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.12);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.1);
             border-color: rgba(37, 99, 235, 0.3);
         }
 
-        .blink-dot {
-            animation: blink 1.5s infinite;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; transform: scale(1); }
-            51%, 100% { opacity: 0.3; transform: scale(0.8); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        .blink-dot { animation: blink 1.5s infinite; }
+        @keyframes blink { 0%, 50% { opacity: 1; transform: scale(1); } 51%, 100% { opacity: 0.3; transform: scale(0.8); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade { animation: fadeIn 0.5s ease-out forwards; }
 
+        /* Timer Warning */
         .timer-warning {
             animation: pulse-red 1s infinite;
             color: #dc2626 !important;
             border-color: #fecaca !important;
             background-color: #fef2f2 !important;
         }
-
         @keyframes pulse-red {
             0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
             50% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
         }
 
-        .star-rating .star {
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .star-rating .star:hover { transform: scale(1.2); }
+        /* Opsi Jawaban States */
+        .opsi-btn { transition: all 0.25s ease; user-select: none; }
+        .opsi-btn:hover:not(.locked) { transform: translateX(4px); }
+        .opsi-btn.locked { cursor: not-allowed; pointer-events: none; opacity: 0.9; }
+        
+        .opsi-btn.selected-correct { border-color: #10b981 !important; background-color: #d1fae5 !important; }
+        .opsi-btn.selected-correct .letter-circle { background-color: #10b981 !important; color: white !important; }
+        
+        .opsi-btn.selected-wrong { border-color: #ef4444 !important; background-color: #fee2e2 !important; }
+        .opsi-btn.selected-wrong .letter-circle { background-color: #ef4444 !important; color: white !important; }
+        
+        .opsi-btn.show-correct { border-color: #10b981 !important; background-color: #d1fae5 !important; }
+        .opsi-btn.show-correct .letter-circle { background-color: #10b981 !important; color: white !important; }
 
-        .opsi-btn {
-            transition: all 0.3s ease;
-        }
-        .opsi-btn:hover:not(.locked) {
-            transform: translateX(4px);
-        }
-        .opsi-btn.locked {
-            cursor: not-allowed !important;
-            pointer-events: none;
-        }
-        .opsi-btn.correct {
-            border-color: #10b981 !important;
-            background-color: #d1fae5 !important;
-        }
-        .opsi-btn.correct span:first-child {
-            background-color: #10b981 !important;
-            color: white !important;
-        }
-        .opsi-btn.wrong {
-            border-color: #ef4444 !important;
-            background-color: #fee2e2 !important;
-        }
-        .opsi-btn.wrong span:first-child {
-            background-color: #ef4444 !important;
-            color: white !important;
-        }
+        .star-rating .star { cursor: pointer; transition: all 0.2s; }
+        .star-rating .star:hover { transform: scale(1.2); }
 
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
+        
         @media print {
-            body::before, body::after { display: none; }
             body { background: white !important; }
             .no-print { display: none !important; }
-            .glass, .glass-card { border: 1px solid #ccc !important; box-shadow: none !important; }
+            .glass, .glass-card { border: 1px solid #ccc !important; box-shadow: none !important; background: white !important; }
         }
     </style>
 </head>
-<body class="min-h-screen">
+<body>
 
     <!-- LANDING PAGE -->
     <div id="landingPage" class="min-h-screen flex items-center justify-center p-4">
         <div class="max-w-6xl w-full grid lg:grid-cols-2 gap-8 items-center">
             <!-- Left Side -->
             <div class="animate-fade space-y-6">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary font-semibold border-blue-200">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary font-semibold">
                     🎓 INFORMATION SYSTEM
                 </div>
                 <h1 class="text-4xl lg:text-5xl font-extrabold leading-tight text-slate-900">
@@ -173,7 +112,7 @@
                 </h1>
                 <p class="text-slate-600 text-lg leading-relaxed">Sarana latihan dan uji kompetensi mandiri program studi Sistem Informasi.</p>
                 
-                <!-- Stats -->
+                <!-- Stats dengan Glassmorphism -->
                 <div class="grid grid-cols-3 gap-4 pt-2">
                     <div class="glass-card rounded-xl p-4 text-center">
                         <div class="text-2xl font-bold text-emerald-600">120</div>
@@ -195,20 +134,20 @@
                 </div>
             </div>
 
-            <!-- Right Side - Login Form -->
-            <div class="animate-fade">
-                <div class="glass rounded-2xl p-8 max-w-md mx-auto border-white/80">
-                    <h2 class="text-2xl font-bold mb-6 text-slate-900">Mulai Latihan</h2>
+            <!-- Right Side - Login Form (Dikecilkan agar proporsional) -->
+            <div class="animate-fade flex justify-center lg:justify-end">
+                <div class="glass rounded-2xl p-8 w-full max-w-sm border-white/60">
+                    <h2 class="text-2xl font-bold mb-6 text-slate-900 text-center">Mulai Latihan</h2>
                     <div class="space-y-4">
                         <div>
                             <label class="text-sm text-slate-600 mb-1.5 block font-medium">Nama Lengkap</label>
-                            <input type="text" id="inputNama" placeholder="Masukkan nama lengkap" 
-                                class="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition text-slate-900 placeholder-slate-400">
+                            <input type="text" id="inputNama" placeholder="Nama lengkap" 
+                                class="w-full px-4 py-3 rounded-xl bg-white/80 border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition text-slate-900 placeholder-slate-400">
                         </div>
                         <div>
                             <label class="text-sm text-slate-600 mb-1.5 block font-medium">NIM Mahasiswa</label>
-                            <input type="text" id="inputNIM" placeholder="Masukkan NIM" 
-                                class="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition text-slate-900 placeholder-slate-400">
+                            <input type="text" id="inputNIM" placeholder="NIM" 
+                                class="w-full px-4 py-3 rounded-xl bg-white/80 border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition text-slate-900 placeholder-slate-400">
                         </div>
                         <button onclick="handleLogin()" 
                             class="w-full py-3.5 rounded-xl bg-primary hover:bg-blue-700 text-white font-semibold transition transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-blue-500/30">
@@ -236,9 +175,7 @@
                         <span class="text-slate-300">|</span>
                         <span id="dashNIM" class="text-primary font-medium"></span>
                     </div>
-                    <button onclick="handleLogout()" class="px-4 py-2.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 transition text-sm font-semibold">
-                        Keluar
-                    </button>
+                    <button onclick="handleLogout()" class="px-4 py-2.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 transition text-sm font-semibold">Keluar</button>
                 </div>
             </div>
 
@@ -285,7 +222,7 @@
                             <div class="flex items-center gap-4">
                                 <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-lg group-hover:bg-purple-600 group-hover:text-white transition-colors">3</div>
                                 <div>
-                                    <h3 class="font-bold text-slate-900 text-lg">Fase 3: Pemrograman, Koding & Teknis Lanjutan</h3>
+                                    <h3 class="font-bold text-slate-900 text-lg">Fase 3: Pemrograman & Teknis Lanjutan</h3>
                                     <div class="flex items-center gap-3 mt-1">
                                         <span class="text-sm text-slate-500 font-medium">30 Soal</span>
                                         <span class="text-slate-300">•</span>
@@ -308,11 +245,9 @@
                         <h3 class="font-bold text-slate-900 mb-4 flex items-center gap-2">💬 Ulasan & Testimoni</h3>
                         <div id="testimonialList" class="space-y-3 flex-1 overflow-y-auto mb-4 pr-1 max-h-64"></div>
                         <div class="border-t border-slate-200 pt-4 mt-auto">
-                            <textarea id="testimonialInput" rows="2" placeholder="Tulis ulasan Anda tentang portal ini..." 
-                                class="w-full px-3 py-2.5 rounded-xl bg-white border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none text-sm text-slate-900 placeholder-slate-400 resize-none"></textarea>
-                            <button onclick="addTestimonial()" class="mt-2 w-full py-2.5 rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-white transition text-sm font-semibold">
-                                Kirim Ulasan
-                            </button>
+                            <textarea id="testimonialInput" rows="2" placeholder="Tulis ulasan Anda..." 
+                                class="w-full px-3 py-2.5 rounded-xl bg-white/80 border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none text-sm text-slate-900 placeholder-slate-400 resize-none"></textarea>
+                            <button onclick="addTestimonial()" class="mt-2 w-full py-2.5 rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-white transition text-sm font-semibold">Kirim Ulasan</button>
                         </div>
                     </div>
                 </div>
@@ -329,12 +264,8 @@
                     <p class="text-sm text-slate-500">Soal <span id="nomor-soal" class="font-bold text-primary">1</span> dari <span id="total-soal">45</span></p>
                 </div>
                 <div class="flex items-center gap-4 w-full sm:w-auto">
-                    <div id="timer-display" class="glass-card rounded-xl px-5 py-2.5 font-mono text-lg font-bold text-slate-700 border-slate-200 min-w-[100px] text-center">
-                        30:00
-                    </div>
-                    <button onclick="confirmSubmit()" class="px-5 py-2.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 transition text-sm font-semibold whitespace-nowrap">
-                        Selesai
-                    </button>
+                    <div id="timer-display" class="glass-card rounded-xl px-5 py-2.5 font-mono text-lg font-bold text-slate-700 border-slate-200 min-w-[100px] text-center">30:00</div>
+                    <button onclick="confirmSubmit()" class="px-5 py-2.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 transition text-sm font-semibold whitespace-nowrap">Selesai</button>
                 </div>
             </div>
 
@@ -348,21 +279,17 @@
                     <p class="text-lg lg:text-xl font-semibold text-slate-900 leading-relaxed" id="teks-pertanyaan">Pertanyaan akan muncul di sini</p>
                 </div>
                 
-                <div id="opsi-container" class="space-y-3">
-                    <!-- Opsi A, B, C akan dirender di sini -->
+                <div id="opsi-container" class="grid gap-3">
+                    <!-- Opsi A, B, C, D dirender di sini -->
                 </div>
+
+                <div id="feedback-msg" class="hidden mt-4 p-3 rounded-xl text-center font-semibold text-sm"></div>
             </div>
 
             <div class="flex items-center justify-between">
-                <button onclick="prevSoal()" id="btnPrev" class="px-6 py-3 rounded-xl glass hover:bg-white transition font-semibold text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2">
-                    ← Sebelumnya
-                </button>
-                
+                <button onclick="prevSoal()" id="btnPrev" class="px-6 py-3 rounded-xl glass hover:bg-white transition font-semibold text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2">← Sebelumnya</button>
                 <div class="flex gap-1.5 flex-wrap justify-center max-w-md" id="questionDots"></div>
-                
-                <button onclick="nextSoal()" id="btnNext" class="px-6 py-3 rounded-xl bg-primary hover:bg-blue-700 text-white transition font-semibold shadow-lg shadow-blue-500/20 flex items-center gap-2">
-                    Selanjutnya →
-                </button>
+                <button onclick="nextSoal()" id="btnNext" class="px-6 py-3 rounded-xl bg-primary hover:bg-blue-700 text-white transition font-semibold shadow-lg shadow-blue-500/20 flex items-center gap-2">Selanjutnya →</button>
             </div>
         </div>
     </div>
@@ -376,18 +303,9 @@
                 <p class="text-slate-500 mb-8" id="resultSubtitle">Anda telah menyelesaikan ujian dengan baik</p>
                 
                 <div class="grid grid-cols-3 gap-4 mb-8">
-                    <div class="glass-card rounded-2xl p-4">
-                        <div class="text-3xl font-bold text-primary" id="resultScore">0%</div>
-                        <div class="text-xs text-slate-500 font-medium mt-1">Nilai Akhir</div>
-                    </div>
-                    <div class="glass-card rounded-2xl p-4">
-                        <div class="text-3xl font-bold text-emerald-600" id="resultCorrect">0</div>
-                        <div class="text-xs text-slate-500 font-medium mt-1">Benar</div>
-                    </div>
-                    <div class="glass-card rounded-2xl p-4">
-                        <div class="text-3xl font-bold text-red-500" id="resultWrong">0</div>
-                        <div class="text-xs text-slate-500 font-medium mt-1">Salah</div>
-                    </div>
+                    <div class="glass-card rounded-2xl p-4"><div class="text-3xl font-bold text-primary" id="resultScore">0%</div><div class="text-xs text-slate-500 font-medium mt-1">Nilai Akhir</div></div>
+                    <div class="glass-card rounded-2xl p-4"><div class="text-3xl font-bold text-emerald-600" id="resultCorrect">0</div><div class="text-xs text-slate-500 font-medium mt-1">Benar</div></div>
+                    <div class="glass-card rounded-2xl p-4"><div class="text-3xl font-bold text-red-500" id="resultWrong">0</div><div class="text-xs text-slate-500 font-medium mt-1">Salah</div></div>
                 </div>
 
                 <div class="glass-card rounded-2xl p-4 mb-8 inline-block px-8">
@@ -401,36 +319,26 @@
                         <div class="text-amber-600 text-sm font-bold tracking-wider mb-3">🏆 SERTIFIKAT KELULUSAN</div>
                         <div class="text-2xl font-bold text-slate-900 mb-1" id="certName"></div>
                         <div class="text-slate-500 text-sm mb-4">NIM: <span id="certNIM" class="font-medium text-slate-700"></span></div>
-                        <div class="text-sm text-slate-600 leading-relaxed">
-                            Telah berhasil menyelesaikan <span id="certPhase" class="text-primary font-bold"></span><br>
-                            dengan nilai <span id="certScore" class="text-emerald-600 font-bold text-lg"></span>
-                        </div>
+                        <div class="text-sm text-slate-600 leading-relaxed">Telah berhasil menyelesaikan <span id="certPhase" class="text-primary font-bold"></span> dengan nilai <span id="certScore" class="text-emerald-600 font-bold text-lg"></span></div>
                         <div class="text-xs text-slate-400 mt-4 pt-4 border-t border-amber-200" id="certDate"></div>
                     </div>
-                    <button onclick="window.print()" class="mt-4 px-6 py-2.5 rounded-xl bg-amber-100 text-amber-700 hover:bg-amber-200 transition text-sm font-semibold no-print flex items-center gap-2 mx-auto">
-                        🖨️ Cetak Sertifikat
-                    </button>
+                    <button onclick="window.print()" class="mt-4 px-6 py-2.5 rounded-xl bg-amber-100 text-amber-700 hover:bg-amber-200 transition text-sm font-semibold no-print flex items-center gap-2 mx-auto">🖨️ Cetak Sertifikat</button>
                 </div>
 
                 <div class="border-t border-slate-200 pt-6 mt-6">
                     <h3 class="font-bold text-slate-900 mb-4">⭐ Berikan Ulasan Ujian</h3>
                     <div class="star-rating flex justify-center gap-3 mb-4" id="starRating">
-                        <span class="star text-3xl text-slate-300" data-rating="1" onclick="setRating(1)">★</span>
-                        <span class="star text-3xl text-slate-300" data-rating="2" onclick="setRating(2)">★</span>
-                        <span class="star text-3xl text-slate-300" data-rating="3" onclick="setRating(3)">★</span>
-                        <span class="star text-3xl text-slate-300" data-rating="4" onclick="setRating(4)">★</span>
-                        <span class="star text-3xl text-slate-300" data-rating="5" onclick="setRating(5)">★</span>
+                        <span class="star text-3xl text-slate-300" onclick="setRating(1)">★</span>
+                        <span class="star text-3xl text-slate-300" onclick="setRating(2)">★</span>
+                        <span class="star text-3xl text-slate-300" onclick="setRating(3)">★</span>
+                        <span class="star text-3xl text-slate-300" onclick="setRating(4)">★</span>
+                        <span class="star text-3xl text-slate-300" onclick="setRating(5)">★</span>
                     </div>
-                    <textarea id="reviewInput" rows="2" placeholder="Tulis komentar Anda tentang pengalaman ujian ini..." 
-                        class="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none text-sm text-slate-900 placeholder-slate-400 resize-none mb-3"></textarea>
-                    <button onclick="submitReview()" class="px-6 py-2.5 rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-white transition text-sm font-semibold">
-                        Kirim Ulasan
-                    </button>
+                    <textarea id="reviewInput" rows="2" placeholder="Tulis komentar Anda..." class="w-full px-4 py-3 rounded-xl bg-white/80 border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none text-sm text-slate-900 placeholder-slate-400 resize-none mb-3"></textarea>
+                    <button onclick="submitReview()" class="px-6 py-2.5 rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-white transition text-sm font-semibold">Kirim Ulasan</button>
                 </div>
 
-                <button onclick="backToDashboard()" class="mt-8 px-8 py-3.5 rounded-xl bg-primary hover:bg-blue-700 text-white font-semibold transition transform hover:scale-[1.02] shadow-lg shadow-blue-500/20 w-full sm:w-auto">
-                    Kembali ke Dashboard
-                </button>
+                <button onclick="backToDashboard()" class="mt-8 px-8 py-3.5 rounded-xl bg-primary hover:bg-blue-700 text-white font-semibold transition transform hover:scale-[1.02] shadow-lg shadow-blue-500/20 w-full sm:w-auto">Kembali ke Dashboard</button>
             </div>
         </div>
     </div>
@@ -448,134 +356,156 @@
     </div>
 
 <script>
-// ==================== DATABASE BANK SOAL (120 SOAL) ====================
-const bankSoalLengkap = [
-    // FASE 1: Konseptual & Manajemen SI (Level 1-8) - 45 Soal
-    {id:1, level:1, q:"Apa definisi Sistem Informasi menurut Laudon & Laudon?", opts:["Kumpulan hardware yang saling terhubung","Sekumpulan komponen yang saling berhubungan untuk mengumpulkan, memproses, menyimpan, dan mendistribusikan informasi","Perangkat lunak untuk mengelola data","Jaringan komputer dalam organisasi"], ans:"b"},
-    {id:2, level:1, q:"Komponen utama Sistem Informasi meliputi...", opts:["Input, Process, Output, Feedback, dan Control","Hardware, Software, dan User saja","Database, Network, dan Internet saja","Server, Client, dan Protocol"], ans:"a"},
-    {id:3, level:1, q:"Apa perbedaan utama antara Data dan Informasi?", opts:["Data sudah diolah, Informasi belum","Data adalah fakta mentah, Informasi adalah data yang telah diolah dan bermakna","Tidak ada perbedaan","Data lebih penting dari Informasi"], ans:"b"},
-    {id:4, level:2, q:"Transaction Processing System (TPS) berfungsi untuk...", opts:["Mendukung keputusan strategis","Mengolah transaksi rutin dan operasional harian","Menganalisis tren pasar","Mengelola sumber daya manusia"], ans:"b"},
-    {id:5, level:2, q:"Management Information System (MIS) menyediakan informasi untuk...", opts:["Level operasional","Level manajerial/taktis","Level strategis","Semua level organisasi"], ans:"b"},
-    {id:6, level:2, q:"Decision Support System (DSS) digunakan untuk...", opts:["Transaksi harian rutin","Mendukung pengambilan keputusan semi-terstruktur dan tidak terstruktur","Penggajian karyawan","Pencatatan inventaris"], ans:"b"},
-    {id:7, level:3, q:"Executive Support System (ESS) dirancang untuk...", opts:["Operator mesin","Manajer menengah","Eksekutif puncak/top management","Staff administrasi"], ans:"c"},
-    {id:8, level:3, q:"Enterprise Resource Planning (ERP) mengintegrasikan...", opts:["Hanya departemen keuangan","Seluruh proses bisnis organisasi dalam satu sistem terpadu","Hanya sistem produksi","Hanya manajemen SDM"], ans:"b"},
-    {id:9, level:3, q:"Apa yang dimaksud dengan Business Process Reengineering (BPR)?", opts:["Memperbaiki proses secara bertahap","Redesign radikal proses bisnis untuk peningkatan dramatis","Menambah jumlah karyawan","Mengganti semua perangkat keras"], ans:"b"},
-    {id:10, level:4, q:"Supply Chain Management (SCM) mengelola...", opts:["Hanya produksi","Aliran material, informasi, dan keuangan dari supplier hingga konsumen","Hanya distribusi","Hanya pemasaran"], ans:"b"},
-    {id:11, level:4, q:"Customer Relationship Management (CRM) berfokus pada...", opts:["Manajemen internal karyawan","Mengelola hubungan dan interaksi dengan pelanggan","Manajemen rantai pasok","Pengelolaan keuangan"], ans:"b"},
-    {id:12, level:4, q:"Knowledge Management System (KMS) bertujuan untuk...", opts:["Menyimpan dokumen saja","Menciptakan, menyimpan, dan mendistribusikan pengetahuan organisasi","Menggantikan karyawan","Menghitung profit"], ans:"b"},
-    {id:13, level:5, q:"Dalam konteks SI, apa yang dimaksud dengan Stakeholder?", opts:["Pemilik saham saja","Semua pihak yang berkepentingan terhadap sistem","Hanya developer","Hanya pengguna akhir"], ans:"b"},
-    {id:14, level:5, q:"Metode pengembangan sistem Waterfall memiliki karakteristik...", opts:["Iteratif dan fleksibel","Linear dan sekuensial, setiap tahap harus selesai sebelum tahap berikutnya","Tanpa dokumentasi","Hanya untuk proyek kecil"], ans:"b"},
-    {id:15, level:5, q:"Agile Methodology menekankan pada...", opts:["Dokumentasi lengkap di awal","Iterasi pendek, kolaborasi tim, dan respons terhadap perubahan","Proses yang kaku dan terstruktur","Pengembangan tanpa testing"], ans:"b"},
-    {id:16, level:6, q:"Feasibility Study dalam pengembangan SI menganalisis...", opts:["Hanya aspek teknis","Aspek teknis, ekonomi, operasional, jadwal, dan legal","Hanya biaya","Hanya keuntungan"], ans:"b"},
-    {id:17, level:6, q:"Use Case Diagram dalam UML menggambarkan...", opts:["Struktur database","Interaksi antara aktor dan sistem dalam skenario tertentu","Aliran data","Arsitektur hardware"], ans:"b"},
-    {id:18, level:6, q:"Data Flow Diagram (DFD) Level 0 menunjukkan...", opts:["Detail proses internal","Gambaran umum/konteks sistem secara keseluruhan","Struktur tabel database","Diagram class"], ans:"b"},
-    {id:19, level:7, q:"Normalisasi database bertujuan untuk...", opts:["Menambah redundansi data","Menghilangkan anomali dan redundansi data","Mempercepat koneksi internet","Menambah jumlah tabel tanpa batas"], ans:"b"},
-    {id:20, level:7, q:"Bentuk Normal Pertama (1NF) mensyaratkan...", opts:["Tidak ada dependensi transitif","Setiap kolom bernilai atomik (tidak ada repeating group)","Ada kunci asing","Semua atribut non-key bergantung parsial pada key"], ans:"b"},
-    {id:21, level:7, q:"Entity Relationship Diagram (ERD) digunakan untuk...", opts:["Mendesain antarmuka pengguna","Pemodelan data konseptual yang menunjukkan entitas dan relasinya","Menggambar network topology","Mendesain algoritma"], ans:"b"},
-    {id:22, level:8, q:"Apa yang dimaksud dengan Cardinality dalam relasi database?", opts:["Jumlah kolom dalam tabel","Jumlah maksimum entitas yang dapat berelasi dengan entitas lain","Nama tabel","Tipe data kolom"], ans:"b"},
-    {id:23, level:1, q:"Sistem Informasi Akuntansi (SIA) berfungsi untuk...", opts:["Mendesain produk","Mencatat, mengklasifikasi, dan meringkas transaksi keuangan","Mengelola inventaris fisik","Mendesain jaringan"], ans:"b"},
-    {id:24, level:2, q:"Apa yang dimaksud dengan IT Governance?", opts:["Penggunaan internet","Kerangka kerja untuk memastikan TI mendukung tujuan organisasi dan mengelola risiko","Pembelian hardware","Instalasi software"], ans:"b"},
-    {id:25, level:3, q:"Balanced Scorecard mengukur kinerja organisasi dari perspektif...", opts:["Keuangan saja","Keuangan, Pelanggan, Proses Internal, Pembelajaran & Pertumbuhan","Teknis saja","SDM saja"], ans:"b"},
-    {id:26, level:4, q:"SWOT Analysis dalam perencanaan SI menganalisis...", opts:["Strengths, Weaknesses, Opportunities, Threats","Speed, Width, Output, Time","Software, Web, Online, Technology","System, Work, Operation, Task"], ans:"a"},
-    {id:27, level:5, q:"Sistem Informasi Geografis (SIG/GIS) digunakan untuk...", opts:["Mengolah data spasial/keruangan","Menghitung gaji","Mendesain logo","Mengelola email"], ans:"a"},
-    {id:28, level:6, q:"Apa fungsi dari Business Intelligence (BI)?", opts:["Mengubah data menjadi insight untuk pengambilan keputusan bisnis","Mendesain website","Memperbaiki komputer","Mengelola jaringan"], ans:"a"},
-    {id:29, level:7, q:"Data Warehouse berbeda dari database operasional karena...", opts:["Lebih kecil","Dirancang untuk analisis dan pelaporan, menyimpan data historis dari berbagai sumber","Hanya menyimpan data terbaru","Tidak menggunakan SQL"], ans:"b"},
-    {id:30, level:8, q:"OLAP (Online Analytical Processing) memungkinkan pengguna untuk...", opts:["Input transaksi","Melakukan analisis multidimensi terhadap data","Mengirim email","Mendesain UI"], ans:"b"},
-    {id:31, level:1, q:"Apa yang dimaksud dengan Sistem Informasi Berbasis Web?", opts:["Sistem yang hanya berjalan offline","Sistem informasi yang diakses melalui browser menggunakan teknologi web","Sistem operasi komputer","Aplikasi desktop"], ans:"b"},
-    {id:32, level:2, q:"Cloud Computing dalam konteks SI menawarkan...", opts:["Penyimpanan data lokal saja","Layanan komputasi (server, storage, software) melalui internet dengan model pay-as-you-go","Jaringan kabel saja","Hardware fisik"], ans:"b"},
-    {id:33, level:3, q:"SaaS (Software as a Service) berarti...", opts:["Membeli lisensi software permanen","Menggunakan aplikasi via internet tanpa instalasi lokal, berlangganan","Membuat software sendiri","Menggunakan software gratis selamanya"], ans:"b"},
-    {id:34, level:4, q:"Apa yang dimaksud dengan Interoperabilitas dalam SI?", opts:["Kemampuan sistem yang berbeda untuk bekerja sama dan bertukar data","Kecepatan prosesor","Kapasitas hardisk","Jumlah user"], ans:"a"},
-    {id:35, level:5, q:"Protokol HTTP digunakan untuk...", opts:["Transfer file","Komunikasi antara web browser dan web server","Email","Database"], ans:"b"},
-    {id:36, level:6, q:"Apa fungsi utama dari DBMS (Database Management System)?", opts:["Mendesain UI","Mengelola pembuatan, pemeliharaan, dan penggunaan database","Mengirim pesan","Mengedit foto"], ans:"b"},
-    {id:37, level:7, q:"Primary Key dalam tabel database berfungsi untuk...", opts:["Menghubungkan dua tabel","Mengidentifikasi setiap record secara unik","Menyimpan password","Menghitung total"], ans:"b"},
-    {id:38, level:8, q:"Foreign Key digunakan untuk...", opts:["Mengidentifikasi record secara unik","Membuat relasi/referensi antara dua tabel","Menyimpan data ganda","Menghapus tabel"], ans:"b"},
-    {id:39, level:1, q:"Apa yang dimaksud dengan E-Commerce?", opts:["Perdagangan tradisional","Pembelian dan penjualan barang/jasa melalui internet","E-commerce hanya untuk B2B","Toko fisik dengan kasir"], ans:"b"},
-    {id:40, level:2, q:"Model bisnis B2B berarti...", opts:["Business to Consumer","Business to Business","Buyer to Buyer","Bank to Bank"], ans:"b"},
-    {id:41, level:3, q:"Apa yang dimaksud dengan Digital Transformation?", opts:["Membeli komputer baru","Integrasi teknologi digital secara menyeluruh untuk mengubah cara bisnis beroperasi","Mengganti semua karyawan","Membuat website saja"], ans:"b"},
-    {id:42, level:4, q:"Dalam manajemen proyek SI, apa itu Gantt Chart?", opts:["Diagram alir program","Visualisasi jadwal proyek yang menunjukkan durasi dan timeline tugas","Tipe database","Bahasa pemrograman"], ans:"b"},
-    {id:43, level:5, q:"Risk Management dalam proyek SI bertujuan untuk...", opts:["Menghindari semua risiko","Mengidentifikasi, menganalisis, dan memitigasi risiko proyek","Menambah biaya","Memperlambat proyek"], ans:"b"},
-    {id:44, level:6, q:"Apa itu User Acceptance Testing (UAT)?", opts:["Testing oleh developer","Pengujian yang dilakukan pengguna akhir untuk memvalidasi sistem sesuai kebutuhan","Testing keamanan jaringan","Testing kecepatan server"], ans:"b"},
-    {id:45, level:7, q:"Apa yang dimaksud dengan Change Management dalam implementasi SI?", opts:["Mengganti hardware","Proses terstruktur untuk mengelola transisi perubahan dalam organisasi","Mengubah password","Mengganti vendor"], ans:"b"},
+// ==================== DATABASE 120 SOAL (4 OPSI, DISTRIBUSI MERATA) ====================
+const generateSoal = () => {
+    const base = [
+        {q:"Apa definisi Sistem Informasi menurut Laudon & Laudon?", opts:["Kumpulan hardware","Sekumpulan komponen untuk mengumpulkan, memproses, menyimpan, dan mendistribusikan informasi","Perangkat lunak akuntansi","Jaringan komputer lokal"], level:1},
+        {q:"Komponen utama Sistem Informasi meliputi...", opts:["Input, Process, Output, Feedback, Control","Hardware dan Software saja","Internet dan Intranet","Server dan Client"], level:1},
+        {q:"Perbedaan utama Data dan Informasi adalah...", opts:["Data sudah diolah","Data adalah fakta mentah, Informasi adalah data yang telah diolah dan bermakna","Tidak ada perbedaan","Data lebih penting"], level:1},
+        {q:"Transaction Processing System (TPS) berfungsi untuk...", opts:["Keputusan strategis","Mengolah transaksi rutin dan operasional harian","Menganalisis tren pasar","Mengelola SDM"], level:2},
+        {q:"Management Information System (MIS) menyediakan informasi untuk...", opts:["Level operasional","Level manajerial/taktis","Level strategis","Semua level"], level:2},
+        {q:"Decision Support System (DSS) digunakan untuk...", opts:["Transaksi harian","Mendukung pengambilan keputusan semi-terstruktur","Penggajian karyawan","Pencatatan inventaris"], level:2},
+        {q:"Executive Support System (ESS) dirancang untuk...", opts:["Operator mesin","Manajer menengah","Eksekutif puncak/top management","Staff administrasi"], level:3},
+        {q:"Enterprise Resource Planning (ERP) mengintegrasikan...", opts:["Hanya keuangan","Seluruh proses bisnis organisasi dalam satu sistem terpadu","Hanya produksi","Hanya SDM"], level:3},
+        {q:"Business Process Reengineering (BPR) adalah...", opts:["Perbaikan bertahap","Redesign radikal proses bisnis untuk peningkatan dramatis","Menambah karyawan","Mengganti hardware"], level:3},
+        {q:"Supply Chain Management (SCM) mengelola...", opts:["Hanya produksi","Aliran material, informasi, dan keuangan dari supplier hingga konsumen","Hanya distribusi","Hanya pemasaran"], level:4},
+        {q:"Customer Relationship Management (CRM) berfokus pada...", opts:["Manajemen internal","Mengelola hubungan dan interaksi dengan pelanggan","Rantai pasok","Keuangan"], level:4},
+        {q:"Knowledge Management System (KMS) bertujuan untuk...", opts:["Menyimpan dokumen","Menciptakan, menyimpan, dan mendistribusikan pengetahuan organisasi","Menggantikan karyawan","Menghitung profit"], level:4},
+        {q:"Stakeholder dalam konteks SI adalah...", opts:["Pemilik saham","Semua pihak yang berkepentingan terhadap sistem","Hanya developer","Hanya user"], level:5},
+        {q:"Metode Waterfall memiliki karakteristik...", opts:["Iteratif","Linear dan sekuensial, setiap tahap harus selesai sebelum berikutnya","Tanpa dokumentasi","Untuk proyek kecil"], level:5},
+        {q:"Agile Methodology menekankan pada...", opts:["Dokumentasi lengkap","Iterasi pendek, kolaborasi tim, dan respons terhadap perubahan","Proses kaku","Tanpa testing"], level:5},
+        {q:"Feasibility Study menganalisis...", opts:["Hanya teknis","Aspek teknis, ekonomi, operasional, jadwal, dan legal","Hanya biaya","Hanya keuntungan"], level:6},
+        {q:"Use Case Diagram dalam UML menggambarkan...", opts:["Struktur database","Interaksi antara aktor dan sistem dalam skenario tertentu","Aliran data","Arsitektur hardware"], level:6},
+        {q:"Data Flow Diagram (DFD) Level 0 menunjukkan...", opts:["Detail proses","Gambaran umum/konteks sistem secara keseluruhan","Struktur tabel","Diagram class"], level:6},
+        {q:"Normalisasi database bertujuan untuk...", opts:["Menambah redundansi","Menghilangkan anomali dan redundansi data","Mempercepat internet","Menambah tabel"], level:7},
+        {q:"Bentuk Normal Pertama (1NF) mensyaratkan...", opts:["Tidak ada dependensi transitif","Setiap kolom bernilai atomik (tidak ada repeating group)","Ada kunci asing","Dependensi parsial"], level:7},
+        {q:"Entity Relationship Diagram (ERD) digunakan untuk...", opts:["Mendesain UI","Pemodelan data konseptual yang menunjukkan entitas dan relasinya","Network topology","Algoritma"], level:7},
+        {q:"Cardinality dalam relasi database adalah...", opts:["Jumlah kolom","Jumlah maksimum entitas yang dapat berelasi dengan entitas lain","Nama tabel","Tipe data"], level:8},
+        {q:"Sistem Informasi Akuntansi (SIA) berfungsi untuk...", opts:["Mendesain produk","Mencatat, mengklasifikasi, dan meringkas transaksi keuangan","Inventaris fisik","Jaringan"], level:1},
+        {q:"IT Governance adalah...", opts:["Penggunaan internet","Kerangka kerja untuk memastikan TI mendukung tujuan organisasi dan mengelola risiko","Pembelian hardware","Instalasi software"], level:2},
+        {q:"Balanced Scorecard mengukur kinerja dari perspektif...", opts:["Keuangan saja","Keuangan, Pelanggan, Proses Internal, Pembelajaran & Pertumbuhan","Teknis saja","SDM saja"], level:3},
+        {q:"SWOT Analysis menganalisis...", opts:["Strengths, Weaknesses, Opportunities, Threats","Speed, Width, Output, Time","Software, Web, Online, Tech","System, Work, Operation, Task"], level:4},
+        {q:"Sistem Informasi Geografis (SIG/GIS) digunakan untuk...", opts:["Mengolah data spasial/keruangan","Menghitung gaji","Mendesain logo","Mengelola email"], level:5},
+        {q:"Fungsi Business Intelligence (BI) adalah...", opts:["Mengubah data menjadi insight untuk pengambilan keputusan bisnis","Mendesain website","Memperbaiki komputer","Mengelola jaringan"], level:6},
+        {q:"Data Warehouse berbeda dari database operasional karena...", opts:["Lebih kecil","Dirancang untuk analisis dan pelaporan, menyimpan data historis","Hanya data terbaru","Tidak pakai SQL"], level:7},
+        {q:"OLAP memungkinkan pengguna untuk...", opts:["Input transaksi","Melakukan analisis multidimensi terhadap data","Mengirim email","Mendesain UI"], level:8},
+        {q:"Sistem Informasi Berbasis Web adalah...", opts:["Sistem offline","Sistem informasi yang diakses melalui browser menggunakan teknologi web","Sistem operasi","Aplikasi desktop"], level:1},
+        {q:"Cloud Computing menawarkan...", opts:["Storage lokal","Layanan komputasi melalui internet dengan model pay-as-you-go","Jaringan kabel","Hardware fisik"], level:2},
+        {q:"SaaS (Software as a Service) berarti...", opts:["Beli lisensi permanen","Menggunakan aplikasi via internet tanpa instalasi lokal, berlangganan","Buat software sendiri","Software gratis"], level:3},
+        {q:"Interoperabilitas dalam SI adalah...", opts:["Kemampuan sistem berbeda untuk bekerja sama dan bertukar data","Kecepatan prosesor","Kapasitas hardisk","Jumlah user"], level:4},
+        {q:"Protokol HTTP digunakan untuk...", opts:["Transfer file","Komunikasi antara web browser dan web server","Email","Database"], level:5},
+        {q:"Fungsi utama DBMS adalah...", opts:["Mendesain UI","Mengelola pembuatan, pemeliharaan, dan penggunaan database","Mengirim pesan","Mengedit foto"], level:6},
+        {q:"Primary Key berfungsi untuk...", opts:["Menghubungkan tabel","Mengidentifikasi setiap record secara unik","Menyimpan password","Menghitung total"], level:7},
+        {q:"Foreign Key digunakan untuk...", opts:["Mengidentifikasi record","Membuat relasi/referensi antara dua tabel","Menyimpan data ganda","Menghapus tabel"], level:8},
+        {q:"E-Commerce adalah...", opts:["Perdagangan tradisional","Pembelian dan penjualan barang/jasa melalui internet","Hanya B2B","Toko fisik"], level:1},
+        {q:"Model bisnis B2B berarti...", opts:["Business to Consumer","Business to Business","Buyer to Buyer","Bank to Bank"], level:2},
+        {q:"Digital Transformation adalah...", opts:["Beli komputer baru","Integrasi teknologi digital secara menyeluruh untuk mengubah cara bisnis","Ganti karyawan","Buat website"], level:3},
+        {q:"Gantt Chart dalam manajemen proyek adalah...", opts:["Diagram alir","Visualisasi jadwal proyek yang menunjukkan durasi dan timeline tugas","Tipe database","Bahasa pemrograman"], level:4},
+        {q:"Risk Management dalam proyek SI bertujuan untuk...", opts:["Menghindari semua risiko","Mengidentifikasi, menganalisis, dan memitigasi risiko proyek","Menambah biaya","Memperlambat proyek"], level:5},
+        {q:"User Acceptance Testing (UAT) adalah...", opts:["Testing developer","Pengujian oleh pengguna akhir untuk memvalidasi sistem sesuai kebutuhan","Testing jaringan","Testing server"], level:6},
+        {q:"Change Management dalam implementasi SI adalah...", opts:["Ganti hardware","Proses terstruktur untuk mengelola transisi perubahan dalam organisasi","Ubah password","Ganti vendor"], level:7},
+        // Fase 2 (46-90)
+        {q:"COBIT adalah...", opts:["Bahasa pemrograman","Framework tata kelola dan manajemen TI enterprise","Sistem operasi","Tipe database"], level:9},
+        {q:"ITIL berfokus pada...", opts:["Pemrograman","Praktik terbaik manajemen layanan TI (IT Service Management)","Desain grafis","Akuntansi"], level:9},
+        {q:"Incident Management dalam ITIL bertujuan untuk...", opts:["Mengembangkan software","Memulihkan layanan TI secepat mungkin setelah gangguan","Mendesain jaringan","Membuat database"], level:9},
+        {q:"ISO 27001 adalah standar untuk...", opts:["Manajemen kualitas","Sistem Manajemen Keamanan Informasi (ISMS)","Manajemen lingkungan","Keselamatan kerja"], level:10},
+        {q:"CIA Triad terdiri dari...", opts:["Computer, Internet, App","Confidentiality, Integrity, Availability","Code, Input, Algorithm","Cloud, Infra, Arch"], level:10},
+        {q:"Firewall berfungsi untuk...", opts:["Mempercepat internet","Mengontrol lalu lintas jaringan berdasarkan aturan keamanan","Menyimpan data","Mendesain web"], level:10},
+        {q:"Enkripsi adalah...", opts:["Menghapus data","Mengubah data menjadi bentuk yang tidak dapat dibaca tanpa kunci dekripsi","Menggandakan data","Format hardisk"], level:11},
+        {q:"SSL/TLS digunakan untuk...", opts:["Mengedit video","Mengamankan komunikasi data melalui internet (HTTPS)","Mendesain logo","Statistik"], level:11},
+        {q:"Phishing adalah...", opts:["Teknik programming","Serangan sosial untuk mencuri info sensitif dengan menyamar sebagai entitas terpercaya","Metode testing","Tipe database"], level:11},
+        {q:"Virtual Machine (VM) memungkinkan...", opts:["Tambah RAM fisik","Menjalankan beberapa OS dalam satu mesin fisik secara terisolasi","Percepat internet","Hapus virus"], level:12},
+        {q:"IaaS menyediakan...", opts:["Aplikasi siap pakai","Sumber daya komputasi dasar (server, storage, network) yang dapat dikonfigurasi","Software desain","Game online"], level:12},
+        {q:"Perbedaan Public dan Private Cloud...", opts:["Public lebih mahal","Public untuk umum via internet, Private didedikasikan untuk satu organisasi","Tidak ada beda","Private lebih lambat"], level:12},
+        {q:"TCP/IP Model terdiri dari...", opts:["3 layer","4 layer (Application, Transport, Internet, Network Access)","7 layer","5 layer"], level:13},
+        {q:"OSI Layer 3 (Network) bertanggung jawab atas...", opts:["Transmisi bit fisik","Routing dan pengalamatan logis (IP)","Sesi komunikasi","Presentasi data"], level:13},
+        {q:"Fungsi DNS adalah...", opts:["Menyimpan file","Menerjemahkan nama domain menjadi alamat IP","Mengenkripsi data","Percepat koneksi"], level:13},
+        {q:"Subnet Mask digunakan untuk...", opts:["Mengenkripsi data","Menentukan bagian network dan host dari alamat IP","Percepat download","Hapus file"], level:13},
+        {q:"Disaster Recovery Plan (DRP) adalah...", opts:["Rencana pemasaran","Strategi untuk memulihkan sistem TI setelah bencana atau gangguan besar","Rencana anggaran","Rekrutmen"], level:14},
+        {q:"RTO (Recovery Time Objective) mengukur...", opts:["Biaya pemulihan","Waktu maksimum yang dapat diterima untuk memulihkan sistem setelah gangguan","Data hilang","Kecepatan internet"], level:14},
+        {q:"RPO (Recovery Point Objective) mengukur...", opts:["Waktu pemulihan","Jumlah data maksimum yang boleh hilang setelah insiden","Biaya backup","Kecepatan server"], level:14},
+        {q:"Load Balancing adalah...", opts:["Memperbaiki server","Mendistribusikan traffic jaringan ke beberapa server untuk performa dan reliabilitas","Hapus server","Ganti kabel"], level:15},
+        {q:"Fungsi IT Audit adalah...", opts:["Memperbaiki bug","Evaluasi independen terhadap sistem TI untuk memastikan keandalan, keamanan, kepatuhan","Desain software","Buat database"], level:9},
+        {q:"RBAC memberikan izin berdasarkan...", opts:["Nama pengguna","Peran/jabatan pengguna dalam organisasi","Waktu login","Lokasi geografis"], level:10},
+        {q:"Multi-Factor Authentication (MFA) adalah...", opts:["Satu password","Verifikasi identitas menggunakan dua atau lebih faktor (diketahui, dimiliki, melekat)","Tanpa password","Login otomatis"], level:11},
+        {q:"Containerization (Docker) berbeda dari VM karena...", opts:["Lebih berat","Berbagi kernel OS host sehingga lebih ringan dan efisien","Tidak bisa di Linux","Lisensi mahal"], level:12},
+        {q:"Fungsi DHCP adalah...", opts:["Mengenkripsi data","Mengalokasikan alamat IP secara otomatis ke device dalam jaringan","Menerjemahkan domain","Memfilter traffic"], level:13},
+        {q:"High Availability (HA) berarti...", opts:["Sistem sering mati","Sistem dirancang untuk beroperasi terus-menerus tanpa downtime signifikan","Sistem lambat","Sistem manual"], level:14},
+        {q:"Microservices Architecture adalah...", opts:["Satu aplikasi monolitik","Arsitektur yang memecah aplikasi menjadi layanan-layanan kecil independen","Database tunggal","Tanpa jaringan"], level:15},
+        {q:"Peran IT Steering Committee adalah...", opts:["Memperbaiki komputer","Badan yang mengarahkan strategi TI dan memastikan keselarasan dengan bisnis","Instal software","Buat email"], level:9},
+        {q:"Security Incident Response adalah...", opts:["Beli antivirus","Prosedur terstruktur untuk menangani dan mengelola dampak insiden keamanan","Hapus email","Ganti password"], level:10},
+        {q:"Penetration Testing bertujuan untuk...", opts:["Memperbaiki UI","Mengidentifikasi kerentanan keamanan dengan mensimulasikan serangan","Desain database","Buat backup"], level:11},
+        {q:"DevOps adalah...", opts:["Tipe database","Pendekatan menggabungkan Development dan Operations untuk mempercepat delivery software","Bahasa pemrograman","Sistem operasi"], level:12},
+        {q:"CDN berfungsi untuk...", opts:["Membuat konten","Mendistribusikan konten ke server edge yang lebih dekat dengan pengguna untuk mempercepat akses","Enkripsi data","Buat database"], level:13},
+        {q:"Monitoring dan Alerting berfungsi untuk...", opts:["Hapus log","Mendeteksi anomali dan memberikan notifikasi ketika ada masalah performa/ketersediaan","Desain UI","Hitung biaya"], level:14},
+        {q:"Infrastructure as Code (IaC) memungkinkan...", opts:["Kode manual","Mengelola dan provision infrastruktur melalui kode/script secara otomatis","Menggambar diagram","Edit dokumen"], level:15},
+        {q:"COBIT 2019 memiliki governance objective...", opts:["17","40","5","100"], level:9},
+        {q:"Zero Trust Security adalah...", opts:["Percaya semua user","Prinsip 'never trust, always verify' - tidak ada yang dipercaya secara default","Tanpa keamanan","Keamanan perimeter"], level:10},
+        {q:"Hash function menghasilkan...", opts:["Data reversible","Nilai fixed-length unik dari input data (one-way function)","Password decrypt","File enkripsi"], level:11},
+        {q:"Serverless Computing adalah...", opts:["Tanpa server","Model cloud di mana provider mengelola server, developer hanya menulis fungsi/code","Server rumah","Tanpa internet"], level:12},
+        {q:"VLAN digunakan untuk...", opts:["Percepat internet","Membagi jaringan fisik menjadi beberapa jaringan logis terpisah untuk keamanan","Enkripsi data","Simpan file"], level:13},
+        {q:"Business Continuity Plan (BCP) adalah...", opts:["Rencana pemasaran","Strategi menyeluruh untuk memastikan operasi bisnis tetap berjalan selama/setelah gangguan","Rencana liburan","Rekrutmen"], level:14},
+        {q:"Keuntungan Container Orchestration (Kubernetes) adalah...", opts:["Memperlambat deployment","Otomatisasi deployment, scaling, dan management container dalam cluster","Hapus container","Butuh banyak hardware"], level:15},
+        {q:"EDM dalam COBIT adalah...", opts:["Tahap development","Domain tata kelola untuk mengevaluasi kebutuhan, mengarahkan, dan memonitor kinerja","Tipe database","Metode testing"], level:9},
+        {q:"Data Classification adalah...", opts:["Hapus data","Proses mengkategorikan data berdasarkan tingkat sensitivitas untuk penanganan sesuai","Gandakan data","Kompres file"], level:10},
+        {q:"Social Engineering dalam keamanan adalah...", opts:["Rekayasa software","Manipulasi psikologis untuk membuat orang membocorkan informasi rahasia","Buat website","Desain UI"], level:11},
+        {q:"Perbedaan Scaling Up dan Scaling Out...", opts:["Scaling Up tambah resource satu server, Scaling Out tambah jumlah server","Keduanya sama","Scaling Out selalu murah","Scaling Up selalu baik"], level:12},
+        // Fase 3 (91-120)
+        {q:"Dalam Laravel, fungsi Route adalah...", opts:["Menghubungkan URL dengan controller/action yang sesuai","Mendesain database","Mengelola session","Mengirim email"], level:16},
+        {q:"MVC (Model-View-Controller) adalah...", opts:["Tipe database","Pola arsitektur yang memisahkan aplikasi menjadi Model (data), View (tampilan), Controller (logika)","Bahasa pemrograman","Framework CSS"], level:16},
+        {q:"Migration dalam Laravel berfungsi untuk...", opts:["Upload file","Membuat dan memodifikasi tabel database secara terstruktur melalui kode","Mendesain UI","Notifikasi"], level:16},
+        {q:"Tag HTML5 semantic <article> digunakan untuk...", opts:["Navigasi","Konten independen yang bisa berdiri sendiri seperti blog post","Footer","Sidebar"], level:17},
+        {q:"Perbedaan <div> dan <span> adalah...", opts:["<div> inline, <span> block","<div> block-level element, <span> inline element","Keduanya sama","Tidak ada beda"], level:17},
+        {q:"Fungsi Flexbox dalam CSS adalah...", opts:["Membuat animasi","Model layout satu dimensi untuk mendistribusikan ruang dan menyelaraskan item","Kelola database","Kirim request"], level:17},
+        {q:"Perbedaan CSS Grid dan Flexbox...", opts:["Grid 1 dimensi, Flexbox 2 dimensi","Grid untuk layout 2 dimensi (baris DAN kolom), Flexbox untuk 1 dimensi (baris ATAU kolom)","Keduanya sama","Grid hanya mobile"], level:18},
+        {q:"Closure dalam JavaScript adalah...", opts:["Tipe data","Fungsi yang memiliki akses ke variabel dari scope luar bahkan setelah scope luar selesai dieksekusi","Method array","Event handler"], level:18},
+        {q:"Perbedaan var, let, dan const dalam JS...", opts:["Keduanya sama","var function-scoped, let dan const block-scoped; const tidak bisa di-reassign","let hanya angka","const untuk string"], level:18},
+        {q:"Promise dalam JavaScript adalah...", opts:["Tipe data string","Objek yang merepresentasikan penyelesaian atau kegagalan suatu operasi asynchronous di masa depan","Method DOM","Event listener"], level:19},
+        {q:"Async/Await dalam JS digunakan untuk...", opts:["Percepat eksekusi","Menulis kode asynchronous yang terlihat dan berperilaku seperti synchronous","Hapus variabel","Buat loop"], level:19},
+        {q:"DOM (Document Object Model) adalah...", opts:["Bahasa pemrograman","Representasi tree dari dokumen HTML yang memungkinkan JS memanipulasi konten dan struktur","Tipe database","Framework CSS"], level:19},
+        {q:"Perbedaan git merge dan git rebase...", opts:["Keduanya sama","Merge membuat commit baru penggabungan, Rebase memindahkan commit ke atas branch lain untuk history linear","Rebase lebih aman","Merge hapus branch"], level:20},
+        {q:"Fungsi git stash adalah...", opts:["Hapus commit","Menyimpan perubahan yang belum di-commit sementara untuk bisa diambil nanti","Buat branch baru","Kirim ke remote"], level:20},
+        {q:"REST API menggunakan metode HTTP...", opts:["Hanya GET","GET, POST, PUT, PATCH, DELETE","Hanya POST","Hanya DELETE"], level:20},
+        {q:"Status Code 404 dalam HTTP berarti...", opts:["Success","Not Found - resource tidak ditemukan","Server Error","Redirect"], level:21},
+        {q:"JWT (JSON Web Token) digunakan untuk...", opts:["Mendesain UI","Autentikasi dan otorisasi yang mentransmisikan informasi klaim antara dua pihak secara aman","Kompres data","Buat database"], level:21},
+        {q:"Perbedaan PUT dan PATCH dalam REST API...", opts:["Keduanya sama","PUT mengganti seluruh resource, PATCH melakukan update parsial","PATCH hapus resource","PUT hanya GET"], level:21},
+        {q:"Eloquent ORM dalam Laravel adalah...", opts:["Template engine","ORM yang memetakan tabel database ke class PHP (Model) untuk manipulasi data","Router","Middleware"], level:22},
+        {q:"Middleware dalam Laravel adalah...", opts:["Database driver","Class yang memproses request HTTP sebelum sampai ke controller (filter/interceptor)","View template","Route definition"], level:22},
+        {q:"Event Bubbling dalam JavaScript adalah...", opts:["Hapus event","Peristiwa dimana event yang terjadi pada child element akan merambat ke parent element","Buat event baru","Tunda event"], level:22},
+        {q:"CORS (Cross-Origin Resource Sharing) adalah...", opts:["Tipe database","Mekanisme yang memungkinkan/membatasi akses resource dari domain berbeda","Framework JS","Metode enkripsi"], level:23},
+        {q:"Rate Limiting dalam API adalah...", opts:["Percepat API","Membatasi jumlah request yang dapat dilakukan klien dalam periode waktu tertentu","Hapus API","Tambah server"], level:23},
+        {q:"Fungsi file .env dalam Laravel adalah...", opts:["Simpan kode program","Menyimpan konfigurasi environment (database credentials, API keys, dll) secara terpisah","Template HTML","Route file"], level:23},
+        {q:"Branch dalam Git adalah...", opts:["Hapus repository","Garis pengembangan independen dalam repository untuk fitur atau perbaikan terpisah","Commit terakhir","File konfigurasi"], level:24},
+        {q:"Responsive Web Design adalah...", opts:["Website cepat","Desain website yang menyesuaikan tampilan dan layout berdasarkan ukuran layar/device pengguna","Website animasi","Website tanpa CSS"], level:24},
+        {q:"Perbedaan == dan === dalam JavaScript...", opts:["Keduanya sama","== membandingkan nilai (dengan type coercion), === membandingkan nilai DAN tipe data (strict equality)","=== lebih lambat","== hanya string"], level:24},
+        {q:"SQL Injection adalah...", opts:["Optimasi query","Serangan keamanan dimana attacker menyisipkan kode SQL berbahaya melalui input aplikasi","Backup database","Normalisasi tabel"], level:25},
+        {q:"API Documentation (Swagger/OpenAPI) adalah...", opts:["Kode sumber API","Dokumentasi yang menjelaskan endpoint, parameter, dan respons API untuk memudahkan integrasi","Database schema","Server config"], level:25},
+        {q:"CI/CD (Continuous Integration/Continuous Deployment) adalah...", opts:["Tipe database","Praktik mengotomatisasi integrasi kode, testing, dan deployment untuk delivery software yang lebih cepat dan reliable","Bahasa pemrograman","Framework frontend"], level:25}
+    ];
 
-    // FASE 2: Tata Kelola & Infrastruktur TI (Level 9-15) - 45 Soal
-    {id:46, level:9, q:"COBIT (Control Objectives for Information and Related Technologies) adalah...", opts:["Bahasa pemrograman","Framework tata kelola dan manajemen TI enterprise","Sistem operasi","Tipe database"], ans:"b"},
-    {id:47, level:9, q:"ITIL (Information Technology Infrastructure Library) berfokus pada...", opts:["Pemrograman","Praktik terbaik manajemen layanan TI (IT Service Management)","Desain grafis","Akuntansi"], ans:"b"},
-    {id:48, level:9, q:"Dalam ITIL, Incident Management bertujuan untuk...", opts:["Mengembangkan software","Memulihkan layanan TI secepat mungkin setelah terjadi gangguan","Mendesain jaringan","Membuat database"], ans:"b"},
-    {id:49, level:10, q:"ISO 27001 adalah standar internasional untuk...", opts:["Manajemen kualitas","Sistem Manajemen Keamanan Informasi (ISMS)","Manajemen lingkungan","Keselamatan kerja"], ans:"b"},
-    {id:50, level:10, q:"CIA Triad dalam keamanan informasi terdiri dari...", opts:["Computer, Internet, Application","Confidentiality, Integrity, Availability","Code, Input, Algorithm","Cloud, Infrastructure, Architecture"], ans:"b"},
-    {id:51, level:10, q:"Firewall berfungsi untuk...", opts:["Mempercepat internet","Mengontrol lalu lintas jaringan berdasarkan aturan keamanan yang ditetapkan","Menyimpan data","Mendesain website"], ans:"b"},
-    {id:52, level:11, q:"Apa yang dimaksud dengan Enkripsi?", opts:["Menghapus data","Mengubah data menjadi bentuk yang tidak dapat dibaca tanpa kunci dekripsi","Menggandakan data","Memformat hardisk"], ans:"b"},
-    {id:53, level:11, q:"SSL/TLS digunakan untuk...", opts:["Mengedit video","Mengamankan komunikasi data melalui internet (HTTPS)","Mendesain logo","Menghitung statistik"], ans:"b"},
-    {id:54, level:11, q:"Apa yang dimaksud dengan Phishing?", opts:["Teknik programming","Serangan sosial untuk mencuri informasi sensitif dengan menyamar sebagai entitas terpercaya","Metode testing","Tipe database"], ans:"b"},
-    {id:55, level:12, q:"Virtual Machine (VM) memungkinkan...", opts:["Menambah RAM fisik","Menjalankan beberapa sistem operasi dalam satu mesin fisik secara terisolasi","Mempercepat internet","Menghapus virus"], ans:"b"},
-    {id:56, level:12, q:"Dalam cloud computing, IaaS (Infrastructure as a Service) menyediakan...", opts:["Aplikasi siap pakai","Sumber daya komputasi dasar (server, storage, network) yang dapat dikonfigurasi","Software desain","Game online"], ans:"b"},
-    {id:57, level:12, q:"Apa perbedaan Public Cloud dan Private Cloud?", opts:["Public lebih mahal","Public tersedia untuk umum via internet, Private didedikasikan untuk satu organisasi","Tidak ada perbedaan","Private lebih lambat"], ans:"b"},
-    {id:58, level:13, q:"TCP/IP Model terdiri dari berapa layer?", opts:["3","4 (Application, Transport, Internet, Network Access)","7","5"], ans:"b"},
-    {id:59, level:13, q:"OSI Layer 3 (Network Layer) bertanggung jawab atas...", opts:["Transmisi bit fisik","Routing dan pengalamatan logis (IP)","Sesi komunikasi","Presentasi data"], ans:"b"},
-    {id:60, level:13, q:"Apa fungsi DNS (Domain Name System)?", opts:["Menyimpan file","Menerjemahkan nama domain menjadi alamat IP","Mengenkripsi data","Mempercepat koneksi"], ans:"b"},
-    {id:61, level:13, q:"Subnet Mask digunakan untuk...", opts:["Mengenkripsi data","Menentukan bagian network dan host dari alamat IP","Mempercepat download","Menghapus file"], ans:"b"},
-    {id:62, level:14, q:"Apa yang dimaksud dengan Disaster Recovery Plan (DRP)?", opts:["Rencana pemasaran","Strategi dan prosedur untuk memulihkan sistem TI setelah bencana atau gangguan besar","Rencana anggaran","Rencana perekrutan"], ans:"b"},
-    {id:63, level:14, q:"RTO (Recovery Time Objective) mengukur...", opts:["Biaya pemulihan","Waktu maksimum yang dapat diterima untuk memulihkan sistem setelah gangguan","Jumlah data yang hilang","Kecepatan internet"], ans:"b"},
-    {id:64, level:14, q:"RPO (Recovery Point Objective) mengukur...", opts:["Waktu pemulihan","Jumlah data maksimum yang boleh hilang (berdasarkan waktu) setelah insiden","Biaya backup","Kecepatan server"], ans:"b"},
-    {id:65, level:15, q:"Apa yang dimaksud dengan Load Balancing?", opts:["Memperbaiki server","Mendistribusikan traffic jaringan ke beberapa server untuk meningkatkan performa dan reliabilitas","Menghapus server","Mengganti kabel"], ans:"b"},
-    {id:66, level:9, q:"Dalam konteks audit SI, apa fungsi IT Audit?", opts:["Memperbaiki bug","Evaluasi independen terhadap sistem TI untuk memastikan keandalan, keamanan, dan kepatuhan","Mendesain software","Membuat database"], ans:"b"},
-    {id:67, level:10, q:"Access Control Model RBAC (Role-Based Access Control) memberikan izin berdasarkan...", opts:["Nama pengguna","Peran/jabatan pengguna dalam organisasi","Waktu login","Lokasi geografis"], ans:"b"},
-    {id:68, level:11, q:"Apa yang dimaksud dengan Multi-Factor Authentication (MFA)?", opts:["Login dengan satu password","Verifikasi identitas menggunakan dua atau lebih faktor (sesuatu yang diketahui, dimiliki, atau melekat)","Login tanpa password","Login otomatis"], ans:"b"},
-    {id:69, level:12, q:"Containerization (Docker) berbeda dari VM karena...", opts:["Lebih berat","Berbagi kernel OS host sehingga lebih ringan dan efisien","Tidak bisa berjalan di Linux","Memerlukan lisensi mahal"], ans:"b"},
-    {id:70, level:13, q:"Apa fungsi DHCP (Dynamic Host Configuration Protocol)?", opts:["Mengenkripsi data","Mengalokasikan alamat IP secara otomatis ke device dalam jaringan","Menerjemahkan domain","Memfilter traffic"], ans:"b"},
-    {id:71, level:14, q:"High Availability (HA) dalam infrastruktur TI berarti...", opts:["Sistem sering mati","Sistem dirancang untuk beroperasi terus-menerus tanpa downtime yang signifikan","Sistem lambat","Sistem manual"], ans:"b"},
-    {id:72, level:15, q:"Apa yang dimaksud dengan Microservices Architecture?", opts:["Satu aplikasi besar monolitik","Arsitektur yang memecah aplikasi menjadi layanan-layanan kecil yang independen dan saling berkomunikasi","Database tunggal","Sistem tanpa jaringan"], ans:"b"},
-    {id:73, level:9, q:"Dalam tata kelola TI, apa peran IT Steering Committee?", opts:["Memperbaiki komputer","Badan yang mengarahkan strategi TI dan memastikan keselarasan dengan bisnis","Menginstal software","Membuat akun email"], ans:"b"},
-    {id:74, level:10, q:"Apa yang dimaksud dengan Security Incident Response?", opts:["Membeli antivirus","Prosedur terstruktur untuk menangani dan mengelola dampak insiden keamanan","Menghapus email","Mengganti password"], ans:"b"},
-    {id:75, level:11, q:"Penetration Testing bertujuan untuk...", opts:["Memperbaiki UI","Mengidentifikasi kerentanan keamanan dengan mensimulasikan serangan","Mendesain database","Membuat backup"], ans:"b"},
-    {id:76, level:12, q:"Apa yang dimaksud dengan DevOps?", opts:["Tipe database","Pendekatan yang menggabungkan Development dan Operations untuk mempercepat delivery software","Bahasa pemrograman","Sistem operasi"], ans:"b"},
-    {id:77, level:13, q:"CDN (Content Delivery Network) berfungsi untuk...", opts:["Membuat konten","Mendistribusikan konten ke server edge yang lebih dekat dengan pengguna untuk mempercepat akses","Mengenkripsi data","Membuat database"], ans:"b"},
-    {id:78, level:14, q:"Apa fungsi dari Monitoring dan Alerting dalam infrastruktur TI?", opts:["Menghapus log","Mendeteksi anomali dan memberikan notifikasi ketika ada masalah performa atau ketersediaan","Mendesain UI","Menghitung biaya"], ans:"b"},
-    {id:79, level:15, q:"Infrastructure as Code (IaC) memungkinkan...", opts:["Menulis kode manual","Mengelola dan provision infrastruktur melalui kode/script secara otomatis dan reproducible","Menggambar diagram","Mengedit dokumen"], ans:"b"},
-    {id:80, level:9, q:"COBIT 2019 memiliki berapa governance objective?", opts:["17","40","5","100"], ans:"b"},
-    {id:81, level:10, q:"Apa yang dimaksud dengan Zero Trust Security?", opts:["Mempercayai semua user","Prinsip 'never trust, always verify' - tidak ada yang dipercaya secara default baik internal maupun eksternal","Tanpa keamanan","Keamanan hanya di perimeter"], ans:"b"},
-    {id:82, level:11, q:"Hash function dalam kriptografi menghasilkan...", opts:["Data yang bisa dikembalikan ke bentuk asli","Nilai fixed-length unik dari input data (one-way function)","Password yang bisa di-decrypt","File yang dienkripsi"], ans:"b"},
-    {id:83, level:12, q:"Apa yang dimaksud dengan Serverless Computing?", opts:["Tanpa server sama sekali","Model cloud di mana provider mengelola server, developer hanya menulis fungsi/code","Server di rumah","Komputasi tanpa internet"], ans:"b"},
-    {id:84, level:13, q:"VLAN (Virtual LAN) digunakan untuk...", opts:["Mempercepat internet","Membagi jaringan fisik menjadi beberapa jaringan logis terpisah untuk keamanan dan efisiensi","Mengenkripsi data","Menyimpan file"], ans:"b"},
-    {id:85, level:14, q:"Apa yang dimaksud dengan Business Continuity Plan (BCP)?", opts:["Rencana pemasaran","Strategi menyeluruh untuk memastikan operasi bisnis tetap berjalan selama dan setelah gangguan","Rencana liburan","Rencana perekrutan"], ans:"b"},
-    {id:86, level:15, q:"Apa keuntungan utama dari Container Orchestration (Kubernetes)?", opts:["Memperlambat deployment","Otomatisasi deployment, scaling, dan management container dalam cluster","Menghapus semua container","Membutuhkan banyak hardware"], ans:"b"},
-    {id:87, level:9, q:"Dalam COBIT, apa yang dimaksud dengan EDM (Evaluate, Direct, Monitor)?", opts:["Tahap development","Domain tata kelola untuk mengevaluasi kebutuhan, mengarahkan, dan memonitor kinerja","Tipe database","Metode testing"], ans:"b"},
-    {id:88, level:10, q:"Apa yang dimaksud dengan Data Classification dalam keamanan informasi?", opts:["Menghapus data","Proses mengkategorikan data berdasarkan tingkat sensitivitas untuk penanganan yang sesuai","Menggandakan data","Mengompres file"], ans:"b"},
-    {id:89, level:11, q:"Apa yang dimaksud dengan Social Engineering dalam konteks keamanan?", opts:["Rekayasa perangkat lunak","Manipulasi psikologis untuk membuat orang membocorkan informasi rahasia","Pembuatan website","Desain UI"], ans:"b"},
-    {id:90, level:12, q:"Apa perbedaan antara Scaling Up dan Scaling Out?", opts:["Scaling Up menambah resource satu server, Scaling Out menambah jumlah server","Keduanya sama","Scaling Out lebih murah selalu","Scaling Up selalu lebih baik"], ans:"a"},
+    // Distribusi jawaban merata: a, b, c, d berurutan lalu di-shuffle opsinya agar tidak terprediksi
+    return base.map((item, index) => {
+        const correctIndex = index % 4; // 0=a, 1=b, 2=c, 3=d
+        const ansKey = ['a', 'b', 'c', 'd'][correctIndex];
+        
+        // Shuffle options but keep track of the correct answer
+        let optsWithIndex = item.opts.map((opt, i) => ({ text: opt, isCorrect: i === correctIndex }));
+        optsWithIndex = optsWithIndex.sort(() => Math.random() - 0.5);
+        
+        const finalOpts = optsWithIndex.map(o => o.text);
+        const finalAns = ['a', 'b', 'c', 'd'][optsWithIndex.findIndex(o => o.isCorrect)];
+        
+        return {
+            id: index + 1,
+            level: item.level,
+            q: item.q,
+            opts: finalOpts,
+            ans: finalAns
+        };
+    });
+};
 
-    // FASE 3: Pemrograman & Teknis Lanjutan (Level 16+) - 30 Soal
-    {id:91, level:16, q:"Dalam Laravel, apa fungsi dari Route?", opts:["Menghubungkan URL dengan controller/action yang sesuai","Mendesain database","Mengelola session","Mengirim email"], ans:"a"},
-    {id:92, level:16, q:"Apa yang dimaksud dengan MVC (Model-View-Controller)?", opts:["Tipe database","Pola arsitektur yang memisahkan aplikasi menjadi Model (data), View (tampilan), dan Controller (logika)","Bahasa pemrograman","Framework CSS"], ans:"b"},
-    {id:93, level:16, q:"Dalam Laravel, Migration berfungsi untuk...", opts:["Mengupload file","Membuat dan memodifikasi tabel database secara terstruktur melalui kode","Mendesain UI","Mengirim notifikasi"], ans:"b"},
-    {id:94, level:17, q:"Tag HTML5 semantic <article> digunakan untuk...", opts:["Navigasi","Konten independen yang bisa berdiri sendiri seperti blog post","Footer","Sidebar"], ans:"b"},
-    {id:95, level:17, q:"Apa perbedaan antara <div> dan <span>?", opts:["<div> inline, <span> block","<div> block-level element, <span> inline element","Keduanya sama","Tidak ada perbedaan"], ans:"b"},
-    {id:96, level:17, q:"Dalam CSS, apa fungsi dari Flexbox?", opts:["Membuat animasi","Model layout satu dimensi untuk mendistribusikan ruang dan menyelaraskan item","Mengelola database","Mengirim request"], ans:"b"},
-    {id:97, level:18, q:"Apa perbedaan antara CSS Grid dan Flexbox?", opts:["Grid untuk 1 dimensi, Flexbox untuk 2 dimensi","Grid untuk layout 2 dimensi (baris DAN kolom), Flexbox untuk 1 dimensi (baris ATAU kolom)","Keduanya sama","Grid hanya untuk mobile"], ans:"b"},
-    {id:98, level:18, q:"Dalam JavaScript, apa itu Closure?", opts:["Tipe data","Fungsi yang memiliki akses ke variabel dari scope luar bahkan setelah scope luar selesai dieksekusi","Method array","Event handler"], ans:"b"},
-    {id:99, level:18, q:"Apa perbedaan antara var, let, dan const dalam JavaScript?", opts:["Keduanya sama","var function-scoped, let dan const block-scoped; const tidak bisa di-reassign","let hanya untuk angka","const untuk string saja"], ans:"b"},
-    {id:100, level:19, q:"Apa itu Promise dalam JavaScript?", opts:["Tipe data string","Objek yang merepresentasikan penyelesaian atau kegagalan suatu operasi asynchronous di masa depan","Method DOM","Event listener"], ans:"b"},
-    {id:101, level:19, q:"Async/Await dalam JavaScript digunakan untuk...", opts:["Mempercepat eksekusi","Menulis kode asynchronous yang terlihat dan berperilaku seperti synchronous","Menghapus variabel","Membuat loop"], ans:"b"},
-    {id:102, level:19, q:"Apa yang dimaksud dengan DOM (Document Object Model)?", opts:["Bahasa pemrograman","Representasi tree dari dokumen HTML yang memungkinkan JavaScript memanipulasi konten dan struktur","Tipe database","Framework CSS"], ans:"b"},
-    {id:103, level:20, q:"Dalam Git, apa perbedaan antara git merge dan git rebase?", opts:["Keduanya sama","Merge membuat commit baru penggabungan, Rebase memindahkan commit ke atas branch lain untuk history linear","Rebase lebih aman selalu","Merge menghapus branch"], ans:"b"},
-    {id:104, level:20, q:"Apa fungsi dari git stash?", opts:["Menghapus commit","Menyimpan perubahan yang belum di-commit sementara untuk bisa diambil nanti","Membuat branch baru","Mengirim ke remote"], ans:"b"},
-    {id:105, level:20, q:"REST API menggunakan metode HTTP apa saja?", opts:["Hanya GET","GET, POST, PUT, PATCH, DELETE","Hanya POST","Hanya DELETE"], ans:"b"},
-    {id:106, level:21, q:"Apa yang dimaksud dengan Status Code 404 dalam HTTP?", opts:["Success","Not Found - resource tidak ditemukan","Server Error","Redirect"], ans:"b"},
-    {id:107, level:21, q:"JWT (JSON Web Token) digunakan untuk...", opts:["Mendesain UI","Autentikasi dan otorisasi yang mentransmisikan informasi klaim antara dua pihak secara aman","Mengompres data","Membuat database"], ans:"b"},
-    {id:108, level:21, q:"Apa perbedaan antara PUT dan PATCH dalam REST API?", opts:["Keduanya sama","PUT mengganti seluruh resource, PATCH melakukan update parsial","PATCH menghapus resource","PUT hanya untuk GET"], ans:"b"},
-    {id:109, level:22, q:"Dalam Laravel, apa fungsi dari Eloquent ORM?", opts:["Template engine","ORM yang memetakan tabel database ke class PHP (Model) untuk manipulasi data","Router","Middleware"], ans:"b"},
-    {id:110, level:22, q:"Apa yang dimaksud dengan Middleware dalam Laravel?", opts:["Database driver","Class yang memproses request HTTP sebelum sampai ke controller (filter/interceptor)","View template","Route definition"], ans:"b"},
-    {id:111, level:22, q:"Dalam JavaScript, apa itu Event Bubbling?", opts:["Menghapus event","Peristiwa dimana event yang terjadi pada child element akan merambat ke parent element","Membuat event baru","Menunda event"], ans:"b"},
-    {id:112, level:23, q:"Apa yang dimaksud dengan CORS (Cross-Origin Resource Sharing)?", opts:["Tipe database","Mekanisme yang memungkinkan/membatasi akses resource dari domain berbeda","Framework JavaScript","Metode enkripsi"], ans:"b"},
-    {id:113, level:23, q:"Dalam konteks API, apa itu Rate Limiting?", opts:["Mempercepat API","Membatasi jumlah request yang dapat dilakukan klien dalam periode waktu tertentu","Menghapus API","Menambah server"], ans:"b"},
-    {id:114, level:23, q:"Apa fungsi dari .env file dalam Laravel?", opts:["Menyimpan kode program","Menyimpan konfigurasi environment (database credentials, API keys, dll) secara terpisah","Template HTML","Route file"], ans:"b"},
-    {id:115, level:24, q:"Dalam Git, apa yang dimaksud dengan Branch?", opts:["Hapus repository","Garis pengembangan independen dalam repository untuk fitur atau perbaikan terpisah","Commit terakhir","File konfigurasi"], ans:"b"},
-    {id:116, level:24, q:"Apa yang dimaksud dengan Responsive Web Design?", opts:["Website yang cepat","Desain website yang menyesuaikan tampilan dan layout berdasarkan ukuran layar/device pengguna","Website dengan animasi","Website tanpa CSS"], ans:"b"},
-    {id:117, level:24, q:"Dalam JavaScript, apa perbedaan antara == dan ===?", opts:["Keduanya sama","== membandingkan nilai (dengan type coercion), === membandingkan nilai DAN tipe data (strict equality)","=== lebih lambat","== hanya untuk string"], ans:"b"},
-    {id:118, level:25, q:"Apa yang dimaksud dengan SQL Injection?", opts:["Optimasi query","Serangan keamanan dimana attacker menyisipkan kode SQL berbahaya melalui input aplikasi","Backup database","Normalisasi tabel"], ans:"b"},
-    {id:119, level:25, q:"Dalam REST API, apa itu API Documentation (seperti Swagger/OpenAPI)?", opts:["Kode sumber API","Dokumentasi yang menjelaskan endpoint, parameter, dan respons API untuk memudahkan integrasi","Database schema","Server configuration"], ans:"b"},
-    {id:120, level:25, q:"Apa yang dimaksud dengan CI/CD (Continuous Integration/Continuous Deployment)?", opts:["Tipe database","Praktik mengotomatisasi integrasi kode, testing, dan deployment untuk delivery software yang lebih cepat dan reliable","Bahasa pemrograman","Framework frontend"], ans:"b"}
-];
+const bankSoalLengkap = generateSoal();
 
 // ==================== STATE MANAGEMENT ====================
 let currentUser = null;
@@ -588,113 +518,37 @@ let timeRemaining = 1800;
 let selectedRating = 0;
 let modalCallback = null;
 let audioCtx = null;
-let isAnswerLocked = false; // Flag untuk mengunci jawaban setelah diklik
+let isLocked = false;
+let autoAdvanceTimeout = null;
 
-// ==================== AUDIO ENGINE (Web Audio API) ====================
+// ==================== AUDIO ENGINE ====================
 function initAudio() {
-    if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    }
-    if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-    }
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
 }
 
 function playSound(type) {
-    initAudio();
+    if (!audioCtx) return;
     try {
-        const oscillator = audioCtx.createOscillator();
-        const gainNode = audioCtx.createGain();
-        oscillator.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-        gainNode.gain.value = 0.1;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        gain.gain.value = 0.1;
         
-        switch(type) {
-            case 'click':
-                oscillator.frequency.value = 800;
-                oscillator.type = 'sine';
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-                oscillator.start(audioCtx.currentTime);
-                oscillator.stop(audioCtx.currentTime + 0.1);
-                break;
-            case 'correct':
-                oscillator.frequency.value = 523;
-                oscillator.type = 'sine';
-                oscillator.start(audioCtx.currentTime);
-                oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.1);
-                oscillator.frequency.setValueAtTime(784, audioCtx.currentTime + 0.2);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
-                oscillator.stop(audioCtx.currentTime + 0.4);
-                break;
-            case 'wrong':
-                oscillator.frequency.value = 200;
-                oscillator.type = 'square';
-                gainNode.gain.value = 0.08;
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                oscillator.start(audioCtx.currentTime);
-                oscillator.stop(audioCtx.currentTime + 0.3);
-                break;
-            case 'success':
-                oscillator.frequency.value = 523;
-                oscillator.type = 'sine';
-                oscillator.start(audioCtx.currentTime);
-                oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.1);
-                oscillator.frequency.setValueAtTime(784, audioCtx.currentTime + 0.2);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
-                oscillator.stop(audioCtx.currentTime + 0.4);
-                break;
-            case 'error':
-                oscillator.frequency.value = 150;
-                oscillator.type = 'sawtooth';
-                gainNode.gain.value = 0.1;
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                oscillator.start(audioCtx.currentTime);
-                oscillator.stop(audioCtx.currentTime + 0.3);
-                break;
-            case 'start':
-                oscillator.frequency.value = 440;
-                oscillator.type = 'sine';
-                oscillator.start(audioCtx.currentTime);
-                oscillator.frequency.setValueAtTime(554, audioCtx.currentTime + 0.15);
-                oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.3);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-                oscillator.stop(audioCtx.currentTime + 0.5);
-                break;
-            case 'win':
-                oscillator.frequency.value = 523;
-                oscillator.type = 'sine';
-                oscillator.start(audioCtx.currentTime);
-                oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.15);
-                oscillator.frequency.setValueAtTime(784, audioCtx.currentTime + 0.3);
-                oscillator.frequency.setValueAtTime(1047, audioCtx.currentTime + 0.45);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.7);
-                oscillator.stop(audioCtx.currentTime + 0.7);
-                break;
-            case 'lose':
-                oscillator.frequency.value = 400;
-                oscillator.type = 'sawtooth';
-                gainNode.gain.value = 0.05;
-                oscillator.start(audioCtx.currentTime);
-                oscillator.frequency.setValueAtTime(300, audioCtx.currentTime + 0.2);
-                oscillator.frequency.setValueAtTime(200, audioCtx.currentTime + 0.4);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
-                oscillator.stop(audioCtx.currentTime + 0.6);
-                break;
-            case 'timeout':
-                oscillator.frequency.value = 600;
-                oscillator.type = 'square';
-                gainNode.gain.value = 0.08;
-                oscillator.start(audioCtx.currentTime);
-                oscillator.frequency.setValueAtTime(400, audioCtx.currentTime + 0.3);
-                oscillator.frequency.setValueAtTime(200, audioCtx.currentTime + 0.6);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.9);
-                oscillator.stop(audioCtx.currentTime + 0.9);
-                break;
-        }
-    } catch(e) { /* silent fail */ }
+        if (type === 'click') { osc.frequency.value = 800; osc.type = 'sine'; gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1); osc.start(); osc.stop(audioCtx.currentTime + 0.1); }
+        else if (type === 'correct') { osc.frequency.value = 523; osc.type = 'sine'; osc.start(); osc.frequency.setValueAtTime(659, audioCtx.currentTime + 0.1); osc.frequency.setValueAtTime(784, audioCtx.currentTime + 0.2); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4); osc.stop(audioCtx.currentTime + 0.4); }
+        else if (type === 'wrong') { osc.frequency.value = 200; osc.type = 'square'; gain.gain.value = 0.08; gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3); osc.start(); osc.stop(audioCtx.currentTime + 0.3); }
+        else if (type === 'success') { osc.frequency.value = 523; osc.type = 'sine'; osc.start(); osc.frequency.setValueAtTime(659, audioCtx.currentTime + 0.1); osc.frequency.setValueAtTime(784, audioCtx.currentTime + 0.2); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4); osc.stop(audioCtx.currentTime + 0.4); }
+        else if (type === 'error') { osc.frequency.value = 150; osc.type = 'sawtooth'; gain.gain.value = 0.1; gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3); osc.start(); osc.stop(audioCtx.currentTime + 0.3); }
+        else if (type === 'start') { osc.frequency.value = 440; osc.type = 'sine'; osc.start(); osc.frequency.setValueAtTime(554, audioCtx.currentTime + 0.15); osc.frequency.setValueAtTime(659, audioCtx.currentTime + 0.3); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5); osc.stop(audioCtx.currentTime + 0.5); }
+        else if (type === 'win') { osc.frequency.value = 523; osc.type = 'sine'; osc.start(); osc.frequency.setValueAtTime(659, audioCtx.currentTime + 0.15); osc.frequency.setValueAtTime(784, audioCtx.currentTime + 0.3); osc.frequency.setValueAtTime(1047, audioCtx.currentTime + 0.45); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.7); osc.stop(audioCtx.currentTime + 0.7); }
+        else if (type === 'lose') { osc.frequency.value = 400; osc.type = 'sawtooth'; gain.gain.value = 0.05; osc.start(); osc.frequency.setValueAtTime(300, audioCtx.currentTime + 0.2); osc.frequency.setValueAtTime(200, audioCtx.currentTime + 0.4); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6); osc.stop(audioCtx.currentTime + 0.6); }
+        else if (type === 'timeout') { osc.frequency.value = 600; osc.type = 'square'; gain.gain.value = 0.08; osc.start(); osc.frequency.setValueAtTime(400, audioCtx.currentTime + 0.3); osc.frequency.setValueAtTime(200, audioCtx.currentTime + 0.6); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.9); osc.stop(audioCtx.currentTime + 0.9); }
+    } catch(e) {}
 }
 
-// ==================== VISITOR COUNTER ====================
+// ==================== UTILS & NAVIGATION ====================
 function initVisitorCounter() {
     let count = parseInt(localStorage.getItem('visitorCount') || '0');
     count++;
@@ -702,21 +556,19 @@ function initVisitorCounter() {
     document.getElementById('visitorCount').textContent = count;
 }
 
-// ==================== LOGIN ====================
+function showPage(pageId) {
+    document.querySelectorAll('#landingPage, #dashboardPage, #quizPage, #resultPage').forEach(p => p.classList.add('hidden'));
+    document.getElementById(pageId).classList.remove('hidden');
+    window.scrollTo(0, 0);
+}
+
 function handleLogin() {
     initAudio();
     const nama = document.getElementById('inputNama').value.trim();
     const nim = document.getElementById('inputNIM').value.trim();
-    
-    if (!nama || !nim) {
-        playSound('error');
-        alert('Mohon isi Nama Lengkap dan NIM Mahasiswa!');
-        return;
-    }
-    
+    if (!nama || !nim) { playSound('error'); alert('Mohon isi Nama Lengkap dan NIM Mahasiswa!'); return; }
     currentUser = { nama, nim };
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
-    
     playSound('success');
     showPage('dashboardPage');
     renderDashboard();
@@ -725,16 +577,10 @@ function handleLogin() {
 function handleLogout() {
     currentUser = null;
     localStorage.removeItem('currentUser');
+    clearInterval(timerInterval);
     showPage('landingPage');
     document.getElementById('inputNama').value = '';
     document.getElementById('inputNIM').value = '';
-}
-
-// ==================== PAGE NAVIGATION ====================
-function showPage(pageId) {
-    document.querySelectorAll('#landingPage, #dashboardPage, #quizPage, #resultPage').forEach(p => p.classList.add('hidden'));
-    document.getElementById(pageId).classList.remove('hidden');
-    window.scrollTo(0, 0);
 }
 
 // ==================== DASHBOARD ====================
@@ -748,18 +594,10 @@ function renderDashboard() {
 function renderHistory() {
     const history = JSON.parse(localStorage.getItem('examHistory_' + currentUser.nim) || '[]');
     const container = document.getElementById('historyList');
-    
-    if (history.length === 0) {
-        container.innerHTML = '<p class="text-slate-400 text-sm text-center py-4 italic">Belum ada riwayat ujian</p>';
-        return;
-    }
-    
+    if (history.length === 0) { container.innerHTML = '<p class="text-slate-400 text-sm text-center py-4 italic">Belum ada riwayat ujian</p>'; return; }
     container.innerHTML = history.slice(-5).reverse().map(h => `
         <div class="glass-card rounded-xl p-3 flex items-center justify-between">
-            <div>
-                <span class="text-sm font-semibold text-slate-700">${h.phase}</span>
-                <span class="text-xs text-slate-400 ml-2">${h.date}</span>
-            </div>
+            <div><span class="text-sm font-semibold text-slate-700">${h.phase}</span><span class="text-xs text-slate-400 ml-2">${h.date}</span></div>
             <div class="flex items-center gap-2">
                 <span class="text-sm font-bold ${h.score >= 70 ? 'text-emerald-600' : 'text-red-500'}">${h.score}%</span>
                 <span class="text-xs px-2 py-0.5 rounded-full ${h.score >= 70 ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-600'} font-medium">${h.status}</span>
@@ -771,12 +609,7 @@ function renderHistory() {
 function renderTestimonials() {
     const testimonials = JSON.parse(localStorage.getItem('testimonials') || '[]');
     const container = document.getElementById('testimonialList');
-    
-    if (testimonials.length === 0) {
-        container.innerHTML = '<p class="text-slate-400 text-sm text-center py-2 italic">Belum ada ulasan</p>';
-        return;
-    }
-    
+    if (testimonials.length === 0) { container.innerHTML = '<p class="text-slate-400 text-sm text-center py-2 italic">Belum ada ulasan</p>'; return; }
     container.innerHTML = testimonials.slice(-10).reverse().map(t => `
         <div class="glass-card rounded-xl p-3">
             <div class="flex items-center justify-between mb-1">
@@ -792,14 +625,8 @@ function renderTestimonials() {
 function addTestimonial() {
     const text = document.getElementById('testimonialInput').value.trim();
     if (!text) { alert('Tulis ulasan terlebih dahulu!'); return; }
-    
     const testimonials = JSON.parse(localStorage.getItem('testimonials') || '[]');
-    testimonials.push({
-        nama: currentUser.nama,
-        text: text,
-        rating: Math.floor(Math.random() * 2) + 4,
-        date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
-    });
+    testimonials.push({ nama: currentUser.nama, text: text, rating: Math.floor(Math.random() * 2) + 4, date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) });
     localStorage.setItem('testimonials', JSON.stringify(testimonials));
     document.getElementById('testimonialInput').value = '';
     renderTestimonials();
@@ -810,42 +637,28 @@ function addTestimonial() {
 function startPhase(phase) {
     initAudio();
     currentPhase = phase;
-    let questionPool = [];
-    let requiredCount = 0;
-    let phaseName = '';
+    let questionPool = [], requiredCount = 0, phaseName = '';
     
-    switch(phase) {
-        case 1:
-            questionPool = bankSoalLengkap.filter(s => s.level >= 1 && s.level <= 8);
-            requiredCount = 45;
-            phaseName = 'Fase 1: Konseptual & Manajemen SI';
-            break;
-        case 2:
-            questionPool = bankSoalLengkap.filter(s => s.level >= 9 && s.level <= 15);
-            requiredCount = 45;
-            phaseName = 'Fase 2: Tata Kelola & Infrastruktur TI';
-            break;
-        case 3:
-            questionPool = bankSoalLengkap.filter(s => s.level >= 16);
-            requiredCount = 30;
-            phaseName = 'Fase 3: Pemrograman & Teknis Lanjutan';
-            break;
-    }
+    if (phase === 1) { questionPool = bankSoalLengkap.filter(s => s.level >= 1 && s.level <= 8); requiredCount = 45; phaseName = 'Fase 1: Konseptual & Manajemen SI'; }
+    else if (phase === 2) { questionPool = bankSoalLengkap.filter(s => s.level >= 9 && s.level <= 15); requiredCount = 45; phaseName = 'Fase 2: Tata Kelola & Infrastruktur TI'; }
+    else { questionPool = bankSoalLengkap.filter(s => s.level >= 16); requiredCount = 30; phaseName = 'Fase 3: Pemrograman & Teknis Lanjutan'; }
     
     currentQuestions = shuffleArray([...questionPool]).slice(0, requiredCount);
     currentQuestionIndex = 0;
     userAnswers = {};
     timeRemaining = 1800;
-    isAnswerLocked = false;
+    isLocked = false;
+    if (autoAdvanceTimeout) clearTimeout(autoAdvanceTimeout);
     
     document.getElementById('quizTitle').textContent = phaseName;
     document.getElementById('total-soal').textContent = currentQuestions.length;
     document.getElementById('timer-display').classList.remove('timer-warning');
+    document.getElementById('feedback-msg').classList.add('hidden');
     
     playSound('start');
     showPage('quizPage');
     renderSoal();
-    startTimer();
+    startTimer(); // Timer langsung jalan
     renderQuestionDots();
 }
 
@@ -863,215 +676,151 @@ function renderSoal() {
     document.getElementById('qNumber').textContent = currentQuestionIndex + 1;
     document.getElementById('teks-pertanyaan').textContent = q.q;
     
+    isLocked = false;
+    document.getElementById('feedback-msg').classList.add('hidden');
+    
     const container = document.getElementById('opsi-container');
     container.innerHTML = '';
     
-    isAnswerLocked = false; // Reset lock status saat render soal baru
-    
-    const labels = ['A', 'B', 'C'];
+    const labels = ['A', 'B', 'C', 'D'];
     q.opts.forEach((opt, index) => {
         const letter = labels[index];
         const val = letter.toLowerCase();
+        const isSelected = userAnswers[currentQuestionIndex] === val;
         
         const btn = document.createElement('div');
-        btn.className = 'opsi-btn w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-start gap-3 cursor-pointer border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50/50';
+        btn.className = `opsi-btn w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-start gap-3 cursor-pointer ${isSelected ? 'border-primary bg-blue-50' : 'border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50/50'}`;
         btn.setAttribute('data-value', val);
-        btn.onclick = () => pilihJawaban(val);
+        btn.onclick = function() { pilihJawaban(val); };
         btn.innerHTML = `
-            <span class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors bg-slate-100 text-slate-600">${letter}</span>
+            <span class="letter-circle flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${isSelected ? 'bg-primary text-white' : 'bg-slate-100 text-slate-600'}">${letter}</span>
             <span class="text-slate-700 font-medium pt-1 leading-snug select-none">${opt}</span>
         `;
         container.appendChild(btn);
     });
     
-    // Jika sudah dijawab sebelumnya (saat navigasi balik), tampilkan jawaban yang dipilih
-    if (userAnswers[currentQuestionIndex] !== undefined) {
-        showPreviousAnswer(currentQuestionIndex);
-    }
-    
-    const progress = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
-    document.getElementById('progressBar').style.width = progress + '%';
-    
+    document.getElementById('progressBar').style.width = ((currentQuestionIndex + 1) / currentQuestions.length * 100) + '%';
     document.getElementById('btnPrev').disabled = currentQuestionIndex === 0;
     document.getElementById('btnNext').innerHTML = currentQuestionIndex === currentQuestions.length - 1 ? 'Selesai ✓' : 'Selanjutnya →';
-    
     updateQuestionDots();
 }
 
-// PERBAIKAN: Logika jawaban dengan feedback visual + auto-advance
 function pilihJawaban(val) {
-    // Cegah klik ganda
-    if (isAnswerLocked) return;
-    isAnswerLocked = true;
+    if (isLocked) return;
+    isLocked = true;
     
     const q = currentQuestions[currentQuestionIndex];
     const isCorrect = val === q.ans;
-    
-    // Simpan jawaban
     userAnswers[currentQuestionIndex] = val;
     
-    // Ambil semua tombol opsi
-    const allBtns = document.querySelectorAll('#opsi-container .opsi-btn');
-    
-    // Kunci semua tombol
-    allBtns.forEach(btn => {
+    const buttons = document.querySelectorAll('.opsi-btn');
+    buttons.forEach(btn => {
         btn.classList.add('locked');
-        btn.onclick = null; // Hapus event listener
+        const btnVal = btn.getAttribute('data-value');
+        if (btnVal === q.ans) btn.classList.add('show-correct'); // Selalu sorot yang benar
+        if (btnVal === val && !isCorrect) btn.classList.add('selected-wrong'); // Sorot merah jika salah pilih
+        if (btnVal === val && isCorrect) btn.classList.add('selected-correct'); // Sorot hijau jika benar pilih
     });
     
-    // Tampilkan feedback visual
+    const feedbackEl = document.getElementById('feedback-msg');
     if (isCorrect) {
-        // Jawaban BENAR: tombol yang diklik berubah hijau
         playSound('correct');
-        const clickedBtn = document.querySelector(`[data-value="${val}"]`);
-        clickedBtn.classList.add('correct');
+        feedbackEl.innerHTML = '✅ <strong>Benar!</strong> Jawaban Anda tepat.';
+        feedbackEl.className = 'mt-4 p-3 rounded-xl text-center font-semibold text-sm bg-emerald-50 text-emerald-700 border border-emerald-200 animate-fade';
     } else {
-        // Jawaban SALAH: tombol yang diklik merah + jawaban benar otomatis hijau
         playSound('wrong');
-        const clickedBtn = document.querySelector(`[data-value="${val}"]`);
-        clickedBtn.classList.add('wrong');
-        
-        // Sorot jawaban yang benar dengan hijau
-        const correctBtn = document.querySelector(`[data-value="${q.ans}"]`);
-        correctBtn.classList.add('correct');
+        feedbackEl.innerHTML = '❌ <strong>Salah!</strong> Kunci jawaban yang benar disorot hijau.';
+        feedbackEl.className = 'mt-4 p-3 rounded-xl text-center font-semibold text-sm bg-red-50 text-red-700 border border-red-200 animate-fade';
     }
-    
-    // Update dots
+    feedbackEl.classList.remove('hidden');
     updateQuestionDots();
     
-    // Jeda 1.2 detik lalu auto-advance ke soal berikutnya
-    setTimeout(() => {
+    // Auto-advance setelah 1 detik (1000ms)
+    if (autoAdvanceTimeout) clearTimeout(autoAdvanceTimeout);
+    autoAdvanceTimeout = setTimeout(() => {
         if (currentQuestionIndex < currentQuestions.length - 1) {
-            // Masih ada soal berikutnya
             currentQuestionIndex++;
             renderSoal();
         } else {
-            // Soal terakhir, langsung ke halaman hasil
             submitQuiz();
         }
-    }, 1200);
-}
-
-// Tampilkan jawaban yang sudah dipilih sebelumnya (saat navigasi balik)
-function showPreviousAnswer(index) {
-    const q = currentQuestions[index];
-    const selectedVal = userAnswers[index];
-    const isCorrect = selectedVal === q.ans;
-    
-    const allBtns = document.querySelectorAll('#opsi-container .opsi-btn');
-    
-    // Kunci semua tombol
-    allBtns.forEach(btn => {
-        btn.classList.add('locked');
-        btn.onclick = null;
-    });
-    
-    isAnswerLocked = true;
-    
-    // Tampilkan feedback
-    if (isCorrect) {
-        const clickedBtn = document.querySelector(`[data-value="${selectedVal}"]`);
-        if (clickedBtn) clickedBtn.classList.add('correct');
-    } else {
-        const clickedBtn = document.querySelector(`[data-value="${selectedVal}"]`);
-        if (clickedBtn) clickedBtn.classList.add('wrong');
-        
-        const correctBtn = document.querySelector(`[data-value="${q.ans}"]`);
-        if (correctBtn) correctBtn.classList.add('correct');
-    }
+    }, 1000);
 }
 
 function nextSoal() {
-    if (isAnswerLocked) return; // Jangan navigasi manual saat waiting
-    if (currentQuestionIndex < currentQuestions.length - 1) {
-        currentQuestionIndex++;
-        renderSoal();
-    } else {
-        confirmSubmit();
-    }
+    if (isLocked) return;
+    if (currentQuestionIndex < currentQuestions.length - 1) { currentQuestionIndex++; renderSoal(); }
+    else { confirmSubmit(); }
 }
 
 function prevSoal() {
-    if (isAnswerLocked) return; // Jangan navigasi manual saat waiting
-    if (currentQuestionIndex > 0) {
-        currentQuestionIndex--;
-        renderSoal();
-    }
+    if (isLocked) return;
+    if (currentQuestionIndex > 0) { currentQuestionIndex--; renderSoal(); }
 }
 
 function renderQuestionDots() {
-    const container = document.getElementById('questionDots');
-    container.innerHTML = currentQuestions.map((_, i) => `
+    document.getElementById('questionDots').innerHTML = currentQuestions.map((_, i) => `
         <div class="w-2 h-2 rounded-full transition-all duration-200 ${i === currentQuestionIndex ? 'bg-primary w-6' : userAnswers[i] !== undefined ? 'bg-emerald-500' : 'bg-slate-300'}" 
              onclick="jumpToQuestion(${i})" style="cursor: pointer;" data-dot="${i}"></div>
     `).join('');
 }
 
 function updateQuestionDots() {
-    const dots = document.querySelectorAll('[data-dot]');
-    dots.forEach((dot, i) => {
+    document.querySelectorAll('[data-dot]').forEach((dot, i) => {
         dot.className = `w-2 h-2 rounded-full transition-all duration-200 ${i === currentQuestionIndex ? 'bg-primary w-6' : userAnswers[i] !== undefined ? 'bg-emerald-500' : 'bg-slate-300'}`;
     });
 }
 
 function jumpToQuestion(index) {
-    if (isAnswerLocked) return;
+    if (isLocked) return;
     currentQuestionIndex = index;
     renderSoal();
 }
 
-// PERBAIKAN: Timer yang aktif dan berjalan setiap detik
+// ==================== TIMER (REAL-TIME COUNTDOWN) ====================
 function startTimer() {
-    clearInterval(timerInterval);
-    timeRemaining = 1800; // Reset ke 30 menit (1800 detik)
+    if (timerInterval) clearInterval(timerInterval);
+    timeRemaining = 1800; // 30 menit
     updateTimerDisplay();
     
     timerInterval = setInterval(() => {
         timeRemaining--;
         updateTimerDisplay();
         
-        // Peringatan merah saat kurang dari 1 menit
-        if (timeRemaining <= 60) {
+        if (timeRemaining <= 60 && timeRemaining > 0) {
             document.getElementById('timer-display').classList.add('timer-warning');
         }
         
-        // Waktu habis
         if (timeRemaining <= 0) {
             clearInterval(timerInterval);
+            if (autoAdvanceTimeout) clearTimeout(autoAdvanceTimeout);
             playSound('timeout');
             submitQuiz();
         }
-    }, 1000);
+    }, 1000); // Jalan setiap 1 detik real-time
 }
 
 function updateTimerDisplay() {
     const minutes = Math.floor(timeRemaining / 60);
     const seconds = timeRemaining % 60;
     const display = document.getElementById('timer-display');
-    if (display) {
-        display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    }
+    if (display) display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
-// ==================== SUBMIT & EVALUATION ====================
+// ==================== SUBMIT & RESULT ====================
 function confirmSubmit() {
+    if (isLocked) return;
     const answered = Object.keys(userAnswers).length;
     const total = currentQuestions.length;
-    
-    showModal(
-        'Selesaikan Ujian?',
-        `Anda telah menjawab ${answered} dari ${total} soal. ${answered < total ? 'Masih ada ' + (total - answered) + ' soal belum dijawab.' : ''} Yakin ingin mengumpulkan?`,
-        () => submitQuiz()
-    );
+    showModal('Selesaikan Ujian?', `Anda telah menjawab ${answered} dari ${total} soal. ${answered < total ? 'Masih ada ' + (total - answered) + ' soal belum dijawab.' : ''} Yakin ingin mengumpulkan?`, submitQuiz);
 }
 
 function submitQuiz() {
     clearInterval(timerInterval);
+    if (autoAdvanceTimeout) clearTimeout(autoAdvanceTimeout);
     
     let correct = 0;
-    currentQuestions.forEach((q, i) => {
-        if (userAnswers[i] === q.ans) correct++;
-    });
+    currentQuestions.forEach((q, i) => { if (userAnswers[i] === q.ans) correct++; });
     
     const total = currentQuestions.length;
     const score = Math.round((correct / total) * 100);
@@ -1079,14 +828,7 @@ function submitQuiz() {
     
     const history = JSON.parse(localStorage.getItem('examHistory_' + currentUser.nim) || '[]');
     const phaseNames = { 1: 'Fase 1', 2: 'Fase 2', 3: 'Fase 3' };
-    history.push({
-        phase: phaseNames[currentPhase],
-        score: score,
-        correct: correct,
-        total: total,
-        status: passed ? 'LULUS' : 'TIDAK LULUS',
-        date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
-    });
+    history.push({ phase: phaseNames[currentPhase], score, correct, total, status: passed ? 'LULUS' : 'TIDAK LULUS', date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) });
     localStorage.setItem('examHistory_' + currentUser.nim, JSON.stringify(history));
     
     document.getElementById('resultIcon').textContent = passed ? '🎉' : '😔';
@@ -1115,11 +857,9 @@ function submitQuiz() {
     showPage('resultPage');
 }
 
-// ==================== RATING & REVIEW ====================
 function setRating(rating) {
     selectedRating = rating;
-    const stars = document.querySelectorAll('#starRating .star');
-    stars.forEach((star, i) => {
+    document.querySelectorAll('#starRating .star').forEach((star, i) => {
         star.classList.toggle('text-amber-400', i < rating);
         star.classList.toggle('text-slate-300', i >= rating);
     });
@@ -1129,16 +869,9 @@ function setRating(rating) {
 function submitReview() {
     const text = document.getElementById('reviewInput').value.trim();
     if (!text && selectedRating === 0) { alert('Berikan rating atau ulasan!'); return; }
-    
     const testimonials = JSON.parse(localStorage.getItem('testimonials') || '[]');
-    testimonials.push({
-        nama: currentUser.nama,
-        text: text || 'Ujian selesai',
-        rating: selectedRating || 5,
-        date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
-    });
+    testimonials.push({ nama: currentUser.nama, text: text || 'Ujian selesai', rating: selectedRating || 5, date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) });
     localStorage.setItem('testimonials', JSON.stringify(testimonials));
-    
     document.getElementById('reviewInput').value = '';
     selectedRating = 0;
     setRating(0);
@@ -1146,10 +879,7 @@ function submitReview() {
     alert('Ulasan berhasil dikirim! Terima kasih.');
 }
 
-function backToDashboard() {
-    showPage('dashboardPage');
-    renderDashboard();
-}
+function backToDashboard() { showPage('dashboardPage'); renderDashboard(); }
 
 // ==================== MODAL ====================
 function showModal(title, text, callback) {
@@ -1158,27 +888,14 @@ function showModal(title, text, callback) {
     document.getElementById('modal').classList.remove('hidden');
     modalCallback = callback;
 }
+function closeModal() { document.getElementById('modal').classList.add('hidden'); modalCallback = null; }
+function modalConfirm() { closeModal(); if (modalCallback) modalCallback(); }
 
-function closeModal() {
-    document.getElementById('modal').classList.add('hidden');
-    modalCallback = null;
-}
-
-function modalConfirm() {
-    closeModal();
-    if (modalCallback) modalCallback();
-}
-
-// ==================== INITIALIZATION ====================
+// ==================== INIT ====================
 document.addEventListener('DOMContentLoaded', () => {
     initVisitorCounter();
-    
     const saved = localStorage.getItem('currentUser');
-    if (saved) {
-        currentUser = JSON.parse(saved);
-        showPage('dashboardPage');
-        renderDashboard();
-    }
+    if (saved) { currentUser = JSON.parse(saved); showPage('dashboardPage'); renderDashboard(); }
 });
 </script>
 </body>
