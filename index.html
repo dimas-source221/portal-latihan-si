@@ -21,43 +21,54 @@
         body {
             font-family: 'Inter', sans-serif;
             color: #1e293b;
-            background-color: #F2F8FF;
-            /* Background laptop terlihat jelas namun tidak mengganggu teks */
-            background-image: linear-gradient(rgba(242, 248, 255, 0.85), rgba(242, 248, 255, 0.90)), url('https://lh3.googleusercontent.com/d/1X_tNirOyA8ODFvKHYhD6_mv_FE-MDgut');
+            background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background laptop - sangat terang dan subtle */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://lh3.googleusercontent.com/d/1X_tNirOyA8ODFvKHYhD6_mv_FE-MDgut');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            min-height: 100vh;
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        /* Glassmorphism Utility */
         .glass {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.07);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05);
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.75);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
             transition: all 0.3s ease;
         }
         .glass-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.1);
-            border-color: rgba(37, 99, 235, 0.3);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08);
         }
 
         .blink-dot { animation: blink 1.5s infinite; }
-        @keyframes blink { 0%, 50% { opacity: 1; transform: scale(1); } 51%, 100% { opacity: 0.3; transform: scale(0.8); } }
+        @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0.3; } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade { animation: fadeIn 0.5s ease-out forwards; }
 
-        /* Timer Warning */
         .timer-warning {
             animation: pulse-red 1s infinite;
             color: #dc2626 !important;
@@ -69,7 +80,6 @@
             50% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
         }
 
-        /* Opsi Jawaban States */
         .opsi-btn { transition: all 0.25s ease; user-select: none; }
         .opsi-btn:hover:not(.locked) { transform: translateX(4px); }
         .opsi-btn.locked { cursor: not-allowed; pointer-events: none; opacity: 0.9; }
@@ -100,8 +110,8 @@
 <body>
 
     <!-- LANDING PAGE -->
-    <div id="landingPage" class="min-h-screen flex items-center justify-center p-4">
-        <div class="max-w-6xl w-full grid lg:grid-cols-2 gap-8 items-center">
+    <div id="landingPage" class="min-h-screen flex items-center justify-center p-4 lg:p-8">
+        <div class="max-w-7xl w-full grid lg:grid-cols-2 gap-12 items-center">
             <!-- Left Side -->
             <div class="animate-fade space-y-6">
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary font-semibold">
@@ -110,51 +120,49 @@
                 <h1 class="text-4xl lg:text-5xl font-extrabold leading-tight text-slate-900">
                     Portal Latihan &<br>Uji Mandiri
                 </h1>
-                <p class="text-slate-600 text-lg leading-relaxed">Sarana latihan dan uji kompetensi mandiri program studi Sistem Informasi.</p>
+                <p class="text-slate-600 text-lg leading-relaxed max-w-lg">Sarana latihan dan uji kompetensi mandiri program studi Sistem Informasi.</p>
                 
-                <!-- Stats dengan Glassmorphism -->
-                <div class="grid grid-cols-3 gap-4 pt-2">
-                    <div class="glass-card rounded-xl p-4 text-center">
-                        <div class="text-2xl font-bold text-emerald-600">120</div>
-                        <div class="text-xs text-slate-500 mt-1 font-medium">Bank Soal</div>
-                        <div class="h-1 w-12 mx-auto mt-2 rounded-full bg-emerald-500"></div>
+                <!-- Stats - Tanpa garis bawah -->
+                <div class="grid grid-cols-3 gap-4 pt-4">
+                    <div class="glass-card rounded-2xl p-6 text-center">
+                        <div class="text-3xl font-bold text-emerald-600 mb-1">120</div>
+                        <div class="text-sm text-slate-500 font-medium">Bank Soal</div>
                     </div>
-                    <div class="glass-card rounded-xl p-4 text-center">
-                        <div class="text-2xl font-bold text-amber-600">Live</div>
-                        <div class="text-xs text-slate-500 mt-1 font-medium">Waktu</div>
-                        <div class="h-1 w-12 mx-auto mt-2 rounded-full bg-amber-500"></div>
+                    <div class="glass-card rounded-2xl p-6 text-center">
+                        <div class="text-3xl font-bold text-amber-600 mb-1">Live</div>
+                        <div class="text-sm text-slate-500 font-medium">Waktu</div>
                     </div>
-                    <div class="glass-card rounded-xl p-4 text-center">
-                        <div class="text-2xl font-bold text-purple-600" id="visitorCount">0</div>
-                        <div class="text-xs text-slate-500 mt-1 flex items-center justify-center gap-1.5 font-medium">
-                            Pengunjung <span class="w-2 h-2 rounded-full bg-green-500 blink-dot inline-block"></span>
+                    <div class="glass-card rounded-2xl p-6 text-center">
+                        <div class="text-3xl font-bold text-purple-600 mb-1 flex items-center justify-center gap-1.5">
+                            <span id="visitorCount">0</span>
+                            <span class="w-2 h-2 rounded-full bg-green-500 blink-dot inline-block"></span>
                         </div>
-                        <div class="h-1 w-12 mx-auto mt-2 rounded-full bg-purple-500"></div>
+                        <div class="text-sm text-slate-500 font-medium">Pengunjung</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Side - Login Form (Dikecilkan agar proporsional) -->
+            <!-- Right Side - Login Form -->
             <div class="animate-fade flex justify-center lg:justify-end">
-                <div class="glass rounded-2xl p-8 w-full max-w-sm border-white/60">
+                <div class="glass rounded-3xl p-8 lg:p-10 w-full max-w-md border-white/80">
                     <h2 class="text-2xl font-bold mb-6 text-slate-900 text-center">Mulai Latihan</h2>
                     <div class="space-y-4">
                         <div>
                             <label class="text-sm text-slate-600 mb-1.5 block font-medium">Nama Lengkap</label>
                             <input type="text" id="inputNama" placeholder="Nama lengkap" 
-                                class="w-full px-4 py-3 rounded-xl bg-white/80 border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition text-slate-900 placeholder-slate-400">
+                                class="w-full px-4 py-3.5 rounded-xl bg-white/80 border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition text-slate-900 placeholder-slate-400">
                         </div>
                         <div>
                             <label class="text-sm text-slate-600 mb-1.5 block font-medium">NIM Mahasiswa</label>
                             <input type="text" id="inputNIM" placeholder="NIM" 
-                                class="w-full px-4 py-3 rounded-xl bg-white/80 border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition text-slate-900 placeholder-slate-400">
+                                class="w-full px-4 py-3.5 rounded-xl bg-white/80 border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition text-slate-900 placeholder-slate-400">
                         </div>
                         <button onclick="handleLogin()" 
-                            class="w-full py-3.5 rounded-xl bg-primary hover:bg-blue-700 text-white font-semibold transition transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-blue-500/30">
+                            class="w-full py-4 rounded-xl bg-primary hover:bg-blue-700 text-white font-semibold transition transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-blue-500/25">
                             Masuk ke Dashboard
                         </button>
                     </div>
-                    <div class="text-center text-xs text-slate-500 mt-6 font-medium">&copy; 2026 DIMAS</div>
+                    <div class="text-center text-xs text-slate-400 mt-6 font-medium">&copy; 2026 DIMAS</div>
                 </div>
             </div>
         </div>
@@ -170,7 +178,7 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <div class="glass-card rounded-xl px-4 py-2.5 text-sm flex items-center gap-2">
-                        <span class="text-primary">👤</span> 
+                        <span class="text-primary"></span> 
                         <span id="dashNama" class="font-semibold text-slate-700"></span>
                         <span class="text-slate-300">|</span>
                         <span id="dashNIM" class="text-primary font-medium"></span>
@@ -242,7 +250,7 @@
 
                 <div class="space-y-4">
                     <div class="glass rounded-xl p-6 h-full flex flex-col">
-                        <h3 class="font-bold text-slate-900 mb-4 flex items-center gap-2">💬 Ulasan & Testimoni</h3>
+                        <h3 class="font-bold text-slate-900 mb-4 flex items-center gap-2"> Ulasan & Testimoni</h3>
                         <div id="testimonialList" class="space-y-3 flex-1 overflow-y-auto mb-4 pr-1 max-h-64"></div>
                         <div class="border-t border-slate-200 pt-4 mt-auto">
                             <textarea id="testimonialInput" rows="2" placeholder="Tulis ulasan Anda..." 
@@ -316,7 +324,7 @@
                 <div id="certificateSection" class="hidden mb-8">
                     <div class="border-2 border-amber-300 rounded-2xl p-6 bg-gradient-to-br from-amber-50 to-yellow-50/50 relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-20 h-20 bg-amber-200/30 rounded-bl-full"></div>
-                        <div class="text-amber-600 text-sm font-bold tracking-wider mb-3">🏆 SERTIFIKAT KELULUSAN</div>
+                        <div class="text-amber-600 text-sm font-bold tracking-wider mb-3"> SERTIFIKAT KELULUSAN</div>
                         <div class="text-2xl font-bold text-slate-900 mb-1" id="certName"></div>
                         <div class="text-slate-500 text-sm mb-4">NIM: <span id="certNIM" class="font-medium text-slate-700"></span></div>
                         <div class="text-sm text-slate-600 leading-relaxed">Telah berhasil menyelesaikan <span id="certPhase" class="text-primary font-bold"></span> dengan nilai <span id="certScore" class="text-emerald-600 font-bold text-lg"></span></div>
@@ -404,7 +412,6 @@ const generateSoal = () => {
         {q:"Risk Management dalam proyek SI bertujuan untuk...", opts:["Menghindari semua risiko","Mengidentifikasi, menganalisis, dan memitigasi risiko proyek","Menambah biaya","Memperlambat proyek"], level:5},
         {q:"User Acceptance Testing (UAT) adalah...", opts:["Testing developer","Pengujian oleh pengguna akhir untuk memvalidasi sistem sesuai kebutuhan","Testing jaringan","Testing server"], level:6},
         {q:"Change Management dalam implementasi SI adalah...", opts:["Ganti hardware","Proses terstruktur untuk mengelola transisi perubahan dalam organisasi","Ubah password","Ganti vendor"], level:7},
-        // Fase 2 (46-90)
         {q:"COBIT adalah...", opts:["Bahasa pemrograman","Framework tata kelola dan manajemen TI enterprise","Sistem operasi","Tipe database"], level:9},
         {q:"ITIL berfokus pada...", opts:["Pemrograman","Praktik terbaik manajemen layanan TI (IT Service Management)","Desain grafis","Akuntansi"], level:9},
         {q:"Incident Management dalam ITIL bertujuan untuk...", opts:["Mengembangkan software","Memulihkan layanan TI secepat mungkin setelah gangguan","Mendesain jaringan","Membuat database"], level:9},
@@ -450,7 +457,6 @@ const generateSoal = () => {
         {q:"Data Classification adalah...", opts:["Hapus data","Proses mengkategorikan data berdasarkan tingkat sensitivitas untuk penanganan sesuai","Gandakan data","Kompres file"], level:10},
         {q:"Social Engineering dalam keamanan adalah...", opts:["Rekayasa software","Manipulasi psikologis untuk membuat orang membocorkan informasi rahasia","Buat website","Desain UI"], level:11},
         {q:"Perbedaan Scaling Up dan Scaling Out...", opts:["Scaling Up tambah resource satu server, Scaling Out tambah jumlah server","Keduanya sama","Scaling Out selalu murah","Scaling Up selalu baik"], level:12},
-        // Fase 3 (91-120)
         {q:"Dalam Laravel, fungsi Route adalah...", opts:["Menghubungkan URL dengan controller/action yang sesuai","Mendesain database","Mengelola session","Mengirim email"], level:16},
         {q:"MVC (Model-View-Controller) adalah...", opts:["Tipe database","Pola arsitektur yang memisahkan aplikasi menjadi Model (data), View (tampilan), Controller (logika)","Bahasa pemrograman","Framework CSS"], level:16},
         {q:"Migration dalam Laravel berfungsi untuk...", opts:["Upload file","Membuat dan memodifikasi tabel database secara terstruktur melalui kode","Mendesain UI","Notifikasi"], level:16},
@@ -483,25 +489,17 @@ const generateSoal = () => {
         {q:"CI/CD (Continuous Integration/Continuous Deployment) adalah...", opts:["Tipe database","Praktik mengotomatisasi integrasi kode, testing, dan deployment untuk delivery software yang lebih cepat dan reliable","Bahasa pemrograman","Framework frontend"], level:25}
     ];
 
-    // Distribusi jawaban merata: a, b, c, d berurutan lalu di-shuffle opsinya agar tidak terprediksi
     return base.map((item, index) => {
-        const correctIndex = index % 4; // 0=a, 1=b, 2=c, 3=d
+        const correctIndex = index % 4;
         const ansKey = ['a', 'b', 'c', 'd'][correctIndex];
         
-        // Shuffle options but keep track of the correct answer
         let optsWithIndex = item.opts.map((opt, i) => ({ text: opt, isCorrect: i === correctIndex }));
         optsWithIndex = optsWithIndex.sort(() => Math.random() - 0.5);
         
         const finalOpts = optsWithIndex.map(o => o.text);
         const finalAns = ['a', 'b', 'c', 'd'][optsWithIndex.findIndex(o => o.isCorrect)];
         
-        return {
-            id: index + 1,
-            level: item.level,
-            q: item.q,
-            opts: finalOpts,
-            ans: finalAns
-        };
+        return { id: index + 1, level: item.level, q: item.q, opts: finalOpts, ans: finalAns };
     });
 };
 
@@ -658,7 +656,7 @@ function startPhase(phase) {
     playSound('start');
     showPage('quizPage');
     renderSoal();
-    startTimer(); // Timer langsung jalan
+    startTimer();
     renderQuestionDots();
 }
 
@@ -717,9 +715,9 @@ function pilihJawaban(val) {
     buttons.forEach(btn => {
         btn.classList.add('locked');
         const btnVal = btn.getAttribute('data-value');
-        if (btnVal === q.ans) btn.classList.add('show-correct'); // Selalu sorot yang benar
-        if (btnVal === val && !isCorrect) btn.classList.add('selected-wrong'); // Sorot merah jika salah pilih
-        if (btnVal === val && isCorrect) btn.classList.add('selected-correct'); // Sorot hijau jika benar pilih
+        if (btnVal === q.ans) btn.classList.add('show-correct');
+        if (btnVal === val && !isCorrect) btn.classList.add('selected-wrong');
+        if (btnVal === val && isCorrect) btn.classList.add('selected-correct');
     });
     
     const feedbackEl = document.getElementById('feedback-msg');
@@ -735,7 +733,6 @@ function pilihJawaban(val) {
     feedbackEl.classList.remove('hidden');
     updateQuestionDots();
     
-    // Auto-advance setelah 1 detik (1000ms)
     if (autoAdvanceTimeout) clearTimeout(autoAdvanceTimeout);
     autoAdvanceTimeout = setTimeout(() => {
         if (currentQuestionIndex < currentQuestions.length - 1) {
@@ -780,7 +777,7 @@ function jumpToQuestion(index) {
 // ==================== TIMER (REAL-TIME COUNTDOWN) ====================
 function startTimer() {
     if (timerInterval) clearInterval(timerInterval);
-    timeRemaining = 1800; // 30 menit
+    timeRemaining = 1800;
     updateTimerDisplay();
     
     timerInterval = setInterval(() => {
@@ -797,7 +794,7 @@ function startTimer() {
             playSound('timeout');
             submitQuiz();
         }
-    }, 1000); // Jalan setiap 1 detik real-time
+    }, 1000);
 }
 
 function updateTimerDisplay() {
