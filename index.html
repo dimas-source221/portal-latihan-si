@@ -26,26 +26,28 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
+        /* PERBAIKAN BACKGROUND: Gambar proporsional, opasitas rendah, tidak menutupi form */
         body {
-            background-color: #F2F8FF;
-            background-image: linear-gradient(rgba(242, 248, 255, 0.88), rgba(242, 248, 255, 0.92)), url('https://lh3.googleusercontent.com/d/1X_tNirOyA8ODFvKHYhD6_mv_FE-MDgut');
+            background: linear-gradient(135deg, rgba(242, 248, 255, 0.94) 0%, rgba(242, 248, 255, 0.97) 100%), 
+                        url('https://lh3.googleusercontent.com/d/1X_tNirOyA8ODFvKHYhD6_mv_FE-MDgut');
             background-size: cover;
-            background-position: center;
+            background-position: center center;
             background-attachment: fixed;
+            background-repeat: no-repeat;
             color: #1e293b;
             font-family: 'Inter', sans-serif;
         }
 
         .glass {
-            background: rgba(255, 255, 255, 0.75);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.06);
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.9);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
@@ -73,14 +75,6 @@
         }
 
         .animate-fade { animation: fadeIn 0.5s ease-out forwards; }
-
-        .option-btn {
-            transition: all 0.2s ease;
-        }
-        
-        .option-btn:hover {
-            transform: translateX(4px);
-        }
 
         .timer-warning {
             animation: pulse-red 1s infinite;
@@ -122,9 +116,9 @@
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary font-semibold border-blue-200">
                     🎓 INFORMATION SYSTEM
                 </div>
-                <h1 class="text-4xl lg:text-5xl font-extrabold leading-tight text-slate-800">
-                    Portal Latihan &<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Uji Mandiri</span>
+                <!-- PERBAIKAN: Judul 1 warna hitam pekat/gelap elegan, tanpa gradasi -->
+                <h1 class="text-4xl lg:text-5xl font-extrabold leading-tight text-slate-900">
+                    Portal Latihan &<br>Uji Mandiri
                 </h1>
                 <p class="text-slate-600 text-lg leading-relaxed">Sarana latihan dan uji kompetensi mandiri program studi Sistem Informasi.</p>
                 
@@ -153,23 +147,25 @@
             <!-- Right Side - Login Form -->
             <div class="animate-fade">
                 <div class="glass rounded-2xl p-8 max-w-md mx-auto border-white/80">
-                    <h2 class="text-2xl font-bold mb-6 text-slate-800">Mulai Latihan</h2>
+                    <h2 class="text-2xl font-bold mb-6 text-slate-900">Mulai Latihan</h2>
                     <div class="space-y-4">
                         <div>
                             <label class="text-sm text-slate-600 mb-1.5 block font-medium">Nama Lengkap</label>
                             <input type="text" id="inputNama" placeholder="Masukkan nama lengkap" 
-                                class="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition text-slate-800 placeholder-slate-400">
+                                class="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition text-slate-900 placeholder-slate-400">
                         </div>
                         <div>
                             <label class="text-sm text-slate-600 mb-1.5 block font-medium">NIM Mahasiswa</label>
                             <input type="text" id="inputNIM" placeholder="Masukkan NIM" 
-                                class="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition text-slate-800 placeholder-slate-400">
+                                class="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition text-slate-900 placeholder-slate-400">
                         </div>
                         <button onclick="handleLogin()" 
                             class="w-full py-3.5 rounded-xl bg-primary hover:bg-blue-700 text-white font-semibold transition transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-blue-500/30">
                             Masuk ke Dashboard
                         </button>
                     </div>
+                    <!-- PERBAIKAN: Copyright tepat di bagian bawah kotak form -->
+                    <div class="text-center text-xs text-slate-500 mt-6 font-medium">&copy; 2026 DIMAS</div>
                 </div>
             </div>
         </div>
@@ -178,10 +174,9 @@
     <!-- DASHBOARD -->
     <div id="dashboardPage" class="min-h-screen hidden p-4 lg:p-8">
         <div class="max-w-6xl mx-auto">
-            <!-- Header -->
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 animate-fade gap-4">
                 <div>
-                    <h1 class="text-2xl font-bold text-slate-800">Dashboard</h1>
+                    <h1 class="text-2xl font-bold text-slate-900">Dashboard</h1>
                     <p class="text-slate-500 text-sm">Selamat datang kembali, siap untuk uji kompetensi?</p>
                 </div>
                 <div class="flex items-center gap-3">
@@ -198,17 +193,15 @@
             </div>
 
             <div class="grid lg:grid-cols-3 gap-6">
-                <!-- Left - Phase Cards -->
                 <div class="lg:col-span-2 space-y-4">
-                    <h2 class="text-lg font-bold text-slate-800 mb-2 flex items-center gap-2">📋 Pilih Fase Ujian</h2>
+                    <h2 class="text-lg font-bold text-slate-900 mb-2 flex items-center gap-2">📋 Pilih Fase Ujian</h2>
                     
-                    <!-- Fase 1 -->
                     <div class="glass-card rounded-xl p-5 cursor-pointer group" onclick="startPhase(1)">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-4">
                                 <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-lg group-hover:bg-emerald-600 group-hover:text-white transition-colors">1</div>
                                 <div>
-                                    <h3 class="font-bold text-slate-800 text-lg">Fase 1: Konseptual & Manajemen SI</h3>
+                                    <h3 class="font-bold text-slate-900 text-lg">Fase 1: Konseptual & Manajemen SI</h3>
                                     <div class="flex items-center gap-3 mt-1">
                                         <span class="text-sm text-slate-500 font-medium">45 Soal</span>
                                         <span class="text-slate-300">•</span>
@@ -220,13 +213,12 @@
                         </div>
                     </div>
 
-                    <!-- Fase 2 -->
                     <div class="glass-card rounded-xl p-5 cursor-pointer group" onclick="startPhase(2)">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-4">
                                 <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600 font-bold text-lg group-hover:bg-amber-500 group-hover:text-white transition-colors">2</div>
                                 <div>
-                                    <h3 class="font-bold text-slate-800 text-lg">Fase 2: Tata Kelola & Infrastruktur TI</h3>
+                                    <h3 class="font-bold text-slate-900 text-lg">Fase 2: Tata Kelola & Infrastruktur TI</h3>
                                     <div class="flex items-center gap-3 mt-1">
                                         <span class="text-sm text-slate-500 font-medium">45 Soal</span>
                                         <span class="text-slate-300">•</span>
@@ -238,13 +230,12 @@
                         </div>
                     </div>
 
-                    <!-- Fase 3 -->
                     <div class="glass-card rounded-xl p-5 cursor-pointer group" onclick="startPhase(3)">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-4">
                                 <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-lg group-hover:bg-purple-600 group-hover:text-white transition-colors">3</div>
                                 <div>
-                                    <h3 class="font-bold text-slate-800 text-lg">Fase 3: Pemrograman, Koding & Teknis Lanjutan</h3>
+                                    <h3 class="font-bold text-slate-900 text-lg">Fase 3: Pemrograman, Koding & Teknis Lanjutan</h3>
                                     <div class="flex items-center gap-3 mt-1">
                                         <span class="text-sm text-slate-500 font-medium">30 Soal</span>
                                         <span class="text-slate-300">•</span>
@@ -256,21 +247,19 @@
                         </div>
                     </div>
 
-                    <!-- History -->
                     <div class="mt-6">
-                        <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">📊 Riwayat Nilai</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">📊 Riwayat Nilai</h3>
                         <div id="historyList" class="space-y-2 max-h-48 overflow-y-auto pr-2"></div>
                     </div>
                 </div>
 
-                <!-- Right - Testimonials -->
                 <div class="space-y-4">
                     <div class="glass rounded-xl p-6 h-full flex flex-col">
-                        <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">💬 Ulasan & Testimoni</h3>
+                        <h3 class="font-bold text-slate-900 mb-4 flex items-center gap-2">💬 Ulasan & Testimoni</h3>
                         <div id="testimonialList" class="space-y-3 flex-1 overflow-y-auto mb-4 pr-1 max-h-64"></div>
                         <div class="border-t border-slate-200 pt-4 mt-auto">
                             <textarea id="testimonialInput" rows="2" placeholder="Tulis ulasan Anda tentang portal ini..." 
-                                class="w-full px-3 py-2.5 rounded-xl bg-white border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none text-sm text-slate-800 placeholder-slate-400 resize-none"></textarea>
+                                class="w-full px-3 py-2.5 rounded-xl bg-white border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none text-sm text-slate-900 placeholder-slate-400 resize-none"></textarea>
                             <button onclick="addTestimonial()" class="mt-2 w-full py-2.5 rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-white transition text-sm font-semibold">
                                 Kirim Ulasan
                             </button>
@@ -284,14 +273,14 @@
     <!-- QUIZ PAGE -->
     <div id="quizPage" class="min-h-screen hidden p-4 lg:p-8">
         <div class="max-w-4xl mx-auto">
-            <!-- Quiz Header -->
             <div class="glass rounded-2xl p-4 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade">
                 <div>
-                    <h2 class="font-bold text-lg text-slate-800" id="quizTitle">Fase Ujian</h2>
-                    <p class="text-sm text-slate-500">Soal <span id="currentQ" class="font-bold text-primary">1</span> dari <span id="totalQ">45</span></p>
+                    <h2 class="font-bold text-lg text-slate-900" id="quizTitle">Fase Ujian</h2>
+                    <p class="text-sm text-slate-500">Soal <span id="nomor-soal" class="font-bold text-primary">1</span> dari <span id="total-soal">45</span></p>
                 </div>
                 <div class="flex items-center gap-4 w-full sm:w-auto">
-                    <div id="timerDisplay" class="glass-card rounded-xl px-5 py-2.5 font-mono text-lg font-bold text-slate-700 border-slate-200 min-w-[100px] text-center">
+                    <!-- PERBAIKAN: ID timer-display disesuaikan agar update berjalan -->
+                    <div id="timer-display" class="glass-card rounded-xl px-5 py-2.5 font-mono text-lg font-bold text-slate-700 border-slate-200 min-w-[100px] text-center">
                         30:00
                     </div>
                     <button onclick="confirmSubmit()" class="px-5 py-2.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 transition text-sm font-semibold whitespace-nowrap">
@@ -300,33 +289,30 @@
                 </div>
             </div>
 
-            <!-- Progress Bar -->
             <div class="w-full h-2.5 bg-slate-200 rounded-full mb-6 overflow-hidden">
                 <div id="progressBar" class="h-full bg-gradient-to-r from-primary to-accent rounded-full transition-all duration-500" style="width: 0%"></div>
             </div>
 
-            <!-- Question Card -->
             <div class="glass rounded-2xl p-6 lg:p-8 mb-6 animate-fade min-h-[300px]">
                 <div class="flex items-start gap-4 mb-8">
                     <span class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-bold" id="qNumber">1</span>
-                    <p class="text-lg lg:text-xl font-semibold text-slate-800 leading-relaxed" id="questionText">Pertanyaan akan muncul di sini</p>
+                    <p class="text-lg lg:text-xl font-semibold text-slate-900 leading-relaxed" id="teks-pertanyaan">Pertanyaan akan muncul di sini</p>
                 </div>
                 
-                <!-- OPTIONS CONTAINER (DIPERBAIKI) -->
-                <div class="space-y-3" id="optionsContainer">
-                    <!-- Opsi A, B, C akan dirender di sini dengan jelas -->
+                <!-- PERBAIKAN: Container opsi dengan ID yang konsisten dan jelas -->
+                <div id="opsi-container" class="space-y-3">
+                    <!-- Opsi A, B, C akan dirender di sini oleh JavaScript -->
                 </div>
             </div>
 
-            <!-- Navigation -->
             <div class="flex items-center justify-between">
-                <button onclick="prevQuestion()" id="btnPrev" class="px-6 py-3 rounded-xl glass hover:bg-white transition font-semibold text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2">
+                <button onclick="prevSoal()" id="btnPrev" class="px-6 py-3 rounded-xl glass hover:bg-white transition font-semibold text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2">
                     ← Sebelumnya
                 </button>
                 
                 <div class="flex gap-1.5 flex-wrap justify-center max-w-md" id="questionDots"></div>
                 
-                <button onclick="nextQuestion()" id="btnNext" class="px-6 py-3 rounded-xl bg-primary hover:bg-blue-700 text-white transition font-semibold shadow-lg shadow-blue-500/20 flex items-center gap-2">
+                <button onclick="nextSoal()" id="btnNext" class="px-6 py-3 rounded-xl bg-primary hover:bg-blue-700 text-white transition font-semibold shadow-lg shadow-blue-500/20 flex items-center gap-2">
                     Selanjutnya →
                 </button>
             </div>
@@ -338,7 +324,7 @@
         <div class="max-w-2xl w-full animate-fade">
             <div class="glass rounded-3xl p-8 text-center border-white/90">
                 <div id="resultIcon" class="text-6xl mb-4">🎉</div>
-                <h2 class="text-3xl font-bold mb-2 text-slate-800" id="resultTitle">Selamat!</h2>
+                <h2 class="text-3xl font-bold mb-2 text-slate-900" id="resultTitle">Selamat!</h2>
                 <p class="text-slate-500 mb-8" id="resultSubtitle">Anda telah menyelesaikan ujian dengan baik</p>
                 
                 <div class="grid grid-cols-3 gap-4 mb-8">
@@ -348,11 +334,11 @@
                     </div>
                     <div class="glass-card rounded-2xl p-4">
                         <div class="text-3xl font-bold text-emerald-600" id="resultCorrect">0</div>
-                        <div class="text-xs text-slate-500 font-medium mt-1">Jawaban Benar</div>
+                        <div class="text-xs text-slate-500 font-medium mt-1">Benar</div>
                     </div>
                     <div class="glass-card rounded-2xl p-4">
                         <div class="text-3xl font-bold text-red-500" id="resultWrong">0</div>
-                        <div class="text-xs text-slate-500 font-medium mt-1">Jawaban Salah</div>
+                        <div class="text-xs text-slate-500 font-medium mt-1">Salah</div>
                     </div>
                 </div>
 
@@ -361,12 +347,11 @@
                     <div class="text-2xl font-bold" id="resultStatus">LULUS</div>
                 </div>
 
-                <!-- Certificate Section -->
                 <div id="certificateSection" class="hidden mb-8">
                     <div class="border-2 border-amber-300 rounded-2xl p-6 bg-gradient-to-br from-amber-50 to-yellow-50/50 relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-20 h-20 bg-amber-200/30 rounded-bl-full"></div>
                         <div class="text-amber-600 text-sm font-bold tracking-wider mb-3">🏆 SERTIFIKAT KELULUSAN</div>
-                        <div class="text-2xl font-bold text-slate-800 mb-1" id="certName"></div>
+                        <div class="text-2xl font-bold text-slate-900 mb-1" id="certName"></div>
                         <div class="text-slate-500 text-sm mb-4">NIM: <span id="certNIM" class="font-medium text-slate-700"></span></div>
                         <div class="text-sm text-slate-600 leading-relaxed">
                             Telah berhasil menyelesaikan <span id="certPhase" class="text-primary font-bold"></span><br>
@@ -379,9 +364,8 @@
                     </button>
                 </div>
 
-                <!-- Review Form -->
                 <div class="border-t border-slate-200 pt-6 mt-6">
-                    <h3 class="font-bold text-slate-800 mb-4">⭐ Berikan Ulasan Ujian</h3>
+                    <h3 class="font-bold text-slate-900 mb-4">⭐ Berikan Ulasan Ujian</h3>
                     <div class="star-rating flex justify-center gap-3 mb-4" id="starRating">
                         <span class="star text-3xl text-slate-300" data-rating="1" onclick="setRating(1)">★</span>
                         <span class="star text-3xl text-slate-300" data-rating="2" onclick="setRating(2)">★</span>
@@ -389,8 +373,8 @@
                         <span class="star text-3xl text-slate-300" data-rating="4" onclick="setRating(4)">★</span>
                         <span class="star text-3xl text-slate-300" data-rating="5" onclick="setRating(5)">★</span>
                     </div>
-                    <textarea id="reviewInput" rows="2" placeholder="Tulis komentar Anda tentang kesulitan atau pengalaman ujian ini..." 
-                        class="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none text-sm text-slate-800 placeholder-slate-400 resize-none mb-3"></textarea>
+                    <textarea id="reviewInput" rows="2" placeholder="Tulis komentar Anda tentang pengalaman ujian ini..." 
+                        class="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none text-sm text-slate-900 placeholder-slate-400 resize-none mb-3"></textarea>
                     <button onclick="submitReview()" class="px-6 py-2.5 rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-white transition text-sm font-semibold">
                         Kirim Ulasan
                     </button>
@@ -406,7 +390,7 @@
     <!-- MODAL -->
     <div id="modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
         <div class="glass rounded-2xl p-6 max-w-sm w-full animate-fade border-white/80">
-            <h3 class="text-lg font-bold mb-2 text-slate-800" id="modalTitle">Konfirmasi</h3>
+            <h3 class="text-lg font-bold mb-2 text-slate-900" id="modalTitle">Konfirmasi</h3>
             <p class="text-slate-600 text-sm mb-6" id="modalText">Apakah Anda yakin?</p>
             <div class="flex gap-3">
                 <button onclick="closeModal()" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition text-sm font-semibold">Batal</button>
@@ -417,7 +401,6 @@
 
 <script>
 // ==================== DATABASE BANK SOAL (120 SOAL) ====================
-// Level 1-8: Fase 1 (45 soal), Level 9-15: Fase 2 (45 soal), Level 16+: Fase 3 (30 soal)
 const bankSoalLengkap = [
     // FASE 1: Konseptual & Manajemen SI (Level 1-8) - 45 Soal
     {id:1, level:1, q:"Apa definisi Sistem Informasi menurut Laudon & Laudon?", opts:["Kumpulan hardware yang saling terhubung","Sekumpulan komponen yang saling berhubungan untuk mengumpulkan, memproses, menyimpan, dan mendistribusikan informasi","Perangkat lunak untuk mengelola data","Jaringan komputer dalam organisasi"], ans:"b"},
@@ -553,9 +536,114 @@ let currentQuestions = [];
 let currentQuestionIndex = 0;
 let userAnswers = {};
 let timerInterval = null;
-let timeRemaining = 1800; // 30 menit
+let timeRemaining = 1800;
 let selectedRating = 0;
 let modalCallback = null;
+let audioCtx = null;
+
+// ==================== AUDIO ENGINE (Web Audio API) ====================
+function initAudio() {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+}
+
+function playSound(type) {
+    initAudio();
+    try {
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        gainNode.gain.value = 0.1;
+        
+        switch(type) {
+            case 'click':
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                oscillator.start(audioCtx.currentTime);
+                oscillator.stop(audioCtx.currentTime + 0.1);
+                break;
+            case 'correct':
+                oscillator.frequency.value = 523;
+                oscillator.type = 'sine';
+                oscillator.start(audioCtx.currentTime);
+                oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.1);
+                oscillator.frequency.setValueAtTime(784, audioCtx.currentTime + 0.2);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                oscillator.stop(audioCtx.currentTime + 0.4);
+                break;
+            case 'wrong':
+                oscillator.frequency.value = 200;
+                oscillator.type = 'square';
+                gainNode.gain.value = 0.08;
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                oscillator.start(audioCtx.currentTime);
+                oscillator.stop(audioCtx.currentTime + 0.3);
+                break;
+            case 'success':
+                oscillator.frequency.value = 523;
+                oscillator.type = 'sine';
+                oscillator.start(audioCtx.currentTime);
+                oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.1);
+                oscillator.frequency.setValueAtTime(784, audioCtx.currentTime + 0.2);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                oscillator.stop(audioCtx.currentTime + 0.4);
+                break;
+            case 'error':
+                oscillator.frequency.value = 150;
+                oscillator.type = 'sawtooth';
+                gainNode.gain.value = 0.1;
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                oscillator.start(audioCtx.currentTime);
+                oscillator.stop(audioCtx.currentTime + 0.3);
+                break;
+            case 'start':
+                oscillator.frequency.value = 440;
+                oscillator.type = 'sine';
+                oscillator.start(audioCtx.currentTime);
+                oscillator.frequency.setValueAtTime(554, audioCtx.currentTime + 0.15);
+                oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.3);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+                oscillator.stop(audioCtx.currentTime + 0.5);
+                break;
+            case 'win':
+                oscillator.frequency.value = 523;
+                oscillator.type = 'sine';
+                oscillator.start(audioCtx.currentTime);
+                oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.15);
+                oscillator.frequency.setValueAtTime(784, audioCtx.currentTime + 0.3);
+                oscillator.frequency.setValueAtTime(1047, audioCtx.currentTime + 0.45);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.7);
+                oscillator.stop(audioCtx.currentTime + 0.7);
+                break;
+            case 'lose':
+                oscillator.frequency.value = 400;
+                oscillator.type = 'sawtooth';
+                gainNode.gain.value = 0.05;
+                oscillator.start(audioCtx.currentTime);
+                oscillator.frequency.setValueAtTime(300, audioCtx.currentTime + 0.2);
+                oscillator.frequency.setValueAtTime(200, audioCtx.currentTime + 0.4);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
+                oscillator.stop(audioCtx.currentTime + 0.6);
+                break;
+            case 'timeout':
+                oscillator.frequency.value = 600;
+                oscillator.type = 'square';
+                gainNode.gain.value = 0.08;
+                oscillator.start(audioCtx.currentTime);
+                oscillator.frequency.setValueAtTime(400, audioCtx.currentTime + 0.3);
+                oscillator.frequency.setValueAtTime(200, audioCtx.currentTime + 0.6);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.9);
+                oscillator.stop(audioCtx.currentTime + 0.9);
+                break;
+        }
+    } catch(e) { /* silent fail untuk kompatibilitas browser */ }
+}
 
 // ==================== VISITOR COUNTER ====================
 function initVisitorCounter() {
@@ -567,6 +655,7 @@ function initVisitorCounter() {
 
 // ==================== LOGIN ====================
 function handleLogin() {
+    initAudio(); // Initialize audio on first user interaction
     const nama = document.getElementById('inputNama').value.trim();
     const nim = document.getElementById('inputNIM').value.trim();
     
@@ -670,6 +759,7 @@ function addTestimonial() {
 
 // ==================== QUIZ ENGINE ====================
 function startPhase(phase) {
+    initAudio();
     currentPhase = phase;
     let questionPool = [];
     let requiredCount = 0;
@@ -696,15 +786,15 @@ function startPhase(phase) {
     currentQuestions = shuffleArray([...questionPool]).slice(0, requiredCount);
     currentQuestionIndex = 0;
     userAnswers = {};
-    timeRemaining = 1800;
+    timeRemaining = 1800; // 30 menit
     
     document.getElementById('quizTitle').textContent = phaseName;
-    document.getElementById('totalQ').textContent = currentQuestions.length;
-    document.getElementById('timerDisplay').classList.remove('timer-warning');
+    document.getElementById('total-soal').textContent = currentQuestions.length;
+    document.getElementById('timer-display').classList.remove('timer-warning');
     
     playSound('start');
     showPage('quizPage');
-    renderQuestion();
+    renderSoal();
     startTimer();
     renderQuestionDots();
 }
@@ -717,62 +807,74 @@ function shuffleArray(array) {
     return array;
 }
 
-function renderQuestion() {
+// PERBAIKAN: Fungsi renderSoal yang robust untuk memastikan opsi A, B, C muncul dengan sempurna
+function renderSoal() {
     const q = currentQuestions[currentQuestionIndex];
-    document.getElementById('currentQ').textContent = currentQuestionIndex + 1;
+    document.getElementById('nomor-soal').textContent = currentQuestionIndex + 1;
     document.getElementById('qNumber').textContent = currentQuestionIndex + 1;
-    document.getElementById('questionText').textContent = q.q;
+    document.getElementById('teks-pertanyaan').textContent = q.q;
+    
+    const container = document.getElementById('opsi-container');
+    container.innerHTML = ''; // Bersihkan kontainer sebelumnya
     
     const labels = ['A', 'B', 'C'];
-    const container = document.getElementById('optionsContainer');
-    
-    // PERBAIKAN: Rendering opsi yang jelas, terlihat, dan dapat diklik
-    container.innerHTML = q.opts.map((opt, i) => {
-        const letter = labels[i];
-        const isSelected = userAnswers[currentQuestionIndex] === letter.toLowerCase();
-        return `
-            <div class="option-btn w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-start gap-3 cursor-pointer
-                ${isSelected 
-                    ? 'border-primary bg-blue-50' 
-                    : 'border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50/50'}" 
-                 onclick="selectOption('${letter.toLowerCase()}')" data-option="${letter.toLowerCase()}">
-                <span class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors
-                    ${isSelected ? 'bg-primary text-white' : 'bg-slate-100 text-slate-600'}">
-                    ${letter}
-                </span>
-                <span class="text-slate-700 font-medium pt-1 leading-snug">${opt}</span>
-            </div>
+    q.opts.forEach((opt, index) => {
+        const letter = labels[index];
+        const val = letter.toLowerCase();
+        const isSelected = userAnswers[currentQuestionIndex] === val;
+        
+        const btn = document.createElement('div');
+        btn.className = `opsi-btn w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-start gap-3 cursor-pointer ${
+            isSelected ? 'border-primary bg-blue-50' : 'border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50/50'
+        }`;
+        btn.onclick = () => pilihJawaban(val);
+        btn.innerHTML = `
+            <span class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${
+                isSelected ? 'bg-primary text-white' : 'bg-slate-100 text-slate-600'
+            }">${letter}</span>
+            <span class="text-slate-700 font-medium pt-1 leading-snug select-none">${opt}</span>
         `;
-    }).join('');
+        container.appendChild(btn);
+    });
     
+    // Update progress bar
     const progress = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
     document.getElementById('progressBar').style.width = progress + '%';
     
+    // Update navigation buttons
     document.getElementById('btnPrev').disabled = currentQuestionIndex === 0;
     document.getElementById('btnNext').innerHTML = currentQuestionIndex === currentQuestions.length - 1 ? 'Selesai ✓' : 'Selanjutnya →';
     
     updateQuestionDots();
 }
 
-function selectOption(option) {
-    userAnswers[currentQuestionIndex] = option;
-    playSound('click');
-    renderQuestion();
+// PERBAIKAN: Efek audio saat jawaban benar/salah diklik
+function pilihJawaban(val) {
+    userAnswers[currentQuestionIndex] = val;
+    const q = currentQuestions[currentQuestionIndex];
+    
+    if (val === q.ans) {
+        playSound('correct');
+    } else {
+        playSound('wrong');
+    }
+    
+    renderSoal(); // Re-render untuk menampilkan state terpilih
 }
 
-function nextQuestion() {
+function nextSoal() {
     if (currentQuestionIndex < currentQuestions.length - 1) {
         currentQuestionIndex++;
-        renderQuestion();
+        renderSoal();
     } else {
         confirmSubmit();
     }
 }
 
-function prevQuestion() {
+function prevSoal() {
     if (currentQuestionIndex > 0) {
         currentQuestionIndex--;
-        renderQuestion();
+        renderSoal();
     }
 }
 
@@ -793,12 +895,13 @@ function updateQuestionDots() {
 
 function jumpToQuestion(index) {
     currentQuestionIndex = index;
-    renderQuestion();
+    renderSoal();
 }
 
-// ==================== TIMER ====================
+// PERBAIKAN: Fungsi timer yang dijamin berjalan setiap detik
 function startTimer() {
     clearInterval(timerInterval);
+    timeRemaining = 1800; // Reset ke 30 menit
     updateTimerDisplay();
     
     timerInterval = setInterval(() => {
@@ -806,7 +909,7 @@ function startTimer() {
         updateTimerDisplay();
         
         if (timeRemaining <= 60) {
-            document.getElementById('timerDisplay').classList.add('timer-warning');
+            document.getElementById('timer-display').classList.add('timer-warning');
         }
         
         if (timeRemaining <= 0) {
@@ -820,8 +923,10 @@ function startTimer() {
 function updateTimerDisplay() {
     const minutes = Math.floor(timeRemaining / 60);
     const seconds = timeRemaining % 60;
-    document.getElementById('timerDisplay').textContent = 
-        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    const display = document.getElementById('timer-display');
+    if (display) {
+        display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
 }
 
 // ==================== SUBMIT & EVALUATION ====================
@@ -938,159 +1043,6 @@ function closeModal() {
 function modalConfirm() {
     closeModal();
     if (modalCallback) modalCallback();
-}
-
-// ==================== SOUND EFFECTS (Web Audio API) ====================
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-function playSound(type) {
-    try {
-        const oscillator = audioCtx.createOscillator();
-        const gainNode = audioCtx.createGain();
-        oscillator.connect(gimeNode);
-        gainNode.connect(audioCtx.destination);
-        gainNode.gain.value = 0.1;
-        
-        switch(type) {
-            case 'click':
-                oscillator.frequency.value = 800;
-                oscillator.type = 'sine';
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-                oscillator.start(audioCtx.currentTime);
-                oscillator.stop(audioCtx.currentTime + 0.1);
-                break;
-            case 'success':
-                oscillator.frequency.value = 523;
-                oscillator.type = 'sine';
-                oscillator.start(audioCtx.currentTime);
-                oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.1);
-                oscillator.frequency.setValueAtTime(784, audioCtx.currentTime + 0.2);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
-                oscillator.stop(audioCtx.currentTime + 0.4);
-                break;
-            case 'error':
-                oscillator.frequency.value = 200;
-                oscillator.type = 'square';
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                oscillator.start(audioCtx.currentTime);
-                oscillator.stop(audioCtx.currentTime + 0.3);
-                break;
-            case 'start':
-                oscillator.frequency.value = 440;
-                oscillator.type = 'sine';
-                oscillator.start(audioCtx.currentTime);
-                oscillator.frequency.setValueAtTime(554, audioCtx.currentTime + 0.15);
-                oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.3);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-                oscillator.stop(audioCtx.currentTime + 0.5);
-                break;
-            case 'win':
-                oscillator.frequency.value = 523;
-                oscillator.type = 'sine';
-                oscillator.start(audioCtx.currentTime);
-                oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.15);
-                oscillator.frequency.setValueAtTime(784, audioCtx.currentTime + 0.3);
-                oscillator.frequency.setValueAtTime(1047, audioCtx.currentTime + 0.45);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.7);
-                oscillator.stop(audioCtx.currentTime + 0.7);
-                break;
-            case 'lose':
-                oscillator.frequency.value = 400;
-                oscillator.type = 'sawtooth';
-                gainNode.gain.value = 0.05;
-                oscillator.start(audioCtx.currentTime);
-                oscillator.frequency.setValueAtTime(300, audioCtx.currentTime + 0.2);
-                oscillator.frequency.setValueAtTime(200, audioCtx.currentTime + 0.4);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
-                oscillator.stop(audioCtx.currentTime + 0.6);
-                break;
-            case 'timeout':
-                oscillator.frequency.value = 600;
-                oscillator.type = 'square';
-                gainNode.gain.value = 0.08;
-                oscillator.start(audioCtx.currentTime);
-                oscillator.frequency.setValueAtTime(400, audioCtx.currentTime + 0.3);
-                oscillator.frequency.setValueAtTime(200, audioCtx.currentTime + 0.6);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.9);
-                oscillator.stop(audioCtx.currentTime + 0.9);
-                break;
-        }
-    } catch(e) { /* silent fail untuk kompatibilitas browser */ }
-}
-// Fix typo in audioCtx connection
-function playSound(type) {
-    try {
-        const oscillator = audioCtx.createOscillator();
-        const gainNode = audioCtx.createGain();
-        oscillator.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-        gainNode.gain.value = 0.1;
-        
-        switch(type) {
-            case 'click':
-                oscillator.frequency.value = 800;
-                oscillator.type = 'sine';
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-                oscillator.start(audioCtx.currentTime);
-                oscillator.stop(audioCtx.currentTime + 0.1);
-                break;
-            case 'success':
-                oscillator.frequency.value = 523;
-                oscillator.type = 'sine';
-                oscillator.start(audioCtx.currentTime);
-                oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.1);
-                oscillator.frequency.setValueAtTime(784, audioCtx.currentTime + 0.2);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
-                oscillator.stop(audioCtx.currentTime + 0.4);
-                break;
-            case 'error':
-                oscillator.frequency.value = 200;
-                oscillator.type = 'square';
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                oscillator.start(audioCtx.currentTime);
-                oscillator.stop(audioCtx.currentTime + 0.3);
-                break;
-            case 'start':
-                oscillator.frequency.value = 440;
-                oscillator.type = 'sine';
-                oscillator.start(audioCtx.currentTime);
-                oscillator.frequency.setValueAtTime(554, audioCtx.currentTime + 0.15);
-                oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.3);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-                oscillator.stop(audioCtx.currentTime + 0.5);
-                break;
-            case 'win':
-                oscillator.frequency.value = 523;
-                oscillator.type = 'sine';
-                oscillator.start(audioCtx.currentTime);
-                oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.15);
-                oscillator.frequency.setValueAtTime(784, audioCtx.currentTime + 0.3);
-                oscillator.frequency.setValueAtTime(1047, audioCtx.currentTime + 0.45);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.7);
-                oscillator.stop(audioCtx.currentTime + 0.7);
-                break;
-            case 'lose':
-                oscillator.frequency.value = 400;
-                oscillator.type = 'sawtooth';
-                gainNode.gain.value = 0.05;
-                oscillator.start(audioCtx.currentTime);
-                oscillator.frequency.setValueAtTime(300, audioCtx.currentTime + 0.2);
-                oscillator.frequency.setValueAtTime(200, audioCtx.currentTime + 0.4);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
-                oscillator.stop(audioCtx.currentTime + 0.6);
-                break;
-            case 'timeout':
-                oscillator.frequency.value = 600;
-                oscillator.type = 'square';
-                gainNode.gain.value = 0.08;
-                oscillator.start(audioCtx.currentTime);
-                oscillator.frequency.setValueAtTime(400, audioCtx.currentTime + 0.3);
-                oscillator.frequency.setValueAtTime(200, audioCtx.currentTime + 0.6);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.9);
-                oscillator.stop(audioCtx.currentTime + 0.9);
-                break;
-        }
-    } catch(e) { /* silent fail */ }
 }
 
 // ==================== INITIALIZATION ====================
