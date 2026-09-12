@@ -10,108 +10,163 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#1e3a5f',
-                        secondary: '#2d5a87',
-                        accent: '#4a90d9',
-                        dark: '#0f172a',
-                        surface: '#1e293b'
+                        primary: '#2563eb',
+                        secondary: '#3b82f6',
+                        accent: '#0ea5e9',
+                        surface: '#ffffff',
+                        background: '#F2F8FF'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
                     }
                 }
             }
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        * { font-family: 'Inter', sans-serif; }
-        body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); }
-        .glass { background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(74, 144, 217, 0.15); }
-        .glass-light { background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(10px); border: 1px solid rgba(74, 144, 217, 0.1); }
-        .glow-blue { box-shadow: 0 0 30px rgba(74, 144, 217, 0.2); }
-        .glow-green { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
-        .glow-amber { box-shadow: 0 0 20px rgba(245, 158, 11, 0.3); }
-        .glow-purple { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
-        .blink-dot { animation: blink 1.5s infinite; }
-        @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0.2; } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 20px rgba(74, 144, 217, 0.3); } 50% { box-shadow: 0 0 40px rgba(74, 144, 217, 0.6); } }
-        .animate-fade { animation: fadeIn 0.6s ease-out; }
-        .animate-slide { animation: slideIn 0.5s ease-out; }
-        .pulse-glow { animation: pulse-glow 2s infinite; }
-        .option-btn { transition: all 0.3s ease; }
-        .option-btn:hover { transform: translateX(5px); }
-        .option-btn.selected { border-color: #4a90d9; background: rgba(74, 144, 217, 0.15); }
-        .option-btn.correct { border-color: #10b981; background: rgba(16, 185, 129, 0.15); }
-        .option-btn.wrong { border-color: #ef4444; background: rgba(239, 68, 68, 0.15); }
-        .timer-warning { animation: pulse-glow-red 1s infinite; }
-        @keyframes pulse-glow-red { 0%, 100% { box-shadow: 0 0 10px rgba(239, 68, 68, 0.3); } 50% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.7); } }
-        .star-rating .star { cursor: pointer; transition: all 0.2s; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            background-color: #F2F8FF;
+            background-image: linear-gradient(rgba(242, 248, 255, 0.88), rgba(242, 248, 255, 0.92)), url('https://lh3.googleusercontent.com/d/1X_tNirOyA8ODFvKHYhD6_mv_FE-MDgut');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #1e293b;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.1);
+            border-color: rgba(37, 99, 235, 0.3);
+        }
+
+        .blink-dot {
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; transform: scale(1); }
+            51%, 100% { opacity: 0.3; transform: scale(0.8); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade { animation: fadeIn 0.5s ease-out forwards; }
+
+        .option-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .option-btn:hover {
+            transform: translateX(4px);
+        }
+
+        .timer-warning {
+            animation: pulse-red 1s infinite;
+            color: #dc2626 !important;
+            border-color: #fecaca !important;
+            background-color: #fef2f2 !important;
+        }
+
+        @keyframes pulse-red {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
+        }
+
+        .star-rating .star {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
         .star-rating .star:hover { transform: scale(1.2); }
+
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #1e293b; }
-        ::-webkit-scrollbar-thumb { background: #4a90d9; border-radius: 3px; }
-        .certificate-border { border: 3px double #d4af37; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
         @media print {
             body { background: white !important; }
             .no-print { display: none !important; }
+            .glass, .glass-card { border: 1px solid #ccc !important; box-shadow: none !important; }
         }
     </style>
 </head>
-<body class="min-h-screen text-white">
+<body class="min-h-screen">
 
     <!-- LANDING PAGE -->
     <div id="landingPage" class="min-h-screen flex items-center justify-center p-4">
         <div class="max-w-6xl w-full grid lg:grid-cols-2 gap-8 items-center">
             <!-- Left Side -->
             <div class="animate-fade space-y-6">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-light text-sm text-accent font-medium">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary font-semibold border-blue-200">
                     🎓 INFORMATION SYSTEM
                 </div>
-                <h1 class="text-4xl lg:text-5xl font-bold leading-tight">
+                <h1 class="text-4xl lg:text-5xl font-extrabold leading-tight text-slate-800">
                     Portal Latihan &<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-400">Uji Mandiri</span>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Uji Mandiri</span>
                 </h1>
-                <p class="text-gray-400 text-lg">Sarana latihan dan uji kompetensi mandiri program studi Sistem Informasi.</p>
+                <p class="text-slate-600 text-lg leading-relaxed">Sarana latihan dan uji kompetensi mandiri program studi Sistem Informasi.</p>
                 
                 <!-- Stats -->
-                <div class="grid grid-cols-3 gap-4 pt-4">
-                    <div class="glass rounded-xl p-4 text-center glow-green">
-                        <div class="text-2xl font-bold text-emerald-400">120</div>
-                        <div class="text-xs text-gray-400 mt-1">Bank Soal</div>
-                        <div class="h-1 w-12 mx-auto mt-2 rounded-full bg-emerald-400"></div>
+                <div class="grid grid-cols-3 gap-4 pt-2">
+                    <div class="glass-card rounded-xl p-4 text-center">
+                        <div class="text-2xl font-bold text-emerald-600">120</div>
+                        <div class="text-xs text-slate-500 mt-1 font-medium">Bank Soal</div>
+                        <div class="h-1 w-12 mx-auto mt-2 rounded-full bg-emerald-500"></div>
                     </div>
-                    <div class="glass rounded-xl p-4 text-center glow-amber">
-                        <div class="text-2xl font-bold text-amber-400">Live</div>
-                        <div class="text-xs text-gray-400 mt-1">Waktu</div>
-                        <div class="h-1 w-12 mx-auto mt-2 rounded-full bg-amber-400"></div>
+                    <div class="glass-card rounded-xl p-4 text-center">
+                        <div class="text-2xl font-bold text-amber-600">Live</div>
+                        <div class="text-xs text-slate-500 mt-1 font-medium">Waktu</div>
+                        <div class="h-1 w-12 mx-auto mt-2 rounded-full bg-amber-500"></div>
                     </div>
-                    <div class="glass rounded-xl p-4 text-center glow-purple">
-                        <div class="text-2xl font-bold text-purple-400" id="visitorCount">0</div>
-                        <div class="text-xs text-gray-400 mt-1 flex items-center justify-center gap-1">
-                            Pengunjung <span class="w-2 h-2 rounded-full bg-green-400 blink-dot inline-block"></span>
+                    <div class="glass-card rounded-xl p-4 text-center">
+                        <div class="text-2xl font-bold text-purple-600" id="visitorCount">0</div>
+                        <div class="text-xs text-slate-500 mt-1 flex items-center justify-center gap-1.5 font-medium">
+                            Pengunjung <span class="w-2 h-2 rounded-full bg-green-500 blink-dot inline-block"></span>
                         </div>
-                        <div class="h-1 w-12 mx-auto mt-2 rounded-full bg-purple-400"></div>
+                        <div class="h-1 w-12 mx-auto mt-2 rounded-full bg-purple-500"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Right Side - Login Form -->
             <div class="animate-fade">
-                <div class="glass rounded-2xl p-8 glow-blue max-w-md mx-auto">
-                    <h2 class="text-2xl font-bold mb-6">Mulai Latihan</h2>
+                <div class="glass rounded-2xl p-8 max-w-md mx-auto border-white/80">
+                    <h2 class="text-2xl font-bold mb-6 text-slate-800">Mulai Latihan</h2>
                     <div class="space-y-4">
                         <div>
-                            <label class="text-sm text-gray-400 mb-1 block">Nama Lengkap</label>
+                            <label class="text-sm text-slate-600 mb-1.5 block font-medium">Nama Lengkap</label>
                             <input type="text" id="inputNama" placeholder="Masukkan nama lengkap" 
-                                class="w-full px-4 py-3 rounded-xl bg-dark/50 border border-gray-700 focus:border-accent focus:outline-none transition text-white placeholder-gray-500">
+                                class="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition text-slate-800 placeholder-slate-400">
                         </div>
                         <div>
-                            <label class="text-sm text-gray-400 mb-1 block">NIM Mahasiswa</label>
+                            <label class="text-sm text-slate-600 mb-1.5 block font-medium">NIM Mahasiswa</label>
                             <input type="text" id="inputNIM" placeholder="Masukkan NIM" 
-                                class="w-full px-4 py-3 rounded-xl bg-dark/50 border border-gray-700 focus:border-accent focus:outline-none transition text-white placeholder-gray-500">
+                                class="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition text-slate-800 placeholder-slate-400">
                         </div>
                         <button onclick="handleLogin()" 
-                            class="w-full py-3 rounded-xl bg-gradient-to-r from-accent to-blue-600 hover:from-blue-600 hover:to-accent font-semibold transition transform hover:scale-[1.02] active:scale-95">
+                            class="w-full py-3.5 rounded-xl bg-primary hover:bg-blue-700 text-white font-semibold transition transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-blue-500/30">
                             Masuk ke Dashboard
                         </button>
                     </div>
@@ -121,21 +176,22 @@
     </div>
 
     <!-- DASHBOARD -->
-    <div id="dashboardPage" class="min-h-screen hidden p-4">
+    <div id="dashboardPage" class="min-h-screen hidden p-4 lg:p-8">
         <div class="max-w-6xl mx-auto">
             <!-- Header -->
-            <div class="flex items-center justify-between mb-8 animate-fade">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 animate-fade gap-4">
                 <div>
-                    <h1 class="text-2xl font-bold">Dashboard</h1>
-                    <p class="text-gray-400 text-sm">Selamat datang kembali</p>
+                    <h1 class="text-2xl font-bold text-slate-800">Dashboard</h1>
+                    <p class="text-slate-500 text-sm">Selamat datang kembali, siap untuk uji kompetensi?</p>
                 </div>
-                <div class="flex items-center gap-4">
-                    <div class="glass rounded-xl px-4 py-2 text-sm">
-                        <span class="text-gray-400">👤</span> <span id="dashNama" class="font-medium"></span>
-                        <span class="text-gray-600 mx-2">|</span>
-                        <span class="text-accent" id="dashNIM"></span>
+                <div class="flex items-center gap-3">
+                    <div class="glass-card rounded-xl px-4 py-2.5 text-sm flex items-center gap-2">
+                        <span class="text-primary">👤</span> 
+                        <span id="dashNama" class="font-semibold text-slate-700"></span>
+                        <span class="text-slate-300">|</span>
+                        <span id="dashNIM" class="text-primary font-medium"></span>
                     </div>
-                    <button onclick="handleLogout()" class="px-4 py-2 rounded-xl bg-red-500/20 text-red-400 hover:bg-red-500/30 transition text-sm font-medium">
+                    <button onclick="handleLogout()" class="px-4 py-2.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 transition text-sm font-semibold">
                         Keluar
                     </button>
                 </div>
@@ -144,78 +200,78 @@
             <div class="grid lg:grid-cols-3 gap-6">
                 <!-- Left - Phase Cards -->
                 <div class="lg:col-span-2 space-y-4">
-                    <h2 class="text-xl font-bold mb-4">📋 Pilih Fase Ujian</h2>
+                    <h2 class="text-lg font-bold text-slate-800 mb-2 flex items-center gap-2">📋 Pilih Fase Ujian</h2>
                     
                     <!-- Fase 1 -->
-                    <div class="glass rounded-xl p-6 hover:border-emerald-500/30 transition cursor-pointer group" onclick="startPhase(1)">
+                    <div class="glass-card rounded-xl p-5 cursor-pointer group" onclick="startPhase(1)">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold text-lg">1</div>
+                                <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-lg group-hover:bg-emerald-600 group-hover:text-white transition-colors">1</div>
                                 <div>
-                                    <h3 class="font-semibold text-lg group-hover:text-emerald-400 transition">Fase 1: Konseptual & Manajemen SI</h3>
+                                    <h3 class="font-bold text-slate-800 text-lg">Fase 1: Konseptual & Manajemen SI</h3>
                                     <div class="flex items-center gap-3 mt-1">
-                                        <span class="text-sm text-gray-400">45 Soal</span>
-                                        <span class="text-gray-600">•</span>
-                                        <span class="text-sm text-gray-400">30 Menit</span>
+                                        <span class="text-sm text-slate-500 font-medium">45 Soal</span>
+                                        <span class="text-slate-300">•</span>
+                                        <span class="text-sm text-slate-500 font-medium">30 Menit</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-gray-500 group-hover:text-emerald-400 transition text-2xl">→</div>
+                            <div class="text-slate-300 group-hover:text-primary transition text-2xl font-light">→</div>
                         </div>
                     </div>
 
                     <!-- Fase 2 -->
-                    <div class="glass rounded-xl p-6 hover:border-amber-500/30 transition cursor-pointer group" onclick="startPhase(2)">
+                    <div class="glass-card rounded-xl p-5 cursor-pointer group" onclick="startPhase(2)">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400 font-bold text-lg">2</div>
+                                <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600 font-bold text-lg group-hover:bg-amber-500 group-hover:text-white transition-colors">2</div>
                                 <div>
-                                    <h3 class="font-semibold text-lg group-hover:text-amber-400 transition">Fase 2: Tata Kelola & Infrastruktur TI</h3>
+                                    <h3 class="font-bold text-slate-800 text-lg">Fase 2: Tata Kelola & Infrastruktur TI</h3>
                                     <div class="flex items-center gap-3 mt-1">
-                                        <span class="text-sm text-gray-400">45 Soal</span>
-                                        <span class="text-gray-600">•</span>
-                                        <span class="text-sm text-gray-400">30 Menit</span>
+                                        <span class="text-sm text-slate-500 font-medium">45 Soal</span>
+                                        <span class="text-slate-300">•</span>
+                                        <span class="text-sm text-slate-500 font-medium">30 Menit</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-gray-500 group-hover:text-amber-400 transition text-2xl">→</div>
+                            <div class="text-slate-300 group-hover:text-primary transition text-2xl font-light">→</div>
                         </div>
                     </div>
 
                     <!-- Fase 3 -->
-                    <div class="glass rounded-xl p-6 hover:border-purple-500/30 transition cursor-pointer group" onclick="startPhase(3)">
+                    <div class="glass-card rounded-xl p-5 cursor-pointer group" onclick="startPhase(3)">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold text-lg">3</div>
+                                <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-lg group-hover:bg-purple-600 group-hover:text-white transition-colors">3</div>
                                 <div>
-                                    <h3 class="font-semibold text-lg group-hover:text-purple-400 transition">Fase 3: Pemrograman & Teknis Lanjutan</h3>
+                                    <h3 class="font-bold text-slate-800 text-lg">Fase 3: Pemrograman, Koding & Teknis Lanjutan</h3>
                                     <div class="flex items-center gap-3 mt-1">
-                                        <span class="text-sm text-gray-400">30 Soal</span>
-                                        <span class="text-gray-600">•</span>
-                                        <span class="text-sm text-gray-400">30 Menit</span>
+                                        <span class="text-sm text-slate-500 font-medium">30 Soal</span>
+                                        <span class="text-slate-300">•</span>
+                                        <span class="text-sm text-slate-500 font-medium">30 Menit</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-gray-500 group-hover:text-purple-400 transition text-2xl">→</div>
+                            <div class="text-slate-300 group-hover:text-primary transition text-2xl font-light">→</div>
                         </div>
                     </div>
 
                     <!-- History -->
                     <div class="mt-6">
-                        <h3 class="text-lg font-bold mb-3">📊 Riwayat Nilai</h3>
-                        <div id="historyList" class="space-y-2 max-h-48 overflow-y-auto"></div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">📊 Riwayat Nilai</h3>
+                        <div id="historyList" class="space-y-2 max-h-48 overflow-y-auto pr-2"></div>
                     </div>
                 </div>
 
                 <!-- Right - Testimonials -->
                 <div class="space-y-4">
-                    <div class="glass rounded-xl p-6">
-                        <h3 class="font-bold mb-4">💬 Ulasan & Testimoni</h3>
-                        <div id="testimonialList" class="space-y-3 max-h-64 overflow-y-auto mb-4"></div>
-                        <div class="border-t border-gray-700 pt-4">
-                            <textarea id="testimonialInput" rows="2" placeholder="Tulis ulasan Anda..." 
-                                class="w-full px-3 py-2 rounded-lg bg-dark/50 border border-gray-700 focus:border-accent focus:outline-none text-sm text-white placeholder-gray-500 resize-none"></textarea>
-                            <button onclick="addTestimonial()" class="mt-2 w-full py-2 rounded-lg bg-accent/20 text-accent hover:bg-accent/30 transition text-sm font-medium">
+                    <div class="glass rounded-xl p-6 h-full flex flex-col">
+                        <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">💬 Ulasan & Testimoni</h3>
+                        <div id="testimonialList" class="space-y-3 flex-1 overflow-y-auto mb-4 pr-1 max-h-64"></div>
+                        <div class="border-t border-slate-200 pt-4 mt-auto">
+                            <textarea id="testimonialInput" rows="2" placeholder="Tulis ulasan Anda tentang portal ini..." 
+                                class="w-full px-3 py-2.5 rounded-xl bg-white border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none text-sm text-slate-800 placeholder-slate-400 resize-none"></textarea>
+                            <button onclick="addTestimonial()" class="mt-2 w-full py-2.5 rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-white transition text-sm font-semibold">
                                 Kirim Ulasan
                             </button>
                         </div>
@@ -226,47 +282,51 @@
     </div>
 
     <!-- QUIZ PAGE -->
-    <div id="quizPage" class="min-h-screen hidden p-4">
+    <div id="quizPage" class="min-h-screen hidden p-4 lg:p-8">
         <div class="max-w-4xl mx-auto">
             <!-- Quiz Header -->
-            <div class="glass rounded-xl p-4 mb-6 flex items-center justify-between animate-fade">
+            <div class="glass rounded-2xl p-4 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade">
                 <div>
-                    <h2 class="font-bold text-lg" id="quizTitle">Fase 1</h2>
-                    <p class="text-sm text-gray-400">Soal <span id="currentQ">1</span> dari <span id="totalQ">45</span></p>
+                    <h2 class="font-bold text-lg text-slate-800" id="quizTitle">Fase Ujian</h2>
+                    <p class="text-sm text-slate-500">Soal <span id="currentQ" class="font-bold text-primary">1</span> dari <span id="totalQ">45</span></p>
                 </div>
-                <div class="flex items-center gap-4">
-                    <div id="timerDisplay" class="glass-light rounded-lg px-4 py-2 font-mono text-lg font-bold">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div id="timerDisplay" class="glass-card rounded-xl px-5 py-2.5 font-mono text-lg font-bold text-slate-700 border-slate-200 min-w-[100px] text-center">
                         30:00
                     </div>
-                    <button onclick="confirmSubmit()" class="px-4 py-2 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 transition text-sm font-medium">
+                    <button onclick="confirmSubmit()" class="px-5 py-2.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 transition text-sm font-semibold whitespace-nowrap">
                         Selesai
                     </button>
                 </div>
             </div>
 
             <!-- Progress Bar -->
-            <div class="w-full h-2 bg-dark rounded-full mb-6 overflow-hidden">
-                <div id="progressBar" class="h-full bg-gradient-to-r from-accent to-emerald-400 rounded-full transition-all duration-500" style="width: 0%"></div>
+            <div class="w-full h-2.5 bg-slate-200 rounded-full mb-6 overflow-hidden">
+                <div id="progressBar" class="h-full bg-gradient-to-r from-primary to-accent rounded-full transition-all duration-500" style="width: 0%"></div>
             </div>
 
             <!-- Question Card -->
-            <div class="glass rounded-xl p-8 mb-6 animate-fade">
-                <div class="flex items-start gap-3 mb-6">
-                    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-accent/20 text-accent flex items-center justify-center text-sm font-bold" id="qNumber">1</span>
-                    <p class="text-lg leading-relaxed" id="questionText">Pertanyaan akan muncul di sini</p>
+            <div class="glass rounded-2xl p-6 lg:p-8 mb-6 animate-fade min-h-[300px]">
+                <div class="flex items-start gap-4 mb-8">
+                    <span class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-bold" id="qNumber">1</span>
+                    <p class="text-lg lg:text-xl font-semibold text-slate-800 leading-relaxed" id="questionText">Pertanyaan akan muncul di sini</p>
                 </div>
+                
+                <!-- OPTIONS CONTAINER (DIPERBAIKI) -->
                 <div class="space-y-3" id="optionsContainer">
-                    <!-- Options will be rendered here -->
+                    <!-- Opsi A, B, C akan dirender di sini dengan jelas -->
                 </div>
             </div>
 
             <!-- Navigation -->
             <div class="flex items-center justify-between">
-                <button onclick="prevQuestion()" id="btnPrev" class="px-6 py-3 rounded-xl glass hover:bg-white/5 transition font-medium disabled:opacity-30" disabled>
+                <button onclick="prevQuestion()" id="btnPrev" class="px-6 py-3 rounded-xl glass hover:bg-white transition font-semibold text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2">
                     ← Sebelumnya
                 </button>
-                <div class="flex gap-1" id="questionDots"></div>
-                <button onclick="nextQuestion()" id="btnNext" class="px-6 py-3 rounded-xl bg-accent hover:bg-blue-600 transition font-medium">
+                
+                <div class="flex gap-1.5 flex-wrap justify-center max-w-md" id="questionDots"></div>
+                
+                <button onclick="nextQuestion()" id="btnNext" class="px-6 py-3 rounded-xl bg-primary hover:bg-blue-700 text-white transition font-semibold shadow-lg shadow-blue-500/20 flex items-center gap-2">
                     Selanjutnya →
                 </button>
             </div>
@@ -276,63 +336,67 @@
     <!-- RESULT PAGE -->
     <div id="resultPage" class="min-h-screen hidden p-4 flex items-center justify-center">
         <div class="max-w-2xl w-full animate-fade">
-            <div class="glass rounded-2xl p-8 text-center">
+            <div class="glass rounded-3xl p-8 text-center border-white/90">
                 <div id="resultIcon" class="text-6xl mb-4">🎉</div>
-                <h2 class="text-3xl font-bold mb-2" id="resultTitle">Selamat!</h2>
-                <p class="text-gray-400 mb-6" id="resultSubtitle">Anda telah menyelesaikan ujian</p>
+                <h2 class="text-3xl font-bold mb-2 text-slate-800" id="resultTitle">Selamat!</h2>
+                <p class="text-slate-500 mb-8" id="resultSubtitle">Anda telah menyelesaikan ujian dengan baik</p>
                 
-                <div class="grid grid-cols-3 gap-4 mb-6">
-                    <div class="glass-light rounded-xl p-4">
-                        <div class="text-2xl font-bold text-accent" id="resultScore">0%</div>
-                        <div class="text-xs text-gray-400">Nilai</div>
+                <div class="grid grid-cols-3 gap-4 mb-8">
+                    <div class="glass-card rounded-2xl p-4">
+                        <div class="text-3xl font-bold text-primary" id="resultScore">0%</div>
+                        <div class="text-xs text-slate-500 font-medium mt-1">Nilai Akhir</div>
                     </div>
-                    <div class="glass-light rounded-xl p-4">
-                        <div class="text-2xl font-bold text-emerald-400" id="resultCorrect">0</div>
-                        <div class="text-xs text-gray-400">Benar</div>
+                    <div class="glass-card rounded-2xl p-4">
+                        <div class="text-3xl font-bold text-emerald-600" id="resultCorrect">0</div>
+                        <div class="text-xs text-slate-500 font-medium mt-1">Jawaban Benar</div>
                     </div>
-                    <div class="glass-light rounded-xl p-4">
-                        <div class="text-2xl font-bold text-red-400" id="resultWrong">0</div>
-                        <div class="text-xs text-gray-400">Salah</div>
+                    <div class="glass-card rounded-2xl p-4">
+                        <div class="text-3xl font-bold text-red-500" id="resultWrong">0</div>
+                        <div class="text-xs text-slate-500 font-medium mt-1">Jawaban Salah</div>
                     </div>
                 </div>
 
-                <div class="glass-light rounded-xl p-4 mb-6">
-                    <div class="text-sm text-gray-400">Status</div>
-                    <div class="text-xl font-bold mt-1" id="resultStatus">LULUS</div>
+                <div class="glass-card rounded-2xl p-4 mb-8 inline-block px-8">
+                    <div class="text-sm text-slate-500 font-medium mb-1">Status Kelulusan</div>
+                    <div class="text-2xl font-bold" id="resultStatus">LULUS</div>
                 </div>
 
                 <!-- Certificate Section -->
-                <div id="certificateSection" class="hidden mb-6">
-                    <div class="certificate-border rounded-xl p-6 bg-gradient-to-br from-yellow-900/20 to-amber-900/20">
-                        <div class="text-amber-400 text-sm font-medium mb-2">🏆 SERTIFIKAT KELULUSAN</div>
-                        <div class="text-xl font-bold mb-1" id="certName"></div>
-                        <div class="text-gray-400 text-sm mb-3">NIM: <span id="certNIM"></span></div>
-                        <div class="text-sm text-gray-300">Telah berhasil menyelesaikan <span id="certPhase" class="text-accent font-medium"></span> dengan nilai <span id="certScore" class="text-emerald-400 font-bold"></span></div>
-                        <div class="text-xs text-gray-500 mt-3" id="certDate"></div>
+                <div id="certificateSection" class="hidden mb-8">
+                    <div class="border-2 border-amber-300 rounded-2xl p-6 bg-gradient-to-br from-amber-50 to-yellow-50/50 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-20 h-20 bg-amber-200/30 rounded-bl-full"></div>
+                        <div class="text-amber-600 text-sm font-bold tracking-wider mb-3">🏆 SERTIFIKAT KELULUSAN</div>
+                        <div class="text-2xl font-bold text-slate-800 mb-1" id="certName"></div>
+                        <div class="text-slate-500 text-sm mb-4">NIM: <span id="certNIM" class="font-medium text-slate-700"></span></div>
+                        <div class="text-sm text-slate-600 leading-relaxed">
+                            Telah berhasil menyelesaikan <span id="certPhase" class="text-primary font-bold"></span><br>
+                            dengan nilai <span id="certScore" class="text-emerald-600 font-bold text-lg"></span>
+                        </div>
+                        <div class="text-xs text-slate-400 mt-4 pt-4 border-t border-amber-200" id="certDate"></div>
                     </div>
-                    <button onclick="window.print()" class="mt-4 px-6 py-2 rounded-lg bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 transition text-sm font-medium no-print">
+                    <button onclick="window.print()" class="mt-4 px-6 py-2.5 rounded-xl bg-amber-100 text-amber-700 hover:bg-amber-200 transition text-sm font-semibold no-print flex items-center gap-2 mx-auto">
                         🖨️ Cetak Sertifikat
                     </button>
                 </div>
 
                 <!-- Review Form -->
-                <div class="border-t border-gray-700 pt-6 mt-6">
-                    <h3 class="font-bold mb-3">⭐ Berikan Ulasan</h3>
-                    <div class="star-rating flex justify-center gap-2 mb-4" id="starRating">
-                        <span class="star text-3xl text-gray-600" data-rating="1" onclick="setRating(1)">★</span>
-                        <span class="star text-3xl text-gray-600" data-rating="2" onclick="setRating(2)">★</span>
-                        <span class="star text-3xl text-gray-600" data-rating="3" onclick="setRating(3)">★</span>
-                        <span class="star text-3xl text-gray-600" data-rating="4" onclick="setRating(4)">★</span>
-                        <span class="star text-3xl text-gray-600" data-rating="5" onclick="setRating(5)">★</span>
+                <div class="border-t border-slate-200 pt-6 mt-6">
+                    <h3 class="font-bold text-slate-800 mb-4">⭐ Berikan Ulasan Ujian</h3>
+                    <div class="star-rating flex justify-center gap-3 mb-4" id="starRating">
+                        <span class="star text-3xl text-slate-300" data-rating="1" onclick="setRating(1)">★</span>
+                        <span class="star text-3xl text-slate-300" data-rating="2" onclick="setRating(2)">★</span>
+                        <span class="star text-3xl text-slate-300" data-rating="3" onclick="setRating(3)">★</span>
+                        <span class="star text-3xl text-slate-300" data-rating="4" onclick="setRating(4)">★</span>
+                        <span class="star text-3xl text-slate-300" data-rating="5" onclick="setRating(5)">★</span>
                     </div>
-                    <textarea id="reviewInput" rows="2" placeholder="Tulis komentar Anda tentang ujian ini..." 
-                        class="w-full px-4 py-2 rounded-lg bg-dark/50 border border-gray-700 focus:border-accent focus:outline-none text-sm text-white placeholder-gray-500 resize-none mb-3"></textarea>
-                    <button onclick="submitReview()" class="px-6 py-2 rounded-lg bg-accent/20 text-accent hover:bg-accent/30 transition text-sm font-medium">
+                    <textarea id="reviewInput" rows="2" placeholder="Tulis komentar Anda tentang kesulitan atau pengalaman ujian ini..." 
+                        class="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none text-sm text-slate-800 placeholder-slate-400 resize-none mb-3"></textarea>
+                    <button onclick="submitReview()" class="px-6 py-2.5 rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-white transition text-sm font-semibold">
                         Kirim Ulasan
                     </button>
                 </div>
 
-                <button onclick="backToDashboard()" class="mt-6 px-8 py-3 rounded-xl bg-gradient-to-r from-accent to-blue-600 font-semibold transition transform hover:scale-[1.02]">
+                <button onclick="backToDashboard()" class="mt-8 px-8 py-3.5 rounded-xl bg-primary hover:bg-blue-700 text-white font-semibold transition transform hover:scale-[1.02] shadow-lg shadow-blue-500/20 w-full sm:w-auto">
                     Kembali ke Dashboard
                 </button>
             </div>
@@ -340,23 +404,24 @@
     </div>
 
     <!-- MODAL -->
-    <div id="modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
-        <div class="glass rounded-2xl p-6 max-w-sm w-full animate-fade">
-            <h3 class="text-lg font-bold mb-2" id="modalTitle">Konfirmasi</h3>
-            <p class="text-gray-400 text-sm mb-6" id="modalText">Apakah Anda yakin?</p>
+    <div id="modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+        <div class="glass rounded-2xl p-6 max-w-sm w-full animate-fade border-white/80">
+            <h3 class="text-lg font-bold mb-2 text-slate-800" id="modalTitle">Konfirmasi</h3>
+            <p class="text-slate-600 text-sm mb-6" id="modalText">Apakah Anda yakin?</p>
             <div class="flex gap-3">
-                <button onclick="closeModal()" class="flex-1 py-2 rounded-lg glass hover:bg-white/5 transition text-sm font-medium">Batal</button>
-                <button onclick="modalConfirm()" class="flex-1 py-2 rounded-lg bg-accent hover:bg-blue-600 transition text-sm font-medium">Ya, Lanjut</button>
+                <button onclick="closeModal()" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition text-sm font-semibold">Batal</button>
+                <button onclick="modalConfirm()" class="flex-1 py-2.5 rounded-xl bg-primary hover:bg-blue-700 text-white transition text-sm font-semibold">Ya, Lanjut</button>
             </div>
         </div>
     </div>
 
 <script>
 // ==================== DATABASE BANK SOAL (120 SOAL) ====================
+// Level 1-8: Fase 1 (45 soal), Level 9-15: Fase 2 (45 soal), Level 16+: Fase 3 (30 soal)
 const bankSoalLengkap = [
-    // ===== FASE 1: Level 1-8 (Konseptual & Manajemen SI) - 45 Soal =====
+    // FASE 1: Konseptual & Manajemen SI (Level 1-8) - 45 Soal
     {id:1, level:1, q:"Apa definisi Sistem Informasi menurut Laudon & Laudon?", opts:["Kumpulan hardware yang saling terhubung","Sekumpulan komponen yang saling berhubungan untuk mengumpulkan, memproses, menyimpan, dan mendistribusikan informasi","Perangkat lunak untuk mengelola data","Jaringan komputer dalam organisasi"], ans:"b"},
-    {id:2, level:1, q:"Komponen utama Sistem Informasi meliputi...", opts:["Input, Process, Output, Feedback, dan Control","Hardware, Software, dan User","Database, Network, dan Internet","Server, Client, dan Protocol"], ans:"a"},
+    {id:2, level:1, q:"Komponen utama Sistem Informasi meliputi...", opts:["Input, Process, Output, Feedback, dan Control","Hardware, Software, dan User saja","Database, Network, dan Internet saja","Server, Client, dan Protocol"], ans:"a"},
     {id:3, level:1, q:"Apa perbedaan utama antara Data dan Informasi?", opts:["Data sudah diolah, Informasi belum","Data adalah fakta mentah, Informasi adalah data yang telah diolah dan bermakna","Tidak ada perbedaan","Data lebih penting dari Informasi"], ans:"b"},
     {id:4, level:2, q:"Transaction Processing System (TPS) berfungsi untuk...", opts:["Mendukung keputusan strategis","Mengolah transaksi rutin dan operasional harian","Menganalisis tren pasar","Mengelola sumber daya manusia"], ans:"b"},
     {id:5, level:2, q:"Management Information System (MIS) menyediakan informasi untuk...", opts:["Level operasional","Level manajerial/taktis","Level strategis","Semua level organisasi"], ans:"b"},
@@ -401,7 +466,7 @@ const bankSoalLengkap = [
     {id:44, level:6, q:"Apa itu User Acceptance Testing (UAT)?", opts:["Testing oleh developer","Pengujian yang dilakukan pengguna akhir untuk memvalidasi sistem sesuai kebutuhan","Testing keamanan jaringan","Testing kecepatan server"], ans:"b"},
     {id:45, level:7, q:"Apa yang dimaksud dengan Change Management dalam implementasi SI?", opts:["Mengganti hardware","Proses terstruktur untuk mengelola transisi perubahan dalam organisasi","Mengubah password","Mengganti vendor"], ans:"b"},
 
-    // ===== FASE 2: Level 9-15 (Tata Kelola & Infrastruktur TI) - 45 Soal =====
+    // FASE 2: Tata Kelola & Infrastruktur TI (Level 9-15) - 45 Soal
     {id:46, level:9, q:"COBIT (Control Objectives for Information and Related Technologies) adalah...", opts:["Bahasa pemrograman","Framework tata kelola dan manajemen TI enterprise","Sistem operasi","Tipe database"], ans:"b"},
     {id:47, level:9, q:"ITIL (Information Technology Infrastructure Library) berfokus pada...", opts:["Pemrograman","Praktik terbaik manajemen layanan TI (IT Service Management)","Desain grafis","Akuntansi"], ans:"b"},
     {id:48, level:9, q:"Dalam ITIL, Incident Management bertujuan untuk...", opts:["Mengembangkan software","Memulihkan layanan TI secepat mungkin setelah terjadi gangguan","Mendesain jaringan","Membuat database"], ans:"b"},
@@ -448,7 +513,7 @@ const bankSoalLengkap = [
     {id:89, level:11, q:"Apa yang dimaksud dengan Social Engineering dalam konteks keamanan?", opts:["Rekayasa perangkat lunak","Manipulasi psikologis untuk membuat orang membocorkan informasi rahasia","Pembuatan website","Desain UI"], ans:"b"},
     {id:90, level:12, q:"Apa perbedaan antara Scaling Up dan Scaling Out?", opts:["Scaling Up menambah resource satu server, Scaling Out menambah jumlah server","Keduanya sama","Scaling Out lebih murah selalu","Scaling Up selalu lebih baik"], ans:"a"},
 
-    // ===== FASE 3: Level 16+ (Pemrograman & Teknis Lanjutan) - 30 Soal =====
+    // FASE 3: Pemrograman & Teknis Lanjutan (Level 16+) - 30 Soal
     {id:91, level:16, q:"Dalam Laravel, apa fungsi dari Route?", opts:["Menghubungkan URL dengan controller/action yang sesuai","Mendesain database","Mengelola session","Mengirim email"], ans:"a"},
     {id:92, level:16, q:"Apa yang dimaksud dengan MVC (Model-View-Controller)?", opts:["Tipe database","Pola arsitektur yang memisahkan aplikasi menjadi Model (data), View (tampilan), dan Controller (logika)","Bahasa pemrograman","Framework CSS"], ans:"b"},
     {id:93, level:16, q:"Dalam Laravel, Migration berfungsi untuk...", opts:["Mengupload file","Membuat dan memodifikasi tabel database secara terstruktur melalui kode","Mendesain UI","Mengirim notifikasi"], ans:"b"},
@@ -488,7 +553,7 @@ let currentQuestions = [];
 let currentQuestionIndex = 0;
 let userAnswers = {};
 let timerInterval = null;
-let timeRemaining = 1800; // 30 minutes in seconds
+let timeRemaining = 1800; // 30 menit
 let selectedRating = 0;
 let modalCallback = null;
 
@@ -531,6 +596,7 @@ function handleLogout() {
 function showPage(pageId) {
     document.querySelectorAll('#landingPage, #dashboardPage, #quizPage, #resultPage').forEach(p => p.classList.add('hidden'));
     document.getElementById(pageId).classList.remove('hidden');
+    window.scrollTo(0, 0);
 }
 
 // ==================== DASHBOARD ====================
@@ -546,19 +612,19 @@ function renderHistory() {
     const container = document.getElementById('historyList');
     
     if (history.length === 0) {
-        container.innerHTML = '<p class="text-gray-500 text-sm text-center py-4">Belum ada riwayat ujian</p>';
+        container.innerHTML = '<p class="text-slate-400 text-sm text-center py-4 italic">Belum ada riwayat ujian</p>';
         return;
     }
     
     container.innerHTML = history.slice(-5).reverse().map(h => `
-        <div class="glass-light rounded-lg p-3 flex items-center justify-between">
+        <div class="glass-card rounded-xl p-3 flex items-center justify-between">
             <div>
-                <span class="text-sm font-medium">${h.phase}</span>
-                <span class="text-xs text-gray-500 ml-2">${h.date}</span>
+                <span class="text-sm font-semibold text-slate-700">${h.phase}</span>
+                <span class="text-xs text-slate-400 ml-2">${h.date}</span>
             </div>
             <div class="flex items-center gap-2">
-                <span class="text-sm font-bold ${h.score >= 70 ? 'text-emerald-400' : 'text-red-400'}">${h.score}%</span>
-                <span class="text-xs px-2 py-0.5 rounded-full ${h.score >= 70 ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}">${h.status}</span>
+                <span class="text-sm font-bold ${h.score >= 70 ? 'text-emerald-600' : 'text-red-500'}">${h.score}%</span>
+                <span class="text-xs px-2 py-0.5 rounded-full ${h.score >= 70 ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-600'} font-medium">${h.status}</span>
             </div>
         </div>
     `).join('');
@@ -569,18 +635,18 @@ function renderTestimonials() {
     const container = document.getElementById('testimonialList');
     
     if (testimonials.length === 0) {
-        container.innerHTML = '<p class="text-gray-500 text-sm text-center py-2">Belum ada ulasan</p>';
+        container.innerHTML = '<p class="text-slate-400 text-sm text-center py-2 italic">Belum ada ulasan</p>';
         return;
     }
     
     container.innerHTML = testimonials.slice(-10).reverse().map(t => `
-        <div class="glass-light rounded-lg p-3">
+        <div class="glass-card rounded-xl p-3">
             <div class="flex items-center justify-between mb-1">
-                <span class="text-xs font-medium text-accent">${t.nama}</span>
-                <span class="text-yellow-400 text-xs">${'★'.repeat(t.rating)}${'☆'.repeat(5-t.rating)}</span>
+                <span class="text-xs font-semibold text-primary">${t.nama}</span>
+                <span class="text-amber-400 text-xs">${'★'.repeat(t.rating)}${'☆'.repeat(5-t.rating)}</span>
             </div>
-            <p class="text-xs text-gray-300">${t.text}</p>
-            <span class="text-xs text-gray-600 mt-1">${t.date}</span>
+            <p class="text-xs text-slate-600 leading-relaxed">${t.text}</p>
+            <span class="text-xs text-slate-400 mt-1.5 block">${t.date}</span>
         </div>
     `).join('');
 }
@@ -594,7 +660,7 @@ function addTestimonial() {
         nama: currentUser.nama,
         text: text,
         rating: Math.floor(Math.random() * 2) + 4,
-        date: new Date().toLocaleDateString('id-ID')
+        date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
     });
     localStorage.setItem('testimonials', JSON.stringify(testimonials));
     document.getElementById('testimonialInput').value = '';
@@ -627,7 +693,6 @@ function startPhase(phase) {
             break;
     }
     
-    // Shuffle and take required count
     currentQuestions = shuffleArray([...questionPool]).slice(0, requiredCount);
     currentQuestionIndex = 0;
     userAnswers = {};
@@ -635,6 +700,7 @@ function startPhase(phase) {
     
     document.getElementById('quizTitle').textContent = phaseName;
     document.getElementById('totalQ').textContent = currentQuestions.length;
+    document.getElementById('timerDisplay').classList.remove('timer-warning');
     
     playSound('start');
     showPage('quizPage');
@@ -659,27 +725,31 @@ function renderQuestion() {
     
     const labels = ['A', 'B', 'C'];
     const container = document.getElementById('optionsContainer');
+    
+    // PERBAIKAN: Rendering opsi yang jelas, terlihat, dan dapat diklik
     container.innerHTML = q.opts.map((opt, i) => {
         const letter = labels[i];
         const isSelected = userAnswers[currentQuestionIndex] === letter.toLowerCase();
         return `
-            <div class="option-btn glass-light rounded-xl p-4 cursor-pointer border-2 ${isSelected ? 'border-accent bg-accent/10' : 'border-transparent'}" 
+            <div class="option-btn w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-start gap-3 cursor-pointer
+                ${isSelected 
+                    ? 'border-primary bg-blue-50' 
+                    : 'border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50/50'}" 
                  onclick="selectOption('${letter.toLowerCase()}')" data-option="${letter.toLowerCase()}">
-                <div class="flex items-center gap-3">
-                    <span class="w-8 h-8 rounded-full ${isSelected ? 'bg-accent text-white' : 'bg-dark/50 text-gray-400'} flex items-center justify-center text-sm font-bold transition">${letter}</span>
-                    <span class="text-sm">${opt}</span>
-                </div>
+                <span class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors
+                    ${isSelected ? 'bg-primary text-white' : 'bg-slate-100 text-slate-600'}">
+                    ${letter}
+                </span>
+                <span class="text-slate-700 font-medium pt-1 leading-snug">${opt}</span>
             </div>
         `;
     }).join('');
     
-    // Update progress
     const progress = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
     document.getElementById('progressBar').style.width = progress + '%';
     
-    // Update navigation buttons
     document.getElementById('btnPrev').disabled = currentQuestionIndex === 0;
-    document.getElementById('btnNext').textContent = currentQuestionIndex === currentQuestions.length - 1 ? 'Selesai →' : 'Selanjutnya →';
+    document.getElementById('btnNext').innerHTML = currentQuestionIndex === currentQuestions.length - 1 ? 'Selesai ✓' : 'Selanjutnya →';
     
     updateQuestionDots();
 }
@@ -691,11 +761,11 @@ function selectOption(option) {
 }
 
 function nextQuestion() {
-    if (currentQuestionIndex === currentQuestions.length - 1) {
-        confirmSubmit();
-    } else {
+    if (currentQuestionIndex < currentQuestions.length - 1) {
         currentQuestionIndex++;
         renderQuestion();
+    } else {
+        confirmSubmit();
     }
 }
 
@@ -709,15 +779,21 @@ function prevQuestion() {
 function renderQuestionDots() {
     const container = document.getElementById('questionDots');
     container.innerHTML = currentQuestions.map((_, i) => `
-        <div class="w-2 h-2 rounded-full transition-all ${i === currentQuestionIndex ? 'bg-accent w-4' : userAnswers[i] !== undefined ? 'bg-emerald-400' : 'bg-gray-600'}" data-dot="${i}"></div>
+        <div class="w-2 h-2 rounded-full transition-all duration-200 ${i === currentQuestionIndex ? 'bg-primary w-6' : userAnswers[i] !== undefined ? 'bg-emerald-500' : 'bg-slate-300'}" 
+             onclick="jumpToQuestion(${i})" style="cursor: pointer;" data-dot="${i}"></div>
     `).join('');
 }
 
 function updateQuestionDots() {
     const dots = document.querySelectorAll('[data-dot]');
     dots.forEach((dot, i) => {
-        dot.className = `w-2 h-2 rounded-full transition-all ${i === currentQuestionIndex ? 'bg-accent w-4' : userAnswers[i] !== undefined ? 'bg-emerald-400' : 'bg-gray-600'}`;
+        dot.className = `w-2 h-2 rounded-full transition-all duration-200 ${i === currentQuestionIndex ? 'bg-primary w-6' : userAnswers[i] !== undefined ? 'bg-emerald-500' : 'bg-slate-300'}`;
     });
+}
+
+function jumpToQuestion(index) {
+    currentQuestionIndex = index;
+    renderQuestion();
 }
 
 // ==================== TIMER ====================
@@ -730,7 +806,7 @@ function startTimer() {
         updateTimerDisplay();
         
         if (timeRemaining <= 60) {
-            document.getElementById('timerDisplay').classList.add('text-red-400', 'timer-warning');
+            document.getElementById('timerDisplay').classList.add('timer-warning');
         }
         
         if (timeRemaining <= 0) {
@@ -772,7 +848,6 @@ function submitQuiz() {
     const score = Math.round((correct / total) * 100);
     const passed = score >= 70;
     
-    // Save history
     const history = JSON.parse(localStorage.getItem('examHistory_' + currentUser.nim) || '[]');
     const phaseNames = { 1: 'Fase 1', 2: 'Fase 2', 3: 'Fase 3' };
     history.push({
@@ -781,21 +856,21 @@ function submitQuiz() {
         correct: correct,
         total: total,
         status: passed ? 'LULUS' : 'TIDAK LULUS',
-        date: new Date().toLocaleDateString('id-ID')
+        date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
     });
     localStorage.setItem('examHistory_' + currentUser.nim, JSON.stringify(history));
     
-    // Show results
     document.getElementById('resultIcon').textContent = passed ? '🎉' : '😔';
     document.getElementById('resultTitle').textContent = passed ? 'Selamat! Anda Lulus!' : 'Belum Berhasil';
     document.getElementById('resultSubtitle').textContent = passed ? 'Pertahankan prestasi Anda!' : 'Terus belajar dan coba lagi!';
     document.getElementById('resultScore').textContent = score + '%';
     document.getElementById('resultCorrect').textContent = correct;
     document.getElementById('resultWrong').textContent = total - correct;
-    document.getElementById('resultStatus').textContent = passed ? '✅ LULUS' : '❌ TIDAK LULUS';
-    document.getElementById('resultStatus').className = `text-xl font-bold mt-1 ${passed ? 'text-emerald-400' : 'text-red-400'}`;
     
-    // Certificate
+    const statusEl = document.getElementById('resultStatus');
+    statusEl.textContent = passed ? '✅ LULUS' : '❌ TIDAK LULUS';
+    statusEl.className = `text-2xl font-bold ${passed ? 'text-emerald-600' : 'text-red-500'}`;
+    
     if (passed) {
         document.getElementById('certificateSection').classList.remove('hidden');
         document.getElementById('certName').textContent = currentUser.nama;
@@ -816,22 +891,22 @@ function setRating(rating) {
     selectedRating = rating;
     const stars = document.querySelectorAll('#starRating .star');
     stars.forEach((star, i) => {
-        star.classList.toggle('text-yellow-400', i < rating);
-        star.classList.toggle('text-gray-600', i >= rating);
+        star.classList.toggle('text-amber-400', i < rating);
+        star.classList.toggle('text-slate-300', i >= rating);
     });
     playSound('click');
 }
 
 function submitReview() {
     const text = document.getElementById('reviewInput').value.trim();
-    if (!text && selectedRating === 0) { alert('Berikan rating dan ulasan!'); return; }
+    if (!text && selectedRating === 0) { alert('Berikan rating atau ulasan!'); return; }
     
     const testimonials = JSON.parse(localStorage.getItem('testimonials') || '[]');
     testimonials.push({
         nama: currentUser.nama,
         text: text || 'Ujian selesai',
         rating: selectedRating || 5,
-        date: new Date().toLocaleDateString('id-ID')
+        date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
     });
     localStorage.setItem('testimonials', JSON.stringify(testimonials));
     
@@ -868,6 +943,81 @@ function modalConfirm() {
 // ==================== SOUND EFFECTS (Web Audio API) ====================
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
+function playSound(type) {
+    try {
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        oscillator.connect(gimeNode);
+        gainNode.connect(audioCtx.destination);
+        gainNode.gain.value = 0.1;
+        
+        switch(type) {
+            case 'click':
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                oscillator.start(audioCtx.currentTime);
+                oscillator.stop(audioCtx.currentTime + 0.1);
+                break;
+            case 'success':
+                oscillator.frequency.value = 523;
+                oscillator.type = 'sine';
+                oscillator.start(audioCtx.currentTime);
+                oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.1);
+                oscillator.frequency.setValueAtTime(784, audioCtx.currentTime + 0.2);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                oscillator.stop(audioCtx.currentTime + 0.4);
+                break;
+            case 'error':
+                oscillator.frequency.value = 200;
+                oscillator.type = 'square';
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                oscillator.start(audioCtx.currentTime);
+                oscillator.stop(audioCtx.currentTime + 0.3);
+                break;
+            case 'start':
+                oscillator.frequency.value = 440;
+                oscillator.type = 'sine';
+                oscillator.start(audioCtx.currentTime);
+                oscillator.frequency.setValueAtTime(554, audioCtx.currentTime + 0.15);
+                oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.3);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+                oscillator.stop(audioCtx.currentTime + 0.5);
+                break;
+            case 'win':
+                oscillator.frequency.value = 523;
+                oscillator.type = 'sine';
+                oscillator.start(audioCtx.currentTime);
+                oscillator.frequency.setValueAtTime(659, audioCtx.currentTime + 0.15);
+                oscillator.frequency.setValueAtTime(784, audioCtx.currentTime + 0.3);
+                oscillator.frequency.setValueAtTime(1047, audioCtx.currentTime + 0.45);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.7);
+                oscillator.stop(audioCtx.currentTime + 0.7);
+                break;
+            case 'lose':
+                oscillator.frequency.value = 400;
+                oscillator.type = 'sawtooth';
+                gainNode.gain.value = 0.05;
+                oscillator.start(audioCtx.currentTime);
+                oscillator.frequency.setValueAtTime(300, audioCtx.currentTime + 0.2);
+                oscillator.frequency.setValueAtTime(200, audioCtx.currentTime + 0.4);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
+                oscillator.stop(audioCtx.currentTime + 0.6);
+                break;
+            case 'timeout':
+                oscillator.frequency.value = 600;
+                oscillator.type = 'square';
+                gainNode.gain.value = 0.08;
+                oscillator.start(audioCtx.currentTime);
+                oscillator.frequency.setValueAtTime(400, audioCtx.currentTime + 0.3);
+                oscillator.frequency.setValueAtTime(200, audioCtx.currentTime + 0.6);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.9);
+                oscillator.stop(audioCtx.currentTime + 0.9);
+                break;
+        }
+    } catch(e) { /* silent fail untuk kompatibilitas browser */ }
+}
+// Fix typo in audioCtx connection
 function playSound(type) {
     try {
         const oscillator = audioCtx.createOscillator();
@@ -947,7 +1097,6 @@ function playSound(type) {
 document.addEventListener('DOMContentLoaded', () => {
     initVisitorCounter();
     
-    // Check if user already logged in
     const saved = localStorage.getItem('currentUser');
     if (saved) {
         currentUser = JSON.parse(saved);
