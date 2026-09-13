@@ -27,14 +27,10 @@
             overflow-x: hidden;
         }
 
-        /* Background laptop - sangat terang dan subtle */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://lh3.googleusercontent.com/d/1X_tNirOyA8ODFvKHYhD6_mv_FE-MDgut');
             background-size: cover;
             background-position: center;
@@ -59,10 +55,7 @@
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
             transition: all 0.3s ease;
         }
-        .glass-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08);
-        }
+        .glass-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08); }
 
         .blink-dot { animation: blink 1.5s infinite; }
         @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0.3; } }
@@ -112,7 +105,6 @@
     <!-- LANDING PAGE -->
     <div id="landingPage" class="min-h-screen flex items-center justify-center p-4 lg:p-8">
         <div class="max-w-7xl w-full grid lg:grid-cols-2 gap-12 items-center">
-            <!-- Left Side -->
             <div class="animate-fade space-y-6">
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary font-semibold">
                     🎓 INFORMATION SYSTEM
@@ -122,7 +114,6 @@
                 </h1>
                 <p class="text-slate-600 text-lg leading-relaxed max-w-lg">Sarana latihan dan uji kompetensi mandiri program studi Sistem Informasi.</p>
                 
-                <!-- Stats - Tanpa garis bawah -->
                 <div class="grid grid-cols-3 gap-4 pt-4">
                     <div class="glass-card rounded-2xl p-6 text-center">
                         <div class="text-3xl font-bold text-emerald-600 mb-1">120</div>
@@ -142,7 +133,6 @@
                 </div>
             </div>
 
-            <!-- Right Side - Login Form -->
             <div class="animate-fade flex justify-center lg:justify-end">
                 <div class="glass rounded-3xl p-8 lg:p-10 w-full max-w-md border-white/80">
                     <h2 class="text-2xl font-bold mb-6 text-slate-900 text-center">Mulai Latihan</h2>
@@ -178,7 +168,6 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <div class="glass-card rounded-xl px-4 py-2.5 text-sm flex items-center gap-2">
-                        <span class="text-primary"></span> 
                         <span id="dashNama" class="font-semibold text-slate-700"></span>
                         <span class="text-slate-300">|</span>
                         <span id="dashNIM" class="text-primary font-medium"></span>
@@ -250,7 +239,7 @@
 
                 <div class="space-y-4">
                     <div class="glass rounded-xl p-6 h-full flex flex-col">
-                        <h3 class="font-bold text-slate-900 mb-4 flex items-center gap-2"> Ulasan & Testimoni</h3>
+                        <h3 class="font-bold text-slate-900 mb-4 flex items-center gap-2">💬 Ulasan & Testimoni</h3>
                         <div id="testimonialList" class="space-y-3 flex-1 overflow-y-auto mb-4 pr-1 max-h-64"></div>
                         <div class="border-t border-slate-200 pt-4 mt-auto">
                             <textarea id="testimonialInput" rows="2" placeholder="Tulis ulasan Anda..." 
@@ -287,17 +276,15 @@
                     <p class="text-lg lg:text-xl font-semibold text-slate-900 leading-relaxed" id="teks-pertanyaan">Pertanyaan akan muncul di sini</p>
                 </div>
                 
-                <div id="opsi-container" class="grid gap-3">
-                    <!-- Opsi A, B, C, D dirender di sini -->
-                </div>
+                <div id="opsi-container" class="grid gap-3"></div>
 
                 <div id="feedback-msg" class="hidden mt-4 p-3 rounded-xl text-center font-semibold text-sm"></div>
             </div>
 
-            <div class="flex items-center justify-between">
-                <button onclick="prevSoal()" id="btnPrev" class="px-6 py-3 rounded-xl glass hover:bg-white transition font-semibold text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2">← Sebelumnya</button>
-                <div class="flex gap-1.5 flex-wrap justify-center max-w-md" id="questionDots"></div>
-                <button onclick="nextSoal()" id="btnNext" class="px-6 py-3 rounded-xl bg-primary hover:bg-blue-700 text-white transition font-semibold shadow-lg shadow-blue-500/20 flex items-center gap-2">Selanjutnya →</button>
+            <!-- Navigasi: tombol Sebelumnya DIHAPUS, titik hanya indikator (hijau=benar, merah=salah) -->
+            <div class="flex items-center gap-4">
+                <div class="flex-1 flex flex-wrap justify-center gap-1.5" id="questionDots"></div>
+                <button onclick="nextSoal()" id="btnNext" class="px-6 py-3 rounded-xl bg-primary hover:bg-blue-700 text-white transition font-semibold shadow-lg shadow-blue-500/20 flex items-center gap-2 whitespace-nowrap">Selanjutnya →</button>
             </div>
         </div>
     </div>
@@ -324,7 +311,7 @@
                 <div id="certificateSection" class="hidden mb-8">
                     <div class="border-2 border-amber-300 rounded-2xl p-6 bg-gradient-to-br from-amber-50 to-yellow-50/50 relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-20 h-20 bg-amber-200/30 rounded-bl-full"></div>
-                        <div class="text-amber-600 text-sm font-bold tracking-wider mb-3"> SERTIFIKAT KELULUSAN</div>
+                        <div class="text-amber-600 text-sm font-bold tracking-wider mb-3">🏆 SERTIFIKAT KELULUSAN</div>
                         <div class="text-2xl font-bold text-slate-900 mb-1" id="certName"></div>
                         <div class="text-slate-500 text-sm mb-4">NIM: <span id="certNIM" class="font-medium text-slate-700"></span></div>
                         <div class="text-sm text-slate-600 leading-relaxed">Telah berhasil menyelesaikan <span id="certPhase" class="text-primary font-bold"></span> dengan nilai <span id="certScore" class="text-emerald-600 font-bold text-lg"></span></div>
@@ -364,142 +351,156 @@
     </div>
 
 <script>
-// ==================== DATABASE 120 SOAL (4 OPSI, DISTRIBUSI MERATA) ====================
-const generateSoal = () => {
-    const base = [
-        {q:"Apa definisi Sistem Informasi menurut Laudon & Laudon?", opts:["Kumpulan hardware","Sekumpulan komponen untuk mengumpulkan, memproses, menyimpan, dan mendistribusikan informasi","Perangkat lunak akuntansi","Jaringan komputer lokal"], level:1},
-        {q:"Komponen utama Sistem Informasi meliputi...", opts:["Input, Process, Output, Feedback, Control","Hardware dan Software saja","Internet dan Intranet","Server dan Client"], level:1},
-        {q:"Perbedaan utama Data dan Informasi adalah...", opts:["Data sudah diolah","Data adalah fakta mentah, Informasi adalah data yang telah diolah dan bermakna","Tidak ada perbedaan","Data lebih penting"], level:1},
-        {q:"Transaction Processing System (TPS) berfungsi untuk...", opts:["Keputusan strategis","Mengolah transaksi rutin dan operasional harian","Menganalisis tren pasar","Mengelola SDM"], level:2},
-        {q:"Management Information System (MIS) menyediakan informasi untuk...", opts:["Level operasional","Level manajerial/taktis","Level strategis","Semua level"], level:2},
-        {q:"Decision Support System (DSS) digunakan untuk...", opts:["Transaksi harian","Mendukung pengambilan keputusan semi-terstruktur","Penggajian karyawan","Pencatatan inventaris"], level:2},
-        {q:"Executive Support System (ESS) dirancang untuk...", opts:["Operator mesin","Manajer menengah","Eksekutif puncak/top management","Staff administrasi"], level:3},
-        {q:"Enterprise Resource Planning (ERP) mengintegrasikan...", opts:["Hanya keuangan","Seluruh proses bisnis organisasi dalam satu sistem terpadu","Hanya produksi","Hanya SDM"], level:3},
-        {q:"Business Process Reengineering (BPR) adalah...", opts:["Perbaikan bertahap","Redesign radikal proses bisnis untuk peningkatan dramatis","Menambah karyawan","Mengganti hardware"], level:3},
-        {q:"Supply Chain Management (SCM) mengelola...", opts:["Hanya produksi","Aliran material, informasi, dan keuangan dari supplier hingga konsumen","Hanya distribusi","Hanya pemasaran"], level:4},
-        {q:"Customer Relationship Management (CRM) berfokus pada...", opts:["Manajemen internal","Mengelola hubungan dan interaksi dengan pelanggan","Rantai pasok","Keuangan"], level:4},
-        {q:"Knowledge Management System (KMS) bertujuan untuk...", opts:["Menyimpan dokumen","Menciptakan, menyimpan, dan mendistribusikan pengetahuan organisasi","Menggantikan karyawan","Menghitung profit"], level:4},
-        {q:"Stakeholder dalam konteks SI adalah...", opts:["Pemilik saham","Semua pihak yang berkepentingan terhadap sistem","Hanya developer","Hanya user"], level:5},
-        {q:"Metode Waterfall memiliki karakteristik...", opts:["Iteratif","Linear dan sekuensial, setiap tahap harus selesai sebelum berikutnya","Tanpa dokumentasi","Untuk proyek kecil"], level:5},
-        {q:"Agile Methodology menekankan pada...", opts:["Dokumentasi lengkap","Iterasi pendek, kolaborasi tim, dan respons terhadap perubahan","Proses kaku","Tanpa testing"], level:5},
-        {q:"Feasibility Study menganalisis...", opts:["Hanya teknis","Aspek teknis, ekonomi, operasional, jadwal, dan legal","Hanya biaya","Hanya keuntungan"], level:6},
-        {q:"Use Case Diagram dalam UML menggambarkan...", opts:["Struktur database","Interaksi antara aktor dan sistem dalam skenario tertentu","Aliran data","Arsitektur hardware"], level:6},
-        {q:"Data Flow Diagram (DFD) Level 0 menunjukkan...", opts:["Detail proses","Gambaran umum/konteks sistem secara keseluruhan","Struktur tabel","Diagram class"], level:6},
-        {q:"Normalisasi database bertujuan untuk...", opts:["Menambah redundansi","Menghilangkan anomali dan redundansi data","Mempercepat internet","Menambah tabel"], level:7},
-        {q:"Bentuk Normal Pertama (1NF) mensyaratkan...", opts:["Tidak ada dependensi transitif","Setiap kolom bernilai atomik (tidak ada repeating group)","Ada kunci asing","Dependensi parsial"], level:7},
-        {q:"Entity Relationship Diagram (ERD) digunakan untuk...", opts:["Mendesain UI","Pemodelan data konseptual yang menunjukkan entitas dan relasinya","Network topology","Algoritma"], level:7},
-        {q:"Cardinality dalam relasi database adalah...", opts:["Jumlah kolom","Jumlah maksimum entitas yang dapat berelasi dengan entitas lain","Nama tabel","Tipe data"], level:8},
-        {q:"Sistem Informasi Akuntansi (SIA) berfungsi untuk...", opts:["Mendesain produk","Mencatat, mengklasifikasi, dan meringkas transaksi keuangan","Inventaris fisik","Jaringan"], level:1},
-        {q:"IT Governance adalah...", opts:["Penggunaan internet","Kerangka kerja untuk memastikan TI mendukung tujuan organisasi dan mengelola risiko","Pembelian hardware","Instalasi software"], level:2},
-        {q:"Balanced Scorecard mengukur kinerja dari perspektif...", opts:["Keuangan saja","Keuangan, Pelanggan, Proses Internal, Pembelajaran & Pertumbuhan","Teknis saja","SDM saja"], level:3},
-        {q:"SWOT Analysis menganalisis...", opts:["Strengths, Weaknesses, Opportunities, Threats","Speed, Width, Output, Time","Software, Web, Online, Tech","System, Work, Operation, Task"], level:4},
-        {q:"Sistem Informasi Geografis (SIG/GIS) digunakan untuk...", opts:["Mengolah data spasial/keruangan","Menghitung gaji","Mendesain logo","Mengelola email"], level:5},
-        {q:"Fungsi Business Intelligence (BI) adalah...", opts:["Mengubah data menjadi insight untuk pengambilan keputusan bisnis","Mendesain website","Memperbaiki komputer","Mengelola jaringan"], level:6},
-        {q:"Data Warehouse berbeda dari database operasional karena...", opts:["Lebih kecil","Dirancang untuk analisis dan pelaporan, menyimpan data historis","Hanya data terbaru","Tidak pakai SQL"], level:7},
-        {q:"OLAP memungkinkan pengguna untuk...", opts:["Input transaksi","Melakukan analisis multidimensi terhadap data","Mengirim email","Mendesain UI"], level:8},
-        {q:"Sistem Informasi Berbasis Web adalah...", opts:["Sistem offline","Sistem informasi yang diakses melalui browser menggunakan teknologi web","Sistem operasi","Aplikasi desktop"], level:1},
-        {q:"Cloud Computing menawarkan...", opts:["Storage lokal","Layanan komputasi melalui internet dengan model pay-as-you-go","Jaringan kabel","Hardware fisik"], level:2},
-        {q:"SaaS (Software as a Service) berarti...", opts:["Beli lisensi permanen","Menggunakan aplikasi via internet tanpa instalasi lokal, berlangganan","Buat software sendiri","Software gratis"], level:3},
-        {q:"Interoperabilitas dalam SI adalah...", opts:["Kemampuan sistem berbeda untuk bekerja sama dan bertukar data","Kecepatan prosesor","Kapasitas hardisk","Jumlah user"], level:4},
-        {q:"Protokol HTTP digunakan untuk...", opts:["Transfer file","Komunikasi antara web browser dan web server","Email","Database"], level:5},
-        {q:"Fungsi utama DBMS adalah...", opts:["Mendesain UI","Mengelola pembuatan, pemeliharaan, dan penggunaan database","Mengirim pesan","Mengedit foto"], level:6},
-        {q:"Primary Key berfungsi untuk...", opts:["Menghubungkan tabel","Mengidentifikasi setiap record secara unik","Menyimpan password","Menghitung total"], level:7},
-        {q:"Foreign Key digunakan untuk...", opts:["Mengidentifikasi record","Membuat relasi/referensi antara dua tabel","Menyimpan data ganda","Menghapus tabel"], level:8},
-        {q:"E-Commerce adalah...", opts:["Perdagangan tradisional","Pembelian dan penjualan barang/jasa melalui internet","Hanya B2B","Toko fisik"], level:1},
-        {q:"Model bisnis B2B berarti...", opts:["Business to Consumer","Business to Business","Buyer to Buyer","Bank to Bank"], level:2},
-        {q:"Digital Transformation adalah...", opts:["Beli komputer baru","Integrasi teknologi digital secara menyeluruh untuk mengubah cara bisnis","Ganti karyawan","Buat website"], level:3},
-        {q:"Gantt Chart dalam manajemen proyek adalah...", opts:["Diagram alir","Visualisasi jadwal proyek yang menunjukkan durasi dan timeline tugas","Tipe database","Bahasa pemrograman"], level:4},
-        {q:"Risk Management dalam proyek SI bertujuan untuk...", opts:["Menghindari semua risiko","Mengidentifikasi, menganalisis, dan memitigasi risiko proyek","Menambah biaya","Memperlambat proyek"], level:5},
-        {q:"User Acceptance Testing (UAT) adalah...", opts:["Testing developer","Pengujian oleh pengguna akhir untuk memvalidasi sistem sesuai kebutuhan","Testing jaringan","Testing server"], level:6},
-        {q:"Change Management dalam implementasi SI adalah...", opts:["Ganti hardware","Proses terstruktur untuk mengelola transisi perubahan dalam organisasi","Ubah password","Ganti vendor"], level:7},
-        {q:"COBIT adalah...", opts:["Bahasa pemrograman","Framework tata kelola dan manajemen TI enterprise","Sistem operasi","Tipe database"], level:9},
-        {q:"ITIL berfokus pada...", opts:["Pemrograman","Praktik terbaik manajemen layanan TI (IT Service Management)","Desain grafis","Akuntansi"], level:9},
-        {q:"Incident Management dalam ITIL bertujuan untuk...", opts:["Mengembangkan software","Memulihkan layanan TI secepat mungkin setelah gangguan","Mendesain jaringan","Membuat database"], level:9},
-        {q:"ISO 27001 adalah standar untuk...", opts:["Manajemen kualitas","Sistem Manajemen Keamanan Informasi (ISMS)","Manajemen lingkungan","Keselamatan kerja"], level:10},
-        {q:"CIA Triad terdiri dari...", opts:["Computer, Internet, App","Confidentiality, Integrity, Availability","Code, Input, Algorithm","Cloud, Infra, Arch"], level:10},
-        {q:"Firewall berfungsi untuk...", opts:["Mempercepat internet","Mengontrol lalu lintas jaringan berdasarkan aturan keamanan","Menyimpan data","Mendesain web"], level:10},
-        {q:"Enkripsi adalah...", opts:["Menghapus data","Mengubah data menjadi bentuk yang tidak dapat dibaca tanpa kunci dekripsi","Menggandakan data","Format hardisk"], level:11},
-        {q:"SSL/TLS digunakan untuk...", opts:["Mengedit video","Mengamankan komunikasi data melalui internet (HTTPS)","Mendesain logo","Statistik"], level:11},
-        {q:"Phishing adalah...", opts:["Teknik programming","Serangan sosial untuk mencuri info sensitif dengan menyamar sebagai entitas terpercaya","Metode testing","Tipe database"], level:11},
-        {q:"Virtual Machine (VM) memungkinkan...", opts:["Tambah RAM fisik","Menjalankan beberapa OS dalam satu mesin fisik secara terisolasi","Percepat internet","Hapus virus"], level:12},
-        {q:"IaaS menyediakan...", opts:["Aplikasi siap pakai","Sumber daya komputasi dasar (server, storage, network) yang dapat dikonfigurasi","Software desain","Game online"], level:12},
-        {q:"Perbedaan Public dan Private Cloud...", opts:["Public lebih mahal","Public untuk umum via internet, Private didedikasikan untuk satu organisasi","Tidak ada beda","Private lebih lambat"], level:12},
-        {q:"TCP/IP Model terdiri dari...", opts:["3 layer","4 layer (Application, Transport, Internet, Network Access)","7 layer","5 layer"], level:13},
-        {q:"OSI Layer 3 (Network) bertanggung jawab atas...", opts:["Transmisi bit fisik","Routing dan pengalamatan logis (IP)","Sesi komunikasi","Presentasi data"], level:13},
-        {q:"Fungsi DNS adalah...", opts:["Menyimpan file","Menerjemahkan nama domain menjadi alamat IP","Mengenkripsi data","Percepat koneksi"], level:13},
-        {q:"Subnet Mask digunakan untuk...", opts:["Mengenkripsi data","Menentukan bagian network dan host dari alamat IP","Percepat download","Hapus file"], level:13},
-        {q:"Disaster Recovery Plan (DRP) adalah...", opts:["Rencana pemasaran","Strategi untuk memulihkan sistem TI setelah bencana atau gangguan besar","Rencana anggaran","Rekrutmen"], level:14},
-        {q:"RTO (Recovery Time Objective) mengukur...", opts:["Biaya pemulihan","Waktu maksimum yang dapat diterima untuk memulihkan sistem setelah gangguan","Data hilang","Kecepatan internet"], level:14},
-        {q:"RPO (Recovery Point Objective) mengukur...", opts:["Waktu pemulihan","Jumlah data maksimum yang boleh hilang setelah insiden","Biaya backup","Kecepatan server"], level:14},
-        {q:"Load Balancing adalah...", opts:["Memperbaiki server","Mendistribusikan traffic jaringan ke beberapa server untuk performa dan reliabilitas","Hapus server","Ganti kabel"], level:15},
-        {q:"Fungsi IT Audit adalah...", opts:["Memperbaiki bug","Evaluasi independen terhadap sistem TI untuk memastikan keandalan, keamanan, kepatuhan","Desain software","Buat database"], level:9},
-        {q:"RBAC memberikan izin berdasarkan...", opts:["Nama pengguna","Peran/jabatan pengguna dalam organisasi","Waktu login","Lokasi geografis"], level:10},
-        {q:"Multi-Factor Authentication (MFA) adalah...", opts:["Satu password","Verifikasi identitas menggunakan dua atau lebih faktor (diketahui, dimiliki, melekat)","Tanpa password","Login otomatis"], level:11},
-        {q:"Containerization (Docker) berbeda dari VM karena...", opts:["Lebih berat","Berbagi kernel OS host sehingga lebih ringan dan efisien","Tidak bisa di Linux","Lisensi mahal"], level:12},
-        {q:"Fungsi DHCP adalah...", opts:["Mengenkripsi data","Mengalokasikan alamat IP secara otomatis ke device dalam jaringan","Menerjemahkan domain","Memfilter traffic"], level:13},
-        {q:"High Availability (HA) berarti...", opts:["Sistem sering mati","Sistem dirancang untuk beroperasi terus-menerus tanpa downtime signifikan","Sistem lambat","Sistem manual"], level:14},
-        {q:"Microservices Architecture adalah...", opts:["Satu aplikasi monolitik","Arsitektur yang memecah aplikasi menjadi layanan-layanan kecil independen","Database tunggal","Tanpa jaringan"], level:15},
-        {q:"Peran IT Steering Committee adalah...", opts:["Memperbaiki komputer","Badan yang mengarahkan strategi TI dan memastikan keselarasan dengan bisnis","Instal software","Buat email"], level:9},
-        {q:"Security Incident Response adalah...", opts:["Beli antivirus","Prosedur terstruktur untuk menangani dan mengelola dampak insiden keamanan","Hapus email","Ganti password"], level:10},
-        {q:"Penetration Testing bertujuan untuk...", opts:["Memperbaiki UI","Mengidentifikasi kerentanan keamanan dengan mensimulasikan serangan","Desain database","Buat backup"], level:11},
-        {q:"DevOps adalah...", opts:["Tipe database","Pendekatan menggabungkan Development dan Operations untuk mempercepat delivery software","Bahasa pemrograman","Sistem operasi"], level:12},
-        {q:"CDN berfungsi untuk...", opts:["Membuat konten","Mendistribusikan konten ke server edge yang lebih dekat dengan pengguna untuk mempercepat akses","Enkripsi data","Buat database"], level:13},
-        {q:"Monitoring dan Alerting berfungsi untuk...", opts:["Hapus log","Mendeteksi anomali dan memberikan notifikasi ketika ada masalah performa/ketersediaan","Desain UI","Hitung biaya"], level:14},
-        {q:"Infrastructure as Code (IaC) memungkinkan...", opts:["Kode manual","Mengelola dan provision infrastruktur melalui kode/script secara otomatis","Menggambar diagram","Edit dokumen"], level:15},
-        {q:"COBIT 2019 memiliki governance objective...", opts:["17","40","5","100"], level:9},
-        {q:"Zero Trust Security adalah...", opts:["Percaya semua user","Prinsip 'never trust, always verify' - tidak ada yang dipercaya secara default","Tanpa keamanan","Keamanan perimeter"], level:10},
-        {q:"Hash function menghasilkan...", opts:["Data reversible","Nilai fixed-length unik dari input data (one-way function)","Password decrypt","File enkripsi"], level:11},
-        {q:"Serverless Computing adalah...", opts:["Tanpa server","Model cloud di mana provider mengelola server, developer hanya menulis fungsi/code","Server rumah","Tanpa internet"], level:12},
-        {q:"VLAN digunakan untuk...", opts:["Percepat internet","Membagi jaringan fisik menjadi beberapa jaringan logis terpisah untuk keamanan","Enkripsi data","Simpan file"], level:13},
-        {q:"Business Continuity Plan (BCP) adalah...", opts:["Rencana pemasaran","Strategi menyeluruh untuk memastikan operasi bisnis tetap berjalan selama/setelah gangguan","Rencana liburan","Rekrutmen"], level:14},
-        {q:"Keuntungan Container Orchestration (Kubernetes) adalah...", opts:["Memperlambat deployment","Otomatisasi deployment, scaling, dan management container dalam cluster","Hapus container","Butuh banyak hardware"], level:15},
-        {q:"EDM dalam COBIT adalah...", opts:["Tahap development","Domain tata kelola untuk mengevaluasi kebutuhan, mengarahkan, dan memonitor kinerja","Tipe database","Metode testing"], level:9},
-        {q:"Data Classification adalah...", opts:["Hapus data","Proses mengkategorikan data berdasarkan tingkat sensitivitas untuk penanganan sesuai","Gandakan data","Kompres file"], level:10},
-        {q:"Social Engineering dalam keamanan adalah...", opts:["Rekayasa software","Manipulasi psikologis untuk membuat orang membocorkan informasi rahasia","Buat website","Desain UI"], level:11},
-        {q:"Perbedaan Scaling Up dan Scaling Out...", opts:["Scaling Up tambah resource satu server, Scaling Out tambah jumlah server","Keduanya sama","Scaling Out selalu murah","Scaling Up selalu baik"], level:12},
-        {q:"Dalam Laravel, fungsi Route adalah...", opts:["Menghubungkan URL dengan controller/action yang sesuai","Mendesain database","Mengelola session","Mengirim email"], level:16},
-        {q:"MVC (Model-View-Controller) adalah...", opts:["Tipe database","Pola arsitektur yang memisahkan aplikasi menjadi Model (data), View (tampilan), Controller (logika)","Bahasa pemrograman","Framework CSS"], level:16},
-        {q:"Migration dalam Laravel berfungsi untuk...", opts:["Upload file","Membuat dan memodifikasi tabel database secara terstruktur melalui kode","Mendesain UI","Notifikasi"], level:16},
-        {q:"Tag HTML5 semantic <article> digunakan untuk...", opts:["Navigasi","Konten independen yang bisa berdiri sendiri seperti blog post","Footer","Sidebar"], level:17},
-        {q:"Perbedaan <div> dan <span> adalah...", opts:["<div> inline, <span> block","<div> block-level element, <span> inline element","Keduanya sama","Tidak ada beda"], level:17},
-        {q:"Fungsi Flexbox dalam CSS adalah...", opts:["Membuat animasi","Model layout satu dimensi untuk mendistribusikan ruang dan menyelaraskan item","Kelola database","Kirim request"], level:17},
-        {q:"Perbedaan CSS Grid dan Flexbox...", opts:["Grid 1 dimensi, Flexbox 2 dimensi","Grid untuk layout 2 dimensi (baris DAN kolom), Flexbox untuk 1 dimensi (baris ATAU kolom)","Keduanya sama","Grid hanya mobile"], level:18},
-        {q:"Closure dalam JavaScript adalah...", opts:["Tipe data","Fungsi yang memiliki akses ke variabel dari scope luar bahkan setelah scope luar selesai dieksekusi","Method array","Event handler"], level:18},
-        {q:"Perbedaan var, let, dan const dalam JS...", opts:["Keduanya sama","var function-scoped, let dan const block-scoped; const tidak bisa di-reassign","let hanya angka","const untuk string"], level:18},
-        {q:"Promise dalam JavaScript adalah...", opts:["Tipe data string","Objek yang merepresentasikan penyelesaian atau kegagalan suatu operasi asynchronous di masa depan","Method DOM","Event listener"], level:19},
-        {q:"Async/Await dalam JS digunakan untuk...", opts:["Percepat eksekusi","Menulis kode asynchronous yang terlihat dan berperilaku seperti synchronous","Hapus variabel","Buat loop"], level:19},
-        {q:"DOM (Document Object Model) adalah...", opts:["Bahasa pemrograman","Representasi tree dari dokumen HTML yang memungkinkan JS memanipulasi konten dan struktur","Tipe database","Framework CSS"], level:19},
-        {q:"Perbedaan git merge dan git rebase...", opts:["Keduanya sama","Merge membuat commit baru penggabungan, Rebase memindahkan commit ke atas branch lain untuk history linear","Rebase lebih aman","Merge hapus branch"], level:20},
-        {q:"Fungsi git stash adalah...", opts:["Hapus commit","Menyimpan perubahan yang belum di-commit sementara untuk bisa diambil nanti","Buat branch baru","Kirim ke remote"], level:20},
-        {q:"REST API menggunakan metode HTTP...", opts:["Hanya GET","GET, POST, PUT, PATCH, DELETE","Hanya POST","Hanya DELETE"], level:20},
-        {q:"Status Code 404 dalam HTTP berarti...", opts:["Success","Not Found - resource tidak ditemukan","Server Error","Redirect"], level:21},
-        {q:"JWT (JSON Web Token) digunakan untuk...", opts:["Mendesain UI","Autentikasi dan otorisasi yang mentransmisikan informasi klaim antara dua pihak secara aman","Kompres data","Buat database"], level:21},
-        {q:"Perbedaan PUT dan PATCH dalam REST API...", opts:["Keduanya sama","PUT mengganti seluruh resource, PATCH melakukan update parsial","PATCH hapus resource","PUT hanya GET"], level:21},
-        {q:"Eloquent ORM dalam Laravel adalah...", opts:["Template engine","ORM yang memetakan tabel database ke class PHP (Model) untuk manipulasi data","Router","Middleware"], level:22},
-        {q:"Middleware dalam Laravel adalah...", opts:["Database driver","Class yang memproses request HTTP sebelum sampai ke controller (filter/interceptor)","View template","Route definition"], level:22},
-        {q:"Event Bubbling dalam JavaScript adalah...", opts:["Hapus event","Peristiwa dimana event yang terjadi pada child element akan merambat ke parent element","Buat event baru","Tunda event"], level:22},
-        {q:"CORS (Cross-Origin Resource Sharing) adalah...", opts:["Tipe database","Mekanisme yang memungkinkan/membatasi akses resource dari domain berbeda","Framework JS","Metode enkripsi"], level:23},
-        {q:"Rate Limiting dalam API adalah...", opts:["Percepat API","Membatasi jumlah request yang dapat dilakukan klien dalam periode waktu tertentu","Hapus API","Tambah server"], level:23},
-        {q:"Fungsi file .env dalam Laravel adalah...", opts:["Simpan kode program","Menyimpan konfigurasi environment (database credentials, API keys, dll) secara terpisah","Template HTML","Route file"], level:23},
-        {q:"Branch dalam Git adalah...", opts:["Hapus repository","Garis pengembangan independen dalam repository untuk fitur atau perbaikan terpisah","Commit terakhir","File konfigurasi"], level:24},
-        {q:"Responsive Web Design adalah...", opts:["Website cepat","Desain website yang menyesuaikan tampilan dan layout berdasarkan ukuran layar/device pengguna","Website animasi","Website tanpa CSS"], level:24},
-        {q:"Perbedaan == dan === dalam JavaScript...", opts:["Keduanya sama","== membandingkan nilai (dengan type coercion), === membandingkan nilai DAN tipe data (strict equality)","=== lebih lambat","== hanya string"], level:24},
-        {q:"SQL Injection adalah...", opts:["Optimasi query","Serangan keamanan dimana attacker menyisipkan kode SQL berbahaya melalui input aplikasi","Backup database","Normalisasi tabel"], level:25},
-        {q:"API Documentation (Swagger/OpenAPI) adalah...", opts:["Kode sumber API","Dokumentasi yang menjelaskan endpoint, parameter, dan respons API untuk memudahkan integrasi","Database schema","Server config"], level:25},
-        {q:"CI/CD (Continuous Integration/Continuous Deployment) adalah...", opts:["Tipe database","Praktik mengotomatisasi integrasi kode, testing, dan deployment untuk delivery software yang lebih cepat dan reliable","Bahasa pemrograman","Framework frontend"], level:25}
-    ];
+// =====================================================================
+// DATABASE 120 SOAL - PERBAIKAN BUG KUNCI JAWABAN
+// Setiap soal kini memiliki penanda kunci eksplisit `c` (index opsi yang
+// BENAR pada array opts). Sistem tidak lagi menebak kunci dari posisi,
+// sehingga penilaian di Fase 1, 2, 3 dijamin sinkron & akurat.
+// =====================================================================
+const baseSoal = [
+    // ===== FASE 1 (Level 1-8) =====
+    {q:"Apa definisi Sistem Informasi menurut Laudon & Laudon?", c:1, opts:["Kumpulan hardware","Sekumpulan komponen untuk mengumpulkan, memproses, menyimpan, dan mendistribusikan informasi","Perangkat lunak akuntansi","Jaringan komputer lokal"], level:1},
+    {q:"Komponen utama Sistem Informasi meliputi...", c:0, opts:["Input, Process, Output, Feedback, Control","Hardware dan Software saja","Internet dan Intranet","Server dan Client"], level:1},
+    {q:"Perbedaan utama Data dan Informasi adalah...", c:1, opts:["Data sudah diolah","Data adalah fakta mentah, Informasi adalah data yang telah diolah dan bermakna","Tidak ada perbedaan","Data lebih penting"], level:1},
+    {q:"Transaction Processing System (TPS) berfungsi untuk...", c:1, opts:["Keputusan strategis","Mengolah transaksi rutin dan operasional harian","Menganalisis tren pasar","Mengelola SDM"], level:2},
+    {q:"Management Information System (MIS) menyediakan informasi untuk...", c:1, opts:["Level operasional","Level manajerial/taktis","Level strategis","Semua level"], level:2},
+    {q:"Decision Support System (DSS) digunakan untuk...", c:1, opts:["Transaksi harian","Mendukung pengambilan keputusan semi-terstruktur","Penggajian karyawan","Pencatatan inventaris"], level:2},
+    {q:"Executive Support System (ESS) dirancang untuk...", c:2, opts:["Operator mesin","Manajer menengah","Eksekutif puncak/top management","Staff administrasi"], level:3},
+    {q:"Enterprise Resource Planning (ERP) mengintegrasikan...", c:1, opts:["Hanya keuangan","Seluruh proses bisnis organisasi dalam satu sistem terpadu","Hanya produksi","Hanya SDM"], level:3},
+    {q:"Business Process Reengineering (BPR) adalah...", c:1, opts:["Perbaikan bertahap","Redesign radikal proses bisnis untuk peningkatan dramatis","Menambah karyawan","Mengganti hardware"], level:3},
+    {q:"Supply Chain Management (SCM) mengelola...", c:1, opts:["Hanya produksi","Aliran material, informasi, dan keuangan dari supplier hingga konsumen","Hanya distribusi","Hanya pemasaran"], level:4},
+    {q:"Customer Relationship Management (CRM) berfokus pada...", c:1, opts:["Manajemen internal","Mengelola hubungan dan interaksi dengan pelanggan","Rantai pasok","Keuangan"], level:4},
+    {q:"Knowledge Management System (KMS) bertujuan untuk...", c:1, opts:["Menyimpan dokumen","Menciptakan, menyimpan, dan mendistribusikan pengetahuan organisasi","Menggantikan karyawan","Menghitung profit"], level:4},
+    {q:"Stakeholder dalam konteks SI adalah...", c:1, opts:["Pemilik saham","Semua pihak yang berkepentingan terhadap sistem","Hanya developer","Hanya user"], level:5},
+    {q:"Metode Waterfall memiliki karakteristik...", c:1, opts:["Iteratif","Linear dan sekuensial, setiap tahap harus selesai sebelum berikutnya","Tanpa dokumentasi","Untuk proyek kecil"], level:5},
+    {q:"Agile Methodology menekankan pada...", c:1, opts:["Dokumentasi lengkap","Iterasi pendek, kolaborasi tim, dan respons terhadap perubahan","Proses kaku","Tanpa testing"], level:5},
+    {q:"Feasibility Study menganalisis...", c:1, opts:["Hanya teknis","Aspek teknis, ekonomi, operasional, jadwal, dan legal","Hanya biaya","Hanya keuntungan"], level:6},
+    {q:"Use Case Diagram dalam UML menggambarkan...", c:1, opts:["Struktur database","Interaksi antara aktor dan sistem dalam skenario tertentu","Aliran data","Arsitektur hardware"], level:6},
+    {q:"Data Flow Diagram (DFD) Level 0 menunjukkan...", c:1, opts:["Detail proses","Gambaran umum/konteks sistem secara keseluruhan","Struktur tabel","Diagram class"], level:6},
+    {q:"Normalisasi database bertujuan untuk...", c:1, opts:["Menambah redundansi","Menghilangkan anomali dan redundansi data","Mempercepat internet","Menambah tabel"], level:7},
+    {q:"Bentuk Normal Pertama (1NF) mensyaratkan...", c:1, opts:["Tidak ada dependensi transitif","Setiap kolom bernilai atomik (tidak ada repeating group)","Ada kunci asing","Dependensi parsial"], level:7},
+    {q:"Entity Relationship Diagram (ERD) digunakan untuk...", c:1, opts:["Mendesain UI","Pemodelan data konseptual yang menunjukkan entitas dan relasinya","Network topology","Algoritma"], level:7},
+    {q:"Cardinality dalam relasi database adalah...", c:1, opts:["Jumlah kolom","Jumlah maksimum entitas yang dapat berelasi dengan entitas lain","Nama tabel","Tipe data"], level:8},
+    {q:"Sistem Informasi Akuntansi (SIA) berfungsi untuk...", c:1, opts:["Mendesain produk","Mencatat, mengklasifikasi, dan meringkas transaksi keuangan","Inventaris fisik","Jaringan"], level:1},
+    {q:"IT Governance adalah...", c:1, opts:["Penggunaan internet","Kerangka kerja untuk memastikan TI mendukung tujuan organisasi dan mengelola risiko","Pembelian hardware","Instalasi software"], level:2},
+    {q:"Balanced Scorecard mengukur kinerja dari perspektif...", c:1, opts:["Keuangan saja","Keuangan, Pelanggan, Proses Internal, Pembelajaran & Pertumbuhan","Teknis saja","SDM saja"], level:3},
+    {q:"SWOT Analysis menganalisis...", c:0, opts:["Strengths, Weaknesses, Opportunities, Threats","Speed, Width, Output, Time","Software, Web, Online, Tech","System, Work, Operation, Task"], level:4},
+    {q:"Sistem Informasi Geografis (SIG/GIS) digunakan untuk...", c:0, opts:["Mengolah data spasial/keruangan","Menghitung gaji","Mendesain logo","Mengelola email"], level:5},
+    {q:"Fungsi Business Intelligence (BI) adalah...", c:0, opts:["Mengubah data menjadi insight untuk pengambilan keputusan bisnis","Mendesain website","Memperbaiki komputer","Mengelola jaringan"], level:6},
+    {q:"Data Warehouse berbeda dari database operasional karena...", c:1, opts:["Lebih kecil","Dirancang untuk analisis dan pelaporan, menyimpan data historis","Hanya data terbaru","Tidak pakai SQL"], level:7},
+    {q:"OLAP memungkinkan pengguna untuk...", c:1, opts:["Input transaksi","Melakukan analisis multidimensi terhadap data","Mengirim email","Mendesain UI"], level:8},
+    {q:"Sistem Informasi Berbasis Web adalah...", c:1, opts:["Sistem offline","Sistem informasi yang diakses melalui browser menggunakan teknologi web","Sistem operasi","Aplikasi desktop"], level:1},
+    {q:"Cloud Computing menawarkan...", c:1, opts:["Storage lokal","Layanan komputasi melalui internet dengan model pay-as-you-go","Jaringan kabel","Hardware fisik"], level:2},
+    {q:"SaaS (Software as a Service) berarti...", c:1, opts:["Beli lisensi permanen","Menggunakan aplikasi via internet tanpa instalasi lokal, berlangganan","Buat software sendiri","Software gratis"], level:3},
+    {q:"Interoperabilitas dalam SI adalah...", c:0, opts:["Kemampuan sistem berbeda untuk bekerja sama dan bertukar data","Kecepatan prosesor","Kapasitas hardisk","Jumlah user"], level:4},
+    {q:"Protokol HTTP digunakan untuk...", c:1, opts:["Transfer file","Komunikasi antara web browser dan web server","Email","Database"], level:5},
+    {q:"Fungsi utama DBMS adalah...", c:1, opts:["Mendesain UI","Mengelola pembuatan, pemeliharaan, dan penggunaan database","Mengirim pesan","Mengedit foto"], level:6},
+    {q:"Primary Key berfungsi untuk...", c:1, opts:["Menghubungkan tabel","Mengidentifikasi setiap record secara unik","Menyimpan password","Menghitung total"], level:7},
+    {q:"Foreign Key digunakan untuk...", c:1, opts:["Mengidentifikasi record","Membuat relasi/referensi antara dua tabel","Menyimpan data ganda","Menghapus tabel"], level:8},
+    {q:"E-Commerce adalah...", c:1, opts:["Perdagangan tradisional","Pembelian dan penjualan barang/jasa melalui internet","Hanya B2B","Toko fisik"], level:1},
+    {q:"Model bisnis B2B berarti...", c:1, opts:["Business to Consumer","Business to Business","Buyer to Buyer","Bank to Bank"], level:2},
+    {q:"Digital Transformation adalah...", c:1, opts:["Beli komputer baru","Integrasi teknologi digital secara menyeluruh untuk mengubah cara bisnis","Ganti karyawan","Buat website"], level:3},
+    {q:"Gantt Chart dalam manajemen proyek adalah...", c:1, opts:["Diagram alir","Visualisasi jadwal proyek yang menunjukkan durasi dan timeline tugas","Tipe database","Bahasa pemrograman"], level:4},
+    {q:"Risk Management dalam proyek SI bertujuan untuk...", c:1, opts:["Menghindari semua risiko","Mengidentifikasi, menganalisis, dan memitigasi risiko proyek","Menambah biaya","Memperlambat proyek"], level:5},
+    {q:"User Acceptance Testing (UAT) adalah...", c:1, opts:["Testing developer","Pengujian oleh pengguna akhir untuk memvalidasi sistem sesuai kebutuhan","Testing jaringan","Testing server"], level:6},
+    {q:"Change Management dalam implementasi SI adalah...", c:1, opts:["Ganti hardware","Proses terstruktur untuk mengelola transisi perubahan dalam organisasi","Ubah password","Ganti vendor"], level:7},
+    // ===== FASE 2 (Level 9-15) =====
+    {q:"COBIT adalah...", c:1, opts:["Bahasa pemrograman","Framework tata kelola dan manajemen TI enterprise","Sistem operasi","Tipe database"], level:9},
+    {q:"ITIL berfokus pada...", c:1, opts:["Pemrograman","Praktik terbaik manajemen layanan TI (IT Service Management)","Desain grafis","Akuntansi"], level:9},
+    {q:"Incident Management dalam ITIL bertujuan untuk...", c:1, opts:["Mengembangkan software","Memulihkan layanan TI secepat mungkin setelah gangguan","Mendesain jaringan","Membuat database"], level:9},
+    {q:"ISO 27001 adalah standar untuk...", c:1, opts:["Manajemen kualitas","Sistem Manajemen Keamanan Informasi (ISMS)","Manajemen lingkungan","Keselamatan kerja"], level:10},
+    {q:"CIA Triad terdiri dari...", c:1, opts:["Computer, Internet, App","Confidentiality, Integrity, Availability","Code, Input, Algorithm","Cloud, Infra, Arch"], level:10},
+    {q:"Firewall berfungsi untuk...", c:1, opts:["Mempercepat internet","Mengontrol lalu lintas jaringan berdasarkan aturan keamanan","Menyimpan data","Mendesain web"], level:10},
+    {q:"Enkripsi adalah...", c:1, opts:["Menghapus data","Mengubah data menjadi bentuk yang tidak dapat dibaca tanpa kunci dekripsi","Menggandakan data","Format hardisk"], level:11},
+    {q:"SSL/TLS digunakan untuk...", c:1, opts:["Mengedit video","Mengamankan komunikasi data melalui internet (HTTPS)","Mendesain logo","Statistik"], level:11},
+    {q:"Phishing adalah...", c:1, opts:["Teknik programming","Serangan sosial untuk mencuri info sensitif dengan menyamar sebagai entitas terpercaya","Metode testing","Tipe database"], level:11},
+    {q:"Virtual Machine (VM) memungkinkan...", c:1, opts:["Tambah RAM fisik","Menjalankan beberapa OS dalam satu mesin fisik secara terisolasi","Percepat internet","Hapus virus"], level:12},
+    {q:"IaaS menyediakan...", c:1, opts:["Aplikasi siap pakai","Sumber daya komputasi dasar (server, storage, network) yang dapat dikonfigurasi","Software desain","Game online"], level:12},
+    {q:"Perbedaan Public dan Private Cloud...", c:1, opts:["Public lebih mahal","Public untuk umum via internet, Private didedikasikan untuk satu organisasi","Tidak ada beda","Private lebih lambat"], level:12},
+    {q:"TCP/IP Model terdiri dari...", c:1, opts:["3 layer","4 layer (Application, Transport, Internet, Network Access)","7 layer","5 layer"], level:13},
+    {q:"OSI Layer 3 (Network) bertanggung jawab atas...", c:1, opts:["Transmisi bit fisik","Routing dan pengalamatan logis (IP)","Sesi komunikasi","Presentasi data"], level:13},
+    {q:"Fungsi DNS adalah...", c:1, opts:["Menyimpan file","Menerjemahkan nama domain menjadi alamat IP","Mengenkripsi data","Percepat koneksi"], level:13},
+    {q:"Subnet Mask digunakan untuk...", c:1, opts:["Mengenkripsi data","Menentukan bagian network dan host dari alamat IP","Percepat download","Hapus file"], level:13},
+    {q:"Disaster Recovery Plan (DRP) adalah...", c:1, opts:["Rencana pemasaran","Strategi untuk memulihkan sistem TI setelah bencana atau gangguan besar","Rencana anggaran","Rekrutmen"], level:14},
+    {q:"RTO (Recovery Time Objective) mengukur...", c:1, opts:["Biaya pemulihan","Waktu maksimum yang dapat diterima untuk memulihkan sistem setelah gangguan","Data hilang","Kecepatan internet"], level:14},
+    {q:"RPO (Recovery Point Objective) mengukur...", c:1, opts:["Waktu pemulihan","Jumlah data maksimum yang boleh hilang setelah insiden","Biaya backup","Kecepatan server"], level:14},
+    {q:"Load Balancing adalah...", c:1, opts:["Memperbaiki server","Mendistribusikan traffic jaringan ke beberapa server untuk performa dan reliabilitas","Hapus server","Ganti kabel"], level:15},
+    {q:"Fungsi IT Audit adalah...", c:1, opts:["Memperbaiki bug","Evaluasi independen terhadap sistem TI untuk memastikan keandalan, keamanan, kepatuhan","Desain software","Buat database"], level:9},
+    {q:"RBAC memberikan izin berdasarkan...", c:1, opts:["Nama pengguna","Peran/jabatan pengguna dalam organisasi","Waktu login","Lokasi geografis"], level:10},
+    {q:"Multi-Factor Authentication (MFA) adalah...", c:1, opts:["Satu password","Verifikasi identitas menggunakan dua atau lebih faktor (diketahui, dimiliki, melekat)","Tanpa password","Login otomatis"], level:11},
+    {q:"Containerization (Docker) berbeda dari VM karena...", c:1, opts:["Lebih berat","Berbagi kernel OS host sehingga lebih ringan dan efisien","Tidak bisa di Linux","Lisensi mahal"], level:12},
+    {q:"Fungsi DHCP adalah...", c:1, opts:["Mengenkripsi data","Mengalokasikan alamat IP secara otomatis ke device dalam jaringan","Menerjemahkan domain","Memfilter traffic"], level:13},
+    {q:"High Availability (HA) berarti...", c:1, opts:["Sistem sering mati","Sistem dirancang untuk beroperasi terus-menerus tanpa downtime signifikan","Sistem lambat","Sistem manual"], level:14},
+    {q:"Microservices Architecture adalah...", c:1, opts:["Satu aplikasi monolitik","Arsitektur yang memecah aplikasi menjadi layanan-layanan kecil independen","Database tunggal","Tanpa jaringan"], level:15},
+    {q:"Peran IT Steering Committee adalah...", c:1, opts:["Memperbaiki komputer","Badan yang mengarahkan strategi TI dan memastikan keselarasan dengan bisnis","Instal software","Buat email"], level:9},
+    {q:"Security Incident Response adalah...", c:1, opts:["Beli antivirus","Prosedur terstruktur untuk menangani dan mengelola dampak insiden keamanan","Hapus email","Ganti password"], level:10},
+    {q:"Penetration Testing bertujuan untuk...", c:1, opts:["Memperbaiki UI","Mengidentifikasi kerentanan keamanan dengan mensimulasikan serangan","Desain database","Buat backup"], level:11},
+    {q:"DevOps adalah...", c:1, opts:["Tipe database","Pendekatan menggabungkan Development dan Operations untuk mempercepat delivery software","Bahasa pemrograman","Sistem operasi"], level:12},
+    {q:"CDN berfungsi untuk...", c:1, opts:["Membuat konten","Mendistribusikan konten ke server edge yang lebih dekat dengan pengguna untuk mempercepat akses","Enkripsi data","Buat database"], level:13},
+    {q:"Monitoring dan Alerting berfungsi untuk...", c:1, opts:["Hapus log","Mendeteksi anomali dan memberikan notifikasi ketika ada masalah performa/ketersediaan","Desain UI","Hitung biaya"], level:14},
+    {q:"Infrastructure as Code (IaC) memungkinkan...", c:1, opts:["Kode manual","Mengelola dan provision infrastruktur melalui kode/script secara otomatis","Menggambar diagram","Edit dokumen"], level:15},
+    {q:"COBIT 2019 memiliki governance objective...", c:1, opts:["17","40","5","100"], level:9},
+    {q:"Zero Trust Security adalah...", c:1, opts:["Percaya semua user","Prinsip 'never trust, always verify' - tidak ada yang dipercaya secara default","Tanpa keamanan","Keamanan perimeter"], level:10},
+    {q:"Hash function menghasilkan...", c:1, opts:["Data reversible","Nilai fixed-length unik dari input data (one-way function)","Password decrypt","File enkripsi"], level:11},
+    {q:"Serverless Computing adalah...", c:1, opts:["Tanpa server","Model cloud di mana provider mengelola server, developer hanya menulis fungsi/code","Server rumah","Tanpa internet"], level:12},
+    {q:"VLAN digunakan untuk...", c:1, opts:["Percepat internet","Membagi jaringan fisik menjadi beberapa jaringan logis terpisah untuk keamanan","Enkripsi data","Simpan file"], level:13},
+    {q:"Business Continuity Plan (BCP) adalah...", c:1, opts:["Rencana pemasaran","Strategi menyeluruh untuk memastikan operasi bisnis tetap berjalan selama/setelah gangguan","Rencana liburan","Rekrutmen"], level:14},
+    {q:"Keuntungan Container Orchestration (Kubernetes) adalah...", c:1, opts:["Memperlambat deployment","Otomatisasi deployment, scaling, dan management container dalam cluster","Hapus container","Butuh banyak hardware"], level:15},
+    {q:"EDM dalam COBIT adalah...", c:1, opts:["Tahap development","Domain tata kelola untuk mengevaluasi kebutuhan, mengarahkan, dan memonitor kinerja","Tipe database","Metode testing"], level:9},
+    {q:"Data Classification adalah...", c:1, opts:["Hapus data","Proses mengkategorikan data berdasarkan tingkat sensitivitas untuk penanganan sesuai","Gandakan data","Kompres file"], level:10},
+    {q:"Social Engineering dalam keamanan adalah...", c:1, opts:["Rekayasa software","Manipulasi psikologis untuk membuat orang membocorkan informasi rahasia","Buat website","Desain UI"], level:11},
+    {q:"Perbedaan Scaling Up dan Scaling Out...", c:0, opts:["Scaling Up tambah resource satu server, Scaling Out tambah jumlah server","Keduanya sama","Scaling Out selalu murah","Scaling Up selalu baik"], level:12},
+    // ===== FASE 3 (Level 16+) =====
+    {q:"Dalam Laravel, fungsi Route adalah...", c:0, opts:["Menghubungkan URL dengan controller/action yang sesuai","Mendesain database","Mengelola session","Mengirim email"], level:16},
+    {q:"MVC (Model-View-Controller) adalah...", c:1, opts:["Tipe database","Pola arsitektur yang memisahkan aplikasi menjadi Model (data), View (tampilan), Controller (logika)","Bahasa pemrograman","Framework CSS"], level:16},
+    {q:"Migration dalam Laravel berfungsi untuk...", c:1, opts:["Upload file","Membuat dan memodifikasi tabel database secara terstruktur melalui kode","Mendesain UI","Notifikasi"], level:16},
+    {q:"Tag HTML5 semantic <article> digunakan untuk...", c:1, opts:["Navigasi","Konten independen yang bisa berdiri sendiri seperti blog post","Footer","Sidebar"], level:17},
+    {q:"Perbedaan <div> dan <span> adalah...", c:1, opts:["<div> inline, <span> block","<div> block-level element, <span> inline element","Keduanya sama","Tidak ada beda"], level:17},
+    {q:"Fungsi Flexbox dalam CSS adalah...", c:1, opts:["Membuat animasi","Model layout satu dimensi untuk mendistribusikan ruang dan menyelaraskan item","Kelola database","Kirim request"], level:17},
+    {q:"Perbedaan CSS Grid dan Flexbox...", c:1, opts:["Grid 1 dimensi, Flexbox 2 dimensi","Grid untuk layout 2 dimensi (baris DAN kolom), Flexbox untuk 1 dimensi (baris ATAU kolom)","Keduanya sama","Grid hanya mobile"], level:18},
+    {q:"Closure dalam JavaScript adalah...", c:1, opts:["Tipe data","Fungsi yang memiliki akses ke variabel dari scope luar bahkan setelah scope luar selesai dieksekusi","Method array","Event handler"], level:18},
+    {q:"Perbedaan var, let, dan const dalam JS...", c:1, opts:["Keduanya sama","var function-scoped, let dan const block-scoped; const tidak bisa di-reassign","let hanya angka","const untuk string"], level:18},
+    {q:"Promise dalam JavaScript adalah...", c:1, opts:["Tipe data string","Objek yang merepresentasikan penyelesaian atau kegagalan suatu operasi asynchronous di masa depan","Method DOM","Event listener"], level:19},
+    {q:"Async/Await dalam JS digunakan untuk...", c:1, opts:["Percepat eksekusi","Menulis kode asynchronous yang terlihat dan berperilaku seperti synchronous","Hapus variabel","Buat loop"], level:19},
+    {q:"DOM (Document Object Model) adalah...", c:1, opts:["Bahasa pemrograman","Representasi tree dari dokumen HTML yang memungkinkan JS memanipulasi konten dan struktur","Tipe database","Framework CSS"], level:19},
+    {q:"Perbedaan git merge dan git rebase...", c:1, opts:["Keduanya sama","Merge membuat commit baru penggabungan, Rebase memindahkan commit ke atas branch lain untuk history linear","Rebase lebih aman","Merge hapus branch"], level:20},
+    {q:"Fungsi git stash adalah...", c:1, opts:["Hapus commit","Menyimpan perubahan yang belum di-commit sementara untuk bisa diambil nanti","Buat branch baru","Kirim ke remote"], level:20},
+    {q:"REST API menggunakan metode HTTP...", c:1, opts:["Hanya GET","GET, POST, PUT, PATCH, DELETE","Hanya POST","Hanya DELETE"], level:20},
+    {q:"Status Code 404 dalam HTTP berarti...", c:1, opts:["Success","Not Found - resource tidak ditemukan","Server Error","Redirect"], level:21},
+    {q:"JWT (JSON Web Token) digunakan untuk...", c:1, opts:["Mendesain UI","Autentikasi dan otorisasi yang mentransmisikan informasi klaim antara dua pihak secara aman","Kompres data","Buat database"], level:21},
+    {q:"Perbedaan PUT dan PATCH dalam REST API...", c:1, opts:["Keduanya sama","PUT mengganti seluruh resource, PATCH melakukan update parsial","PATCH hapus resource","PUT hanya GET"], level:21},
+    {q:"Eloquent ORM dalam Laravel adalah...", c:1, opts:["Template engine","ORM yang memetakan tabel database ke class PHP (Model) untuk manipulasi data","Router","Middleware"], level:22},
+    {q:"Middleware dalam Laravel adalah...", c:1, opts:["Database driver","Class yang memproses request HTTP sebelum sampai ke controller (filter/interceptor)","View template","Route definition"], level:22},
+    {q:"Event Bubbling dalam JavaScript adalah...", c:1, opts:["Hapus event","Peristiwa dimana event yang terjadi pada child element akan merambat ke parent element","Buat event baru","Tunda event"], level:22},
+    {q:"CORS (Cross-Origin Resource Sharing) adalah...", c:1, opts:["Tipe database","Mekanisme yang memungkinkan/membatasi akses resource dari domain berbeda","Framework JS","Metode enkripsi"], level:23},
+    {q:"Rate Limiting dalam API adalah...", c:1, opts:["Percepat API","Membatasi jumlah request yang dapat dilakukan klien dalam periode waktu tertentu","Hapus API","Tambah server"], level:23},
+    {q:"Fungsi file .env dalam Laravel adalah...", c:1, opts:["Simpan kode program","Menyimpan konfigurasi environment (database credentials, API keys, dll) secara terpisah","Template HTML","Route file"], level:23},
+    {q:"Branch dalam Git adalah...", c:1, opts:["Hapus repository","Garis pengembangan independen dalam repository untuk fitur atau perbaikan terpisah","Commit terakhir","File konfigurasi"], level:24},
+    {q:"Responsive Web Design adalah...", c:1, opts:["Website cepat","Desain website yang menyesuaikan tampilan dan layout berdasarkan ukuran layar/device pengguna","Website animasi","Website tanpa CSS"], level:24},
+    {q:"Perbedaan == dan === dalam JavaScript...", c:1, opts:["Keduanya sama","== membandingkan nilai (dengan type coercion), === membandingkan nilai DAN tipe data (strict equality)","=== lebih lambat","== hanya string"], level:24},
+    {q:"SQL Injection adalah...", c:1, opts:["Optimasi query","Serangan keamanan dimana attacker menyisipkan kode SQL berbahaya melalui input aplikasi","Backup database","Normalisasi tabel"], level:25},
+    {q:"API Documentation (Swagger/OpenAPI) adalah...", c:1, opts:["Kode sumber API","Dokumentasi yang menjelaskan endpoint, parameter, dan respons API untuk memudahkan integrasi","Database schema","Server config"], level:25},
+    {q:"CI/CD (Continuous Integration/Continuous Deployment) adalah...", c:1, opts:["Tipe database","Praktik mengotomatisasi integrasi kode, testing, dan deployment untuk delivery software yang lebih cepat dan reliable","Bahasa pemrograman","Framework frontend"], level:25}
+];
 
-    return base.map((item, index) => {
-        const correctIndex = index % 4;
-        const ansKey = ['a', 'b', 'c', 'd'][correctIndex];
-        
-        let optsWithIndex = item.opts.map((opt, i) => ({ text: opt, isCorrect: i === correctIndex }));
-        optsWithIndex = optsWithIndex.sort(() => Math.random() - 0.5);
-        
-        const finalOpts = optsWithIndex.map(o => o.text);
-        const finalAns = ['a', 'b', 'c', 'd'][optsWithIndex.findIndex(o => o.isCorrect)];
-        
-        return { id: index + 1, level: item.level, q: item.q, opts: finalOpts, ans: finalAns };
+// Membangun bank soal: kunci jawaban DIJAMIN sinkron.
+// Opsi pengecoh diacak, jawaban benar ditempatkan merata (A/B/C/D) via index % 4.
+const generateSoal = () => {
+    const acak = arr => {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    };
+    return baseSoal.map((item, index) => {
+        const targetPos = index % 4;                 // posisi huruf kunci (tersebar merata)
+        const correctText = item.opts[item.c];      // teks jawaban yang PASTI benar
+        const wrongTexts = acak(item.opts.filter((_, i) => i !== item.c));
+        const opts = [];
+        let w = 0;
+        for (let p = 0; p < 4; p++) opts.push(p === targetPos ? correctText : wrongTexts[w++]);
+        return { id: index + 1, level: item.level, q: item.q, opts: opts, ans: ['a','b','c','d'][targetPos] };
     });
 };
 
@@ -511,6 +512,7 @@ let currentPhase = null;
 let currentQuestions = [];
 let currentQuestionIndex = 0;
 let userAnswers = {};
+let answerStatus = {};   // BARU: simpan status benar/salah per soal untuk warna titik
 let timerInterval = null;
 let timeRemaining = 1800;
 let selectedRating = 0;
@@ -644,6 +646,7 @@ function startPhase(phase) {
     currentQuestions = shuffleArray([...questionPool]).slice(0, requiredCount);
     currentQuestionIndex = 0;
     userAnswers = {};
+    answerStatus = {};
     timeRemaining = 1800;
     isLocked = false;
     if (autoAdvanceTimeout) clearTimeout(autoAdvanceTimeout);
@@ -698,11 +701,11 @@ function renderSoal() {
     });
     
     document.getElementById('progressBar').style.width = ((currentQuestionIndex + 1) / currentQuestions.length * 100) + '%';
-    document.getElementById('btnPrev').disabled = currentQuestionIndex === 0;
     document.getElementById('btnNext').innerHTML = currentQuestionIndex === currentQuestions.length - 1 ? 'Selesai ✓' : 'Selanjutnya →';
     updateQuestionDots();
 }
 
+// Logika jawaban: kunci kini PASTI sinkron dengan teks opsi.
 function pilihJawaban(val) {
     if (isLocked) return;
     isLocked = true;
@@ -710,6 +713,7 @@ function pilihJawaban(val) {
     const q = currentQuestions[currentQuestionIndex];
     const isCorrect = val === q.ans;
     userAnswers[currentQuestionIndex] = val;
+    answerStatus[currentQuestionIndex] = isCorrect ? 'correct' : 'wrong';
     
     const buttons = document.querySelectorAll('.opsi-btn');
     buttons.forEach(btn => {
@@ -733,6 +737,7 @@ function pilihJawaban(val) {
     feedbackEl.classList.remove('hidden');
     updateQuestionDots();
     
+    // Auto-advance 1 detik, tanpa bisa kembali ke soal sebelumnya
     if (autoAdvanceTimeout) clearTimeout(autoAdvanceTimeout);
     autoAdvanceTimeout = setTimeout(() => {
         if (currentQuestionIndex < currentQuestions.length - 1) {
@@ -750,28 +755,24 @@ function nextSoal() {
     else { confirmSubmit(); }
 }
 
-function prevSoal() {
-    if (isLocked) return;
-    if (currentQuestionIndex > 0) { currentQuestionIndex--; renderSoal(); }
+// ==================== DOT INDIKATOR (HIJAU=BENAR, MERAH=SALAH) ====================
+function dotClass(i) {
+    if (i === currentQuestionIndex) return 'bg-primary w-6';
+    if (answerStatus[i] === 'correct') return 'bg-emerald-500 w-2';
+    if (answerStatus[i] === 'wrong') return 'bg-red-500 w-2';
+    return 'bg-slate-300 w-2';
 }
 
 function renderQuestionDots() {
     document.getElementById('questionDots').innerHTML = currentQuestions.map((_, i) => `
-        <div class="w-2 h-2 rounded-full transition-all duration-200 ${i === currentQuestionIndex ? 'bg-primary w-6' : userAnswers[i] !== undefined ? 'bg-emerald-500' : 'bg-slate-300'}" 
-             onclick="jumpToQuestion(${i})" style="cursor: pointer;" data-dot="${i}"></div>
+        <div class="h-2 rounded-full transition-all duration-200 ${dotClass(i)}" data-dot="${i}"></div>
     `).join('');
 }
 
 function updateQuestionDots() {
     document.querySelectorAll('[data-dot]').forEach((dot, i) => {
-        dot.className = `w-2 h-2 rounded-full transition-all duration-200 ${i === currentQuestionIndex ? 'bg-primary w-6' : userAnswers[i] !== undefined ? 'bg-emerald-500' : 'bg-slate-300'}`;
+        dot.className = `h-2 rounded-full transition-all duration-200 ${dotClass(i)}`;
     });
-}
-
-function jumpToQuestion(index) {
-    if (isLocked) return;
-    currentQuestionIndex = index;
-    renderSoal();
 }
 
 // ==================== TIMER (REAL-TIME COUNTDOWN) ====================
